@@ -1,0 +1,129 @@
+{% load static %}
+{% url 'home' as home_url %}
+{% url 'contacto' as contacto_url %}
+{% url 'about' as about_url %}
+{% url 'login' as login %}
+{% url 'logout' as logout %}
+{% url 'register' as register %}
+{% url 'users' as users %}
+{% url 'almacen:producto_list' as list_almacen %}
+<!-- BEGIN SIDEBAR -->
+    <!-- BEGIN SIDEBPANEL-->
+<nav class="page-sidebar" data-pages="sidebar">
+  <!-- BEGIN SIDEBAR MENU TOP TRAY CONTENT-->
+  <div class="sidebar-overlay-slide from-top" id="appMenu">
+
+  </div>
+  <!-- END SIDEBAR MENU TOP TRAY CONTENT-->
+  <!-- BEGIN SIDEBAR MENU HEADER-->
+  <div class="sidebar-header">
+    <center><img src="{% static 'img/logoblancotodo.png' %}" alt="logo" class="brand" data-src="{% static 'img/logoblancotodo.png' %}" data-src-retina="{% static 'img/logoblancotodo.png' %}" height="50"></center>   <br>
+    <div class="sidebar-header-controls">
+
+    </div>
+  </div>
+  <!-- END SIDEBAR MENU HEADER-->
+  <!-- START SIDEBAR MENU -->
+  <div class="sidebar-menu" style="padding-top:100px;">
+    <!-- BEGIN SIDEBAR MENU ITEMS-->
+    <ul class="menu-items">
+      <li class="">
+        <a href="javascript:;">
+          <span class="title">Usuarios</span>
+          <span class=" arrow"></span>
+        </a>
+        <span class="icon-thumbnail"><i class="fas fa-user"></i></span>
+        <ul class="sub-menu">
+          {% if user.is_authenticated %}
+          <li class="">
+            <a class="" href="{{ logout }}">Cerrar Sesión</a>
+          </li>
+          {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+          <li class="">
+            <a class="" href="{{users}}">Lista de Usuarios</a>
+          </li>
+          {% else %}
+          {% endif %}
+          {% else %}
+          <li class="">
+            <a href="{{login}}">Iniciar Sesión</a>
+          </li>
+          {% endif %}
+        </ul>
+      </li>
+      {% if user.is_authenticated %}
+      <li class="">
+        <a href="javascript:;">
+          <span class="title">Almacen</span>
+          <span class="arrow"></span>
+        </a>
+        <span class="icon-thumbnail"><i class="fas fa-boxes"></i></span>
+        <ul class="sub-menu">
+          <li class="">
+            <a href="{{ list_almacen }}">Almacen</a>
+          </li>
+        </ul>
+      </li>
+      <li class="">
+        <a href="javascript:;">
+          <span class="title">Clientes</span>
+          <span class=" arrow"></span>
+        </a>
+        <span class="icon-thumbnail"><i class="fas fa-users"></i></span>
+        <ul class="sub-menu">
+          <li class="">
+            <a href="{{cliente}}">Lista de Clientes</a>
+          </li>
+          {% if user.is_authenticated and user.is_staff%}
+          <li class="">
+            <a href="{{regcliente}}">Agregar Cliente</a>
+          </li>
+          {% else %}
+          {% endif %}
+        </ul>
+      </li>
+      <li class="">
+        <a href="javascript:;">
+          <span class="title">Ventas</span>
+          <span class=" arrow"></span>
+        </a>
+        <span class="icon-thumbnail"><i class="fas fa-shopping-cart"></i></span>
+        <ul class="sub-menu">
+          <li class="">
+            <a href="#">------</a>
+          </li>
+          {% if user.is_authenticated and user.is_staff%}
+          <li class="">
+            <a href="#">-------</a>
+          </li>
+          {% else %}
+          {% endif %}
+        </ul>
+      </li>
+      <li class="">
+        <a href="javascript:;">
+          <span class="title">Pedidos</span>
+          <span class=" arrow"></span>
+        </a>
+        <span class="icon-thumbnail"><i class="fas fa-people-carry"></i></span>
+        <ul class="sub-menu">
+          <li class="">
+            <a href="#">------</a>
+          </li>
+          {% if user.is_authenticated and user.is_staff%}
+          <li class="">
+            <a href="#">-------</a>
+          </li>
+          {% else %}
+          {% endif %}
+        </ul>
+      </li>
+      {% else %}
+      {% endif %}
+    </ul>
+    <div class="clearfix"></div>
+  </div>
+  <!-- END SIDEBAR MENU -->
+</nav>
+<!-- END SIDEBAR -->
+<!-- END SIDEBAR -->

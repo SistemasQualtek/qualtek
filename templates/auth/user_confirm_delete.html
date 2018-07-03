@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+	{% block content %}
+	{% block head_title %}| Eliminar a {{ object.username }}{% endblock %}
+	{% url 'users' as users %}
+	<!-- START PAGE CONTENT -->
+	<div class="content">
+	  <!-- START JUMBOTRON -->
+	  <div class="jumbotron" data-pages="parallax">
+	    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+	      <div class="inner">
+	        <!-- START BREADCRUMB -->
+	         <ol class="breadcrumb">
+						 <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
+ 						<li class="breadcrumb-item"><a href="{{users}}">Lista de Usuarios</a></li>
+ 	          <li class="breadcrumb-item active">Eliminar a {{ object.username }}</li>
+	        </ol>
+	        <!-- END BREADCRUMB -->
+	      </div>
+	    </div>
+	  </div>
+	  <!-- END JUMBOTRON -->
+	  <!-- START CONTAINER FLUID -->
+	  <div class="container-fluid container-fixed-lg">
+	    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+	<section class="section">
+	  <div class="container">
+	    <div class="row separatedv">
+<form method="post">{% csrf_token %}
+    <h1>¿Estás seguro que deseas borrar el usuario "{{ object.username }}"?</h1>
+    <br>
+    <input type="submit" value="Confirmar" class="btn btn-info" />
+</form>
+</div>
+</div>
+</section>
+<!-- END PLACE PAGE CONTENT HERE -->
+</div>
+<!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+
+	{% endblock %}

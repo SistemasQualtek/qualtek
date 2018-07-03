@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block head_title %}| Lista{% endblock %}
+{% block content %}
+{% url 'register' as register %}
+{% url 'users' as users %}
+<!-- START PAGE CONTENT -->
+<div class="content">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+         <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
+          <li class="breadcrumb-item"><a href="{{users}}">Lista de Usuarios</a></li>
+        </ol>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+<section class="section">
+  <div class="container">
+    <div class="row separatedv">
+      <div class="col-lg-12 text-center">
+        <a class="" href="{{register}}">
+          <button type="button" name="button" class="btn btn-default">
+            Registrar Usuario <i class="far fa-edit"></i>
+          </button>
+        </a>
+      </div>
+          <div class="col-lg-12">
+            <table class="table table-dark table-hover">
+              <tr>
+                <thead>
+                  <th>Nombre de Usuario</th>
+                  <th>Nombre(s)</th>
+                  <th>Apellidos</th>
+                  <th>Ultima Conexion / Agregado</th>
+                  {% if user.is_superuser %}<th>Privilegios</th><th>Acciones</th>{% else %} {% endif %}
+                </thead>
+              </tr>
+              {% for objects in queryset %}
+              <tr>
+                <td>{{objects.username}}</td>
+                <td>{%if  objects.first_name %}{{ objects.first_name }}{% else %}Sin nombre Asignado{%endif%}</td>
+                <td>{%if  objects.last_name %}{{ objects.last_name }}{% else %}Sin Apellidos Asignados{%endif%}</td>
+                <td>{%if  objects.last_login == None %}Aún Inicia Sesión{% else %}{{objects.last_login}}{% endif %}</td>
+                <td>
+                  <ul>
+                    <li>SuperUsuario: {%if  objects.is_superuser == True %}Si{%else%}No{%endif%}</li>
+        						<li>Staff: {%if  objects.is_staff == True %}Si{%else%}No{%endif%}</li>
+                  </ul>
+                </td>
+                {% if user.is_superuser and user.is_staff %}
+                <td>
+                  <a href="{% url "detail" objects.id %}"><button type="submit" class="btn btn-info"><i class="far fa-eye"></i></button></a>
+                  <a href="{% url "delete" objects.id %}"><button type="submit" class="btn btn-danger"><i class="fas fa-eraser"></i></button></a>
+                </td>
+                {% else %}
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+    </div>
+  </div>
+</section>
+<!-- END PLACE PAGE CONTENT HERE -->
+</div>
+<!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+
+{% endblock %}

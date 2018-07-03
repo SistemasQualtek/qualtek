@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+	{% block head_title %}Eliminar {{ producto.Medida_Diametro }}{% endblock %}
+	{% block content %}
+	{% load bootstrap3 %}
+	{% load crispy_forms_tags %}
+	{% url 'almacen:producto_list' as list_almacen %}
+	<style media="screen">
+.tbody{
+  width: 100%;
+  height: 800px;
+  overflow: scroll;
+  -webkit-overflow: scroll;
+  -mozkit-overflow: scroll;
+}
+.table{
+  height: 600px;
+}
+</style>
+<script type="text/javascript">
+(function(document) {
+  'use strict';
+
+  var LightTableFilter = (function(Arr) {
+
+    var _input;
+
+    function _onInputEvent(e) {
+      _input = e.target;
+      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+      Arr.forEach.call(tables, function(table) {
+        Arr.forEach.call(table.tBodies, function(tbody) {
+          Arr.forEach.call(tbody.rows, _filter);
+        });
+      });
+    }
+
+    function _filter(row) {
+      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+    }
+
+    return {
+      init: function() {
+        var inputs = document.getElementsByClassName('light-table-filter');
+        Arr.forEach.call(inputs, function(input) {
+          input.oninput = _onInputEvent;
+        });
+      }
+    };
+  })(Array.prototype);
+
+  document.addEventListener('readystatechange', function() {
+    if (document.readyState === 'complete') {
+      LightTableFilter.init();
+    }
+  });
+
+})(document);
+</script>
+<!-- START PAGE CONTENT -->
+<div class="content">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="{{list_almacen}}">Almacen</a>
+					<li class="breadcrumb-item active">Borrar {{ producto.codigo }} {{ producto.descripcion }}
+			 </ol>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<form method="post">{% csrf_token %}
+				<h4>¿Deseas borrar el producto "{{ producto.codigo }} {{ producto.descripcion }}?"</h4>
+				<br>
+				<input type="submit" value="Borrar" class="btn btn-success"/>
+			</form>
+		</div>
+	</div>
+
+	<!-- END PLACE PAGE CONTENT HERE -->
+	</div>
+	<!-- END CONTAINER FLUID -->
+	</div>
+	<!-- END PAGE CONTENT -->
+
+	{% endblock %}

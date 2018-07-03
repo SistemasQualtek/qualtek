@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+	{% load bootstrap3 %}
+	{% block content %}
+	{% url 'users' as users %}
+	{% block head_title %}| Editando a {{ object.username }}{% endblock %}
+	<!-- START PAGE CONTENT -->
+	<div class="content">
+	  <!-- START JUMBOTRON -->
+	  <div class="jumbotron" data-pages="parallax">
+	    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+	      <div class="inner">
+	        <!-- START BREADCRUMB -->
+	         <ol class="breadcrumb">
+	          <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
+						<li class="breadcrumb-item"><a href="{{users}}">Lista de Usuarios</a></li>
+	          <li class="breadcrumb-item active">Editar a {{ object.username }}</li>
+	        </ol>
+	        <!-- END BREADCRUMB -->
+	      </div>
+	    </div>
+	  </div>
+	  <!-- END JUMBOTRON -->
+	  <!-- START CONTAINER FLUID -->
+	  <div class="container-fluid container-fixed-lg">
+	    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+	<section class="section">
+		<div class="container">
+			<div class="row separatedv">
+				<div class="col-md-3"></div>
+				<div class="col-lg-6">
+					<h2>Editar a {{ object.username }}</h2>
+					<form method="post" class="a">
+						{% csrf_token %}
+						{%bootstrap_form form%}
+							<input type="submit" value="Confirmar" class="btn btn-warning"/>
+						</form>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		</div>
+	</section>
+	<!-- END PLACE PAGE CONTENT HERE -->
+	</div>
+	<!-- END CONTAINER FLUID -->
+	</div>
+	<!-- END PAGE CONTENT -->
+	<script type="text/javascript">
+	$(document).ready(function () {
+		var element = document.getElementsByClassName("checkbox")[0];
+		element.classList.remove("checkbox");
+		var elemento = document.getElementsByClassName("checkbox")[0];
+		elemento.classList.remove("checkbox");
+		var elemen = document.getElementsByClassName("checkbox")[0];
+		elemen.classList.remove("checkbox");
+	});
+	</script>
+
+{% endblock %}

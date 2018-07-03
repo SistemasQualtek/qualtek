@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+	{% block head_title %}Detalle del Producto{% endblock %}
+	{% block content %}
+	{% load bootstrap3 %}
+	{% load staticfiles %}
+	{% url 'almacen:producto_list' as list_almacen %}
+	<!-- START PAGE CONTENT -->
+	<div class="content">
+	  <!-- START JUMBOTRON -->
+	  <div class="jumbotron" data-pages="parallax">
+	    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+	      <div class="inner">
+	        <!-- START BREADCRUMB -->
+	         <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a href="{{list_almacen}}">Almacen</a>
+             <li class="breadcrumb-item active">Detalle de Producto {{ producto.codigo }} {{ producto.descripcion }}
+	        </ol>
+	        <!-- END BREADCRUMB -->
+	      </div>
+	    </div>
+	  </div>
+	  <!-- END JUMBOTRON -->
+	  <!-- START CONTAINER FLUID -->
+	  <div class="container-fluid container-fixed-lg">
+	    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+	<div class="row">
+		<div class="col-md-3">
+			<h1>Existencia: {% if producto.existencia == 0 %} <strong class="text-danger">{{producto.existencia}}</strong> {% else %} <strong class="text-success">{{producto.existencia}}</strong> {% endif %} </h1>
+			<h2>Ubicación: {% if producto.ubicacion == None %}<strong class="text-danger">Sin Asignar</strong>{% else %}<strong class="text-success">{{producto.ubicacion}}</strong>{% endif %}</h2>
+			{% if user.is_superuser %}
+				<h3>Precio: $<i>{{producto.precio}}</i></h3>
+				<h4>Costo: $<i>{{producto.costo}}</i></h4>
+			{% else %}
+			{% endif %}
+		</div>
+		<div class="col-sm-6 text-center">
+			<h1>{{producto.descripcion}}<sup><span class="badge badge-info">{{producto.existencia}}</span></sup></h1>
+			<h4>Código: {{producto.codigo}}</h4>
+			<h4>Descripción: {{producto.descripcion}}</h4>
+			<h3>Proveedor: {{producto.proveedor}}</h3>
+			<h3>Unidad: {{producto.unidad}}</h3>
+			<h2>Cantidad (Caja): {{producto.cantidad_caja}}</h2>
+			<h2>Cantidad (Rollo/Bolsa): {{producto.cantidad_rb}}</h2>
+			<div class="text-left">
+				{% buttons %}
+				{% if request.user.is_superuser %}
+				<!-- Button modal -->
+				{% if nombre == 'Entrada' %}
+				<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModalCenter">
+				  <i class="fas fa-long-arrow-alt-up"></i>
+				</button>
+				{% elif nombre == 'Salida' %}
+				<button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#exampleModalCenter">
+				  <i class="fas fa-long-arrow-alt-down"></i>
+				</button>
+				{%else%}
+				{%endif%}
+				<!-- Button modal -->
+				{% endif %}
+				<a href="{% url "almacen:producto_list" %}">
+					<button type="submit" class="btn btn-transparent btn-block">
+						<i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+					</button>
+				</a>
+				{% endbuttons %}
+			</div>
+		</div>
+		<div class="col-md-3">
+			<h1>Administrador: {% firstof request.user.get_short_name request.user.get_username %}</h1>
+			<h2>Superusuario: {% if user.is_superuser %} Si {% else %} No {% endif %}</h2>
+			<h2>Staff:{% if user.is_staff %} Si {% else %} No {% endif %}</h2>
+		</div>
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <div class="row">
+	        	<div class="col text-center">
+	        		<h3 class="modal-title" id="exampleModalLongTitle">{{nombre}}</h3>
+	        	</div>
+	        </div>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<form method="post" class="form">
+								{% csrf_token %}
+								<input type="number" name="cantidad" required id="id_cantidad" class="form-control" placeholder="000"/><br>
+								<!-- <label for="number">Total: <input type="number" name="number" id="total1" value="0" readonly></label> -->
+								{%if nombre == 'Entrada'%}
+								<button type="submit" name="button" class="btn btn-success btn-block">
+									<i class="fas fa-long-arrow-alt-down"></i>
+									<i class="fas fa-long-arrow-alt-down"></i>
+									<i class="fas fa-long-arrow-alt-down"></i>
+									<i class="fas fa-long-arrow-alt-down"></i>
+								</button>
+								{%else%}
+								<button type="submit" name="button" class="btn btn-danger btn-block">
+									<i class="fas fa-long-arrow-alt-down"></i>
+									<i class="fas fa-long-arrow-alt-down"></i>
+									<i class="fas fa-long-arrow-alt-down"></i>
+									<i class="fas fa-long-arrow-alt-down"></i>
+								</button>
+								{%endif%}
+								<h1>{{producto.existencia}}</h1>
+							</div>
+						</div>
+					</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal -->
+	<script type="text/javascript">
+	    $('#id_cantidad').bind('input', function() {
+	        qty = $(this).val() // get the current value of the input field.
+	        document.getElementById("total1").value = ({{producto.precio}}*qty);
+	});
+	</script>
+{% endblock %}
+
+
+2017-03-17 15:06

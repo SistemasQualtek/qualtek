@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block head_title %}| Registrate{% endblock %}
+{% block content %}
+<!-- START PAGE CONTENT -->
+<div class="content">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+         <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Usuario</a></li>
+          <li class="breadcrumb-item active">Iniciar Sesión</li>
+        </ol>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+<section class="section">
+  <div class="container">
+    <div class="row separatedv">
+          <div class="col-lg-3">
+
+          </div>
+          <div class="col-lg-6">
+            <h1>Iniciar Sesión</h1>
+            <form method="post">
+              {% csrf_token %}
+              {{ form }}
+              <br><button type="submit" class="btn btn-lg btn-primary btn-block">Entrar</button>
+            </form>
+          </div>
+          <div class="col-lg-3">
+
+          </div>
+    </div>
+  </div>
+</section>
+<!-- END PLACE PAGE CONTENT HERE -->
+</div>
+<!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+
+{% endblock %}

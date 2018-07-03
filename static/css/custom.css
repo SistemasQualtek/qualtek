@@ -1,0 +1,193 @@
+.sidebar-menu{
+  background-color: #0d59b3!important;
+  padding-top: 100px;
+}
+.sidebar-header{
+  background-color: #0d59b3!important;
+  color: #FFFFFF!important;
+  border-top: 2px solid #FFFFFF!important;
+  border-bottom: 2px solid #FFFFFF!important;
+}
+.sidebar-overlay-slide{
+  background-color: #000000!important;
+  color: #FFFFFF!important;
+  border-bottom: 1px solid #3b3b3b!important;
+}
+.icon-thumbnail{
+  background-color: #FFFFFF!important;
+  color: #0d59b3!important;
+}
+.sub-menu{
+  background-color: #15355b!important;
+  color: #FFFFFF!important;
+  border-top: 1px solid #3b3b3b!important;
+  border-bottom: 1px solid #3b3b3b!important;
+}
+.title{
+color: #FFFFFF!important;
+}
+.details,.list{
+  color: #FFFFFF!important;
+}
+i{font-size: 1.2em!important;}
+.cs-wrapper {
+    display: inline-block;
+    min-width: 100%;
+}
+div.cs-skin-slide {
+    width: 10%;
+    font-family: Arial, sans-serif;
+    color: #5e5e5e;
+    min-width: 100%;
+}
+.module {
+  border: 50px solid black;
+  border-image: url("img-border.png") 30;
+}
+.module:hover{
+  border-image: url("img-border2.png") 30;
+}
+.slidein{
+  animation-duration: 6s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes slidein {
+  from {
+    margin-right: 70%;
+    margin-left: 0%;
+    width: 100%;
+  }
+  to {
+    margin-left: 70%;
+    margin-right: 0%;
+    width: 100%;
+    color: transparent;
+  }
+}
+
+.animation2{
+  animation-duration: 3s;
+  animation-name: heart;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes heart {
+  from {
+    color:#000000;
+  }
+  to {
+    color:transparent;
+  }
+}
+#txt{
+  color:black;
+  font-size: 2em;
+}
+.ache_erre{
+  border-color:#3b3b3b!important;
+}
+.ligacontact,.ligacontact:visited{
+  color:#000000!important;
+}
+#search {
+    width: 130px;
+    box-sizing: border-box;
+    border: 3px solid #000000;
+    border-radius: 3px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('64881.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition-property: width; /* Safari */
+    -webkit-transition-duration: 5s; /* Safari */
+    -moz-transition-property: width; /* Mozilla */
+    -moz-transition-duration: 5s; /* Mozilla */
+    transition-property: width;
+    transition-duration: 5s;
+
+}
+
+#search:focus {
+  animation-duration: 2s;
+  animation-name: explat;
+  animation-iteration-count: 1;
+  width: 100%;
+
+}
+@keyframes explat {
+  from {
+    width: 130px;
+  }
+  to {
+    width: 100%;
+  }
+}
+.increment{
+  font-size: 5rem;
+}
+.cajon{
+  background-color: #6D5CAE;
+  color: #FFFFFF;
+  padding: 5px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.barcode{
+  width: 100%;
+  padding: 20px;
+}
+.btn-primary{
+  background: #FFFFFF!important;
+  color: #5db2d7!important;
+  border-color: #5db2d7!important;
+}
+.btn-default:hover{
+  background: #5db2d7!important;
+  color: #FFFFFF!important;
+  border-color: #5eb3d7!important;
+}
+.scroll{
+  width: 100%;
+  height: 800px;
+  -webkit- overflow-y:auto;
+  -mozkit- overflow-y: auto;
+}
+
+.close{
+  color: #f72828!important;
+}
+.tbody{
+  width: 100%;
+  height: 800px;
+  overflow: scroll;
+  -webkit-overflow: scroll;
+  -mozkit-overflow: scroll;
+}
+.header-fixed{
+  background-color: #f0f0f0;
+  position: relative;
+}
+.table{
+  height: 600px;
+}
+.btn-success{
+  border-color: #20d13c!important;
+  background-color: #20d13c!important;
+}
+
+text-ligth{
+  color: #ffffff;
+}
+.btn-transparent{
+  background-color: transparent!important;
+  border-color: transparent!important;
+  color: transparent!important;
+}
+.bg-dark{
+  background: #000000!important;
+  color: #FFFFFF!important;
+}
