@@ -124,11 +124,11 @@ def Entrada(request,pk):
 
 class ProductoUpdate(UpdateView):
     model = Producto
-    success_url = reverse_lazy('productos:producto_list')
-    fields = ['codigo', 'descripcion', 'proveedor', 'existencia', 'costo','precio']
+    success_url = reverse_lazy('almacen:producto_list')
+    fields = ['codigo', 'descripcion', 'proveedor', 'existencia', 'costo','precio', 'release']
 class ProductoDelete(DeleteView):
     model = Producto
-    success_url = reverse_lazy('productos:producto_list')
+    success_url = reverse_lazy('almacen:producto_list')
     fields = ['codigo', 'descripcion', 'proveedor', 'existencia', 'costo', 'precio']
 
 def principal(request):
@@ -208,10 +208,11 @@ def pdfgen(request):
                             )
     courses = []
     styles = getSampleStyleSheet()
-    header = Paragraph("Reporte de Ventas General.", styles['Heading2'])
+    header = Paragraph("Reporte General de Almacen.", styles['Heading2'])
+    header.hAlign = 'CENTER'
     courses.append(header)
-    headings = ('Id', 'Producto', 'Cantidad Vendida', 'Fecha')
-    allcourses = [(p.id, p.producto, p.cantidad, p.fecha) for p in Venta.objects.all()]
+    headings = ('Código', 'Descripción', 'Existencia', 'Proveedor')
+    allcourses = [(p.codigo, p.descripcion, p.existencia, p.proveedor) for p in Producto.objects.all().order_by('proveedor')]
     # print allcourses
     t = Table([headings] + allcourses)
     t.setStyle(TableStyle(
@@ -360,3 +361,25 @@ def grafica_pastel(request):
     response.write(buff.getvalue())
     buff.close()
     return response
+
+
+def ReleaseList(request):
+    count = Producto.objects.count()
+    productos = Producto.objects.order_by('id')
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            producto = form.save()
+            producto.save()
+            return HttpResponseRedirect('almacen:release')
+    else:
+        form = ProductoForm()
+    template = loader.get_template('productos/release.html')
+    context = {
+        'productos':productos,
+        'form':form,
+        'count':count
+
+    }
+    print (productos)
+    return render(request, 'productos/release.html', context)

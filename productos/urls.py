@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^$',views.principal, name='principal'),
     url(r'^inicio/',views.inicio, name='inicio'),
     url(r'^Lista/Productos/',login_required(views.ProductoList), name='producto_list'),
+    url(r'^Release/',login_required(views.ReleaseList), name='release'),
     url(r'^Producto/(?P<pk>[0-9]+)/$',views.ProductoDetail,name='producto_detail'),
     url(r'^Entrada/(?P<pk>[0-9]+)/$',login_required(views.Entrada),name='padentro'),
     url(r'^Salida/(?P<pk>[0-9]+)/$',login_required(views.Salida),name='pafuera'),

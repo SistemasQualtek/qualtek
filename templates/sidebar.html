@@ -7,6 +7,7 @@
 {% url 'register' as register %}
 {% url 'users' as users %}
 {% url 'almacen:producto_list' as list_almacen %}
+{% url 'almacen:release' as release %}
 <!-- BEGIN SIDEBAR -->
     <!-- BEGIN SIDEBPANEL-->
 <nav class="page-sidebar" data-pages="sidebar">
@@ -62,6 +63,36 @@
           <li class="">
             <a href="{{ list_almacen }}">Almacen</a>
           </li>
+          <li class="">
+            <a href="{{ release }}">Release</a>
+          </li>
+        </ul>
+      </li>
+      <li class="">
+        <a href="javascript:;">
+          <span class="title">Reportes</span>
+          <span class=" arrow"></span>
+        </a>
+        <span class="icon-thumbnail"><i class="fas fa-file"></i></span>
+        <ul class="sub-menu">
+          <li class="">
+            <a href="{% url 'almacen:pdfgen' %}">Almacen General <i class="fas fa-file-pdf"></i></a>
+          </li>
+          <li class="">
+            <a href="#">Almacen General <i class="fas fa-file-excel"></i></a>
+          </li>
+          <li class="">
+            <a href="#">Release <i class="fas fa-file-pdf"></i></a>
+          </li>
+          <li class="">
+            <a href="#">Release <i class="fas fa-file-excel"></i></a>
+          </li>
+          {% if user.is_authenticated and user.is_staff%}
+          <li class="">
+            <a href="#">-------</a>
+          </li>
+          {% else %}
+          {% endif %}
         </ul>
       </li>
       <li class="">

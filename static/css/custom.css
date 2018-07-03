@@ -191,3 +191,21 @@ text-ligth{
   background: #000000!important;
   color: #FFFFFF!important;
 }
+.drop{
+  animation-duration: 3s;
+  animation-name: drop;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  color: #000000!important;
+}
+@keyframes drop {
+  from {
+    padding-top: 0px;
+    color: #fafafa!important;
+  }
+  to {
+    color: #fafafa!important;
+    padding-top: 500px;
+    font-size: 5px;
+  }
+}

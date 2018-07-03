@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+	{% block head_title %}Lista de Productos{% endblock %}
+	{% block content %}
+  {% load bootstrap3 %}
+	<style media="screen">
+.tbody{
+  width: 100%;
+  height: 800px;
+  overflow: scroll;
+  -webkit-overflow: scroll;
+  -mozkit-overflow: scroll;
+}
+.table{
+  height: 600px;
+}
+</style>
+<script type="text/javascript">
+(function(document) {
+  'use strict';
+
+  var LightTableFilter = (function(Arr) {
+
+    var _input;
+
+    function _onInputEvent(e) {
+      _input = e.target;
+      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+      Arr.forEach.call(tables, function(table) {
+        Arr.forEach.call(table.tBodies, function(tbody) {
+          Arr.forEach.call(tbody.rows, _filter);
+        });
+      });
+    }
+
+    function _filter(row) {
+      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+    }
+
+    return {
+      init: function() {
+        var inputs = document.getElementsByClassName('light-table-filter');
+        Arr.forEach.call(inputs, function(input) {
+          input.oninput = _onInputEvent;
+        });
+      }
+    };
+  })(Array.prototype);
+
+  document.addEventListener('readystatechange', function() {
+    if (document.readyState === 'complete') {
+      LightTableFilter.init();
+    }
+  });
+
+})(document);
+</script>
+<!-- START PAGE CONTENT -->
+<div class="content">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+         <ol class="breadcrumb">
+           <li class="breadcrumb-item active">Almacen</li>
+         </ol>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+{%if user.is_authenticated%}
+	<div class="row">
+		<div align="center">
+			<h1 style="color:black">Release</h1>
+			{% load staticfiles %}
+			<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+			<div class="col-md-6" id="buscar">
+	      <div class="form-group">
+	        <input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar">
+	      </div>
+	    </div>
+			<div class="row">
+        <div class="col-lg-12 text-center">
+          {% if user.is_superuser %}
+            <button type="button" name="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+              Registrar Producto <i class="far fa-edit"></i>
+            </button>
+            {% else %}
+            {% endif %}
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <sub class="text-muted">Cantidad de Productos:{{count}}</sub>
+              </div>
+            </div>
+        </div>
+      </div>
+
+			<table class="table table-hover">
+					<thead class="bg-dark">
+						<tr>
+							<th class="text-center aling-middle">#</th>
+							<th class="text-center aling-middle">Código</th>
+							<th class="text-center aling-middle">Código de Barras</th>
+	            <th class="text-center aling-middle">Descripción</th>
+	            <th class="text-center aling-middle">Medida</th>
+							<th class="text-center aling-middle">Unidad</th>
+							<th class="text-center aling-middle">Existencia</th>
+	            <th class="text-center aling-middle">Proveedor</th>
+							<th class="text-center aling-middle">Ubicacion</th>
+							<th class="text-center aling-middle">Cantidad x Caja</th>
+							<th class="text-center aling-middle">Cantidad x Rollo/Bolsa</th>
+							<th class="text-center aling-middle">Costo</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						{% for productos in productos %}
+            {% if productos.release == True %}
+            <tr>
+              <td class="text-center align-middle">{{ productos.id }}</td>
+              <td class="text-center align-middle">{{ productos.codigo }}</td>
+              <td class="text-center align-middle">{{ productos.cod_barras }}</td>
+              <td class="text-center align-middle">{{ productos.descripcion }}</td>
+              <td class="text-center align-middle">{{ productos.medida }}</td>
+              <td class="text-center align-middle">{{ productos.unidad }}</td>
+              <td class="text-center align-middle">{{ productos.existencia }}</td>
+              <td class="text-center align-middle">{{ productos.proveedor }}</td>
+              <td class="text-center align-middle">{{ productos.ubicacion }}</td>
+              <td class="text-center align-middle">{{ productos.cantidad_caja }}</td>
+              <td class="text-center align-middle">{{ productos.cantidad_rb }}</td>
+              <td class="text-center align-middle">{{ productos.costo }}</td>
+            </tr>
+            {%else%}
+            {%endif%}
+            {% endfor %}
+					</tbody>
+				</table>
+
+				<!-- Inicio Modal Nuevo Producto -->
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="max-width:900px; min-width:900px;">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Agregar Producto</h4>
+            </div>
+            <div class="modal-body">
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+								{% bootstrap_form form %}
+                <div class="row">
+                  <div class="col-md-12 text-right">
+                    <button  type="submit" name="submit" class="btn btn-default">Hecho</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Fin Modal Nuevo Producto -->
+
+
+			{% for productos in productos %}
+			<!-- Inicio Modal Detalle -->
+			<div id="myModal{{productos.id}}" class="modal fade" role="dialog">
+				<div class="modal-dialog" style="max-width:900px; min-width:900px;">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<!-- Header Modal -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<!-- Header Modal -->
+						<!-- Body Modal -->
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-3">
+									<h1>Existencia: {% if productos.existencia == 0 %} <strong class="text-danger">{{productos.existencia}}</strong> {% else %} <strong class="text-success">{{productos.existencia}}</strong> {% endif %} </h1>
+									<h2>Ubicación: {% if productos.ubicacion == None %}<strong class="text-danger">Sin Asignar</strong>{% else %}<strong class="text-success">{{productos.ubicacion}}</strong>{% endif %}</h2>
+									{% if user.is_superuser %}
+										<h3>Precio: $<i>{{productos.precio}}</i></h3>
+										<h4>Costo: $<i>{{productos.costo}}</i></h4>
+									{% else %}
+									{% endif %}
+								</div>
+								<div class="col-sm-6 text-center">
+									<h1>{{productos.descripcion}}<sup><span class="badge badge-info">{{productos.existencia}}</span></sup></h1>
+									<h4>Código: {{productos.codigo}}</h4>
+									<h4>Descripción: {{productos.descripcion}}</h4>
+									<h3>Proveedor: {{productos.proveedor}}</h3>
+									<h3>Unidad: {{productos.unidad}}</h3>
+									<h2>Cantidad (Caja): {{productos.cantidad_caja}}</h2>
+									<h2>Cantidad (Rollo/Bolsa): {{productos.cantidad_rb}}</h2>
+									<div class="row">
+										<div class="col-md-6">
+											<a href="{% url "almacen:padentro" productos.id %}">
+												<button type="button" class="btn btn-success btn-block">
+													<i class="fas fa-sign-in-alt"></i>
+												</button>
+											</a>
+										</div>
+										<div class="col-md-6">
+											<a href="{% url "almacen:pafuera" productos.id %}">
+												<button type="button" class="btn btn-danger btn-block">
+													<i class="fas fa-sign-out-alt"></i>
+												</button>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<h1>Vendedor {% firstof request.user.get_short_name request.user.get_username %}</h1>
+									<h2>Superusuario: {% if user.is_superuser %} Si {% else %} No {% endif %}</h2>
+									<h2>Staff:{% if user.is_staff %} Si {% else %} No {% endif %}</h2>
+								</div>
+							</div>
+						</div>
+						<!-- Body Modal -->
+					</div>
+				</div>
+			</div>
+			<!-- Fin Modal Detalle -->
+			{% endfor %}
+			</div>
+		</div>
+		{%else%}
+		      <div class="w-100 text-center">
+		        <h1>Primero Debes Iniciar Sesión</h1>
+		        {% url 'login' as login %}
+		        <a href="{{login}}"><button type="button" name="button" class="btn btn-info">Iniciar Sesión</button></a>
+		      </div>
+		      {%endif%}
+		      <!-- END PLACE PAGE CONTENT HERE -->
+		      </div>
+		      <!-- END CONTAINER FLUID -->
+		      </div>
+		      <!-- END PAGE CONTENT -->
+
+		      {% endblock %}
