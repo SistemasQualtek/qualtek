@@ -102,11 +102,11 @@ function checkTime(i) {
 
 $(document).ready(function () {
   var element = document.getElementsByClassName("checkbox")[0];
-  element.classList.remove("checkbox");
+  element.classList..addClass("checkbox");
   var elemento = document.getElementsByClassName("checkbox")[0];
-  elemento.classList.remove("checkbox");
+  elemento.classList.add("checkbox");
   var elemen = document.getElementsByClassName("checkbox")[0];
-  elemen.classList.remove("checkbox");
+  elemen.classList..addClass("checkbox");
 });
 
  $('#cantidad').bind('input', function() {

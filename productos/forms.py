@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
 from django import forms
 from .models import Producto, Proveedor, Log
-from django.forms import ModelForm, Textarea, DateInput, TextInput, NumberInput, SelectDateWidget
+from django.forms import ModelForm, Textarea, DateInput, TextInput, NumberInput, SelectDateWidget, CheckboxInput
 
 class ProductoForm(forms.ModelForm):
     class Meta:
@@ -19,7 +19,8 @@ class ProductoForm(forms.ModelForm):
             'ubicacion':'Ubicación',
             'costo':'Costo',
             'barcode':'Código de Barras',
-            'precio':'Precio'
+            'precio':'Precio',
+            'release':'Release'
         }
         widgets = {
             'codigo': TextInput(attrs={
@@ -80,6 +81,12 @@ class ProductoForm(forms.ModelForm):
                 'class':'form-control',
                 'id': 'precio',
                 'name': 'precio',
+                'placeholder':'0,0'
+                }),
+            'release':  CheckboxInput(attrs={
+                'class':'checkbox',
+                'id': 'release',
+                'name': 'release',
                 'placeholder':'0,0'
                 }),
         }

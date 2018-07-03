@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^Almacen/Log/',views.Lista_Log,name="log_list"),
     url(r'^Pdf/Dia',views.pdfdia,name="pdfdia"),
     url(r'^Pdf/General',login_required(views.pdfgen),name="pdfgen"),
+    url(r'^Pdf/Release',login_required(views.pdfrel),name="pdfrel"),
     url(r'^PDF/Grafica',views.grafica_pastel,name="grafica_pastel"),
     url(r'^Editar/(?P<pk>\d+)', login_required(ProductoUpdate.as_view()), name='edit'),
     url(r'^Borrar/(?P<pk>\d+)', login_required(ProductoDelete.as_view()), name='delete'),

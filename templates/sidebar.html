@@ -8,6 +8,7 @@
 {% url 'users' as users %}
 {% url 'almacen:producto_list' as list_almacen %}
 {% url 'almacen:release' as release %}
+{% url 'almacen:pdfrel' as pedeefferelease %}
 <!-- BEGIN SIDEBAR -->
     <!-- BEGIN SIDEBPANEL-->
 <nav class="page-sidebar" data-pages="sidebar">
@@ -82,7 +83,7 @@
             <a href="#">Almacen General <i class="fas fa-file-excel"></i></a>
           </li>
           <li class="">
-            <a href="#">Release <i class="fas fa-file-pdf"></i></a>
+            <a href="{{pedeefferelease}}">Release <i class="fas fa-file-pdf"></i></a>
           </li>
           <li class="">
             <a href="#">Release <i class="fas fa-file-excel"></i></a>

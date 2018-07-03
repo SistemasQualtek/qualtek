@@ -127,7 +127,7 @@
 	            <td class="text-center align-middle">{{ productos.descripcion }}</td>
 	            <td class="text-center align-middle">{{ productos.medida }}</td>
 							<td class="text-center align-middle">{{ productos.unidad }}</td>
-							<td class="text-center align-middle">{{ productos.existencia }}</td>
+							<td class="text-center align-middle">{% if productos.existencia == 0 %}<strong class="text-danger">{{ productos.existencia }}</strong>{% else %}<strong class="text-acepted">{{ productos.existencia }}</strong>{% endif %}</td>
 							<td class="text-center align-middle">{{ productos.proveedor }}</td>
 							<td class="text-center align-middle">{{ productos.ubicacion }}</td>
 							<td class="text-center align-middle">{{ productos.cantidad_caja }}</td>

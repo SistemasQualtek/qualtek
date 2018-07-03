@@ -208,11 +208,49 @@ def pdfgen(request):
                             )
     courses = []
     styles = getSampleStyleSheet()
-    header = Paragraph("Reporte General de Almacen.", styles['Heading2'])
+    header = Paragraph("Reporte General de Almacen.", styles['Title'])
     header.hAlign = 'CENTER'
     courses.append(header)
     headings = ('Código', 'Descripción', 'Existencia', 'Proveedor')
     allcourses = [(p.codigo, p.descripcion, p.existencia, p.proveedor) for p in Producto.objects.all().order_by('proveedor')]
+    # print allcourses
+    t = Table([headings] + allcourses)
+    t.setStyle(TableStyle(
+        [
+            ('GRID', (0, 0), (3, -1), 1, colors.black),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.white)
+        ]
+    ))
+
+    courses.append(t)
+    doc.build(courses)
+    response.write(buff.getvalue())
+    buff.close()
+    return response
+
+
+def pdfrel(request):
+    # print "Genero el PDF"
+    response = HttpResponse(content_type='application/pdf')
+    pdf_name = "Release.pdf"  # llamado clientes
+    # la linea 26 es por si deseas descargar el pdf a tu computadora
+    response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    buff = BytesIO()
+    doc = SimpleDocTemplate(buff,
+                            pagesize=letter,
+                            rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+    courses = []
+    styles = getSampleStyleSheet()
+    header = Paragraph("Release", styles['Title'])
+    header.Align = 'CENTER'
+    courses.append(header)
+    headings = ('Código', 'Descripción', 'Existencia', 'Proveedor')
+    allcourses = [(p.codigo, p.descripcion, p.existencia, p.proveedor) for p in Producto.objects.all().filter(release=True).order_by('id')]
     # print allcourses
     t = Table([headings] + allcourses)
     t.setStyle(TableStyle(
@@ -247,7 +285,7 @@ def pdfdia(request):
                             )
     courses = []
     styles = getSampleStyleSheet()
-    header = Paragraph("Reporte de Ventas de "+date, styles['Heading1'])
+    header = Paragraph("Reporte de Ventas de "+date, styles['Title'])
     courses.append(header)
     headings = ('Id', 'Producto', 'Cantidad Vendida','Subtotal')
     allcourses = [(p.id, p.producto, p.cantidad,(p.producto.precio*p.cantidad)) for p in Venta.objects.filter(fecha = date)]
