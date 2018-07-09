@@ -7,7 +7,6 @@ from .views import (
     ProductoDelete
 )
 urlpatterns = [
-    url(r'^$',views.principal, name='principal'),
     url(r'^inicio/',views.inicio, name='inicio'),
     url(r'^Lista/Productos/',login_required(views.ProductoList), name='producto_list'),
     url(r'^Release/',login_required(views.ReleaseList), name='release'),

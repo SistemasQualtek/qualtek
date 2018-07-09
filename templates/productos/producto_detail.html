@@ -41,37 +41,39 @@
 			<h3>Unidad: {{producto.unidad}}</h3>
 			<h2>Cantidad (Caja): {{producto.cantidad_caja}}</h2>
 			<h2>Cantidad (Rollo/Bolsa): {{producto.cantidad_rb}}</h2>
-			<div class="text-left">
-				{% buttons %}
-				{% if request.user.is_superuser %}
-				<!-- Button modal -->
-				{% if nombre == 'Entrada' %}
-				<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModalCenter">
-				  <i class="fas fa-long-arrow-alt-up"></i>
-				</button>
-				{% elif nombre == 'Salida' %}
-				<button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#exampleModalCenter">
-				  <i class="fas fa-long-arrow-alt-down"></i>
-				</button>
-				{%else%}
-				{%endif%}
-				<!-- Button modal -->
-				{% endif %}
-				<!-- Trampa -->
-				<a href="{% url "almacen:producto_list" %}">
-					<button type="submit" class="btn btn-transparent btn-block">
-						<i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
-					</button>
-				</a>
-				<!-- Trampa -->
-				{% endbuttons %}
-			</div>
 		</div>
 		<div class="col-md-3">
 			<h1>Administrador: {% firstof request.user.get_short_name request.user.get_username %}</h1>
 			<h2>Superusuario: {% if user.is_superuser %} Si {% else %} No {% endif %}</h2>
 			<h2>Staff:{% if user.is_staff %} Si {% else %} No {% endif %}</h2>
 		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-5"></div>
+		<div class="col-md-2 text-center">
+			<form method="post" class="form">
+				{% csrf_token %}
+				<input type="number" name="cantidad" required id="id_cantidad" class="form-control" placeholder="000" autofocus/><br>
+				<!-- <label for="number">Total: <input type="number" name="number" id="total1" value="0" readonly></label> -->
+				{%if nombre == 'Entrada'%}
+				<button type="submit" name="button" class="btn btn-success btn-block">
+					<i class="fas fa-long-arrow-alt-down"></i>
+					<i class="fas fa-long-arrow-alt-down"></i>
+					<i class="fas fa-long-arrow-alt-down"></i>
+					<i class="fas fa-long-arrow-alt-down"></i>
+				</button>
+				{%else%}
+				<button type="submit" name="button" class="btn btn-danger btn-block">
+					<i class="fas fa-long-arrow-alt-down"></i>
+					<i class="fas fa-long-arrow-alt-down"></i>
+					<i class="fas fa-long-arrow-alt-down"></i>
+					<i class="fas fa-long-arrow-alt-down"></i>
+				</button>
+				{%endif%}
+				<h1>{{producto.existencia}}</h1>
+			</form>
+		</div>
+		<div class="col-md-5"></div>
 	</div>
 
 
@@ -92,29 +94,7 @@
 	      <div class="modal-body">
 					<div class="row">
 						<div class="col-md-12 text-center">
-							<form method="post" class="form">
-								{% csrf_token %}
-								<input type="number" name="cantidad" required id="id_cantidad" class="form-control" placeholder="000"/><br>
-								<!-- <label for="number">Total: <input type="number" name="number" id="total1" value="0" readonly></label> -->
-								{%if nombre == 'Entrada'%}
-								<button type="submit" name="button" class="btn btn-success btn-block">
-									<i class="fas fa-long-arrow-alt-down"></i>
-									<i class="fas fa-long-arrow-alt-down"></i>
-									<i class="fas fa-long-arrow-alt-down"></i>
-									<i class="fas fa-long-arrow-alt-down"></i>
-								</button>
-								{%else%}
-								<button type="submit" name="button" class="btn btn-danger btn-block">
-									<i class="fas fa-long-arrow-alt-down"></i>
-									<i class="fas fa-long-arrow-alt-down"></i>
-									<i class="fas fa-long-arrow-alt-down"></i>
-									<i class="fas fa-long-arrow-alt-down"></i>
-								</button>
-								{%endif%}
-								<h1>{{producto.existencia}}</h1>
-							</div>
-						</div>
-					</form>
+
 	      </div>
 	    </div>
 	  </div>

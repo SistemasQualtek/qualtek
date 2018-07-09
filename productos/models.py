@@ -22,8 +22,8 @@ def upload_image_pathb(instancia, nombrearchivo):
             )
 
 def upload_image_path(instancia, nombrearchivo):
-    # print(instancia)
-    # print(nombrearchivo)
+    print(instancia)
+    print(nombrearchivo)
     nuevo_nombrearchivo = random.randint(1,3910209312)
     nombre, ext = get_filename_ext(nombrearchivo)
     nombrearchivo_final = '{nuevo_nombrearchivo}{ext}'.format(nuevo_nombrearchivo=nuevo_nombrearchivo,ext=ext)

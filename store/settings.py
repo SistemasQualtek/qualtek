@@ -25,7 +25,7 @@ SECRET_KEY = 'rg3=ghm5$-1()8n*_)&ko&q8fp&=+d1ip3-fw%q7pcgt7a73_v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','192.168.1.100', '192.168.1.75']
 
 
 # Application definition
@@ -135,20 +135,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
+
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
 
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    # '/var/www/static/',
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+STATIC_ROOT =  os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
 
-ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
-REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
-SITE_ID=1
-LOGIN_REDIRECT_URL='/'
-LOGOUT_REDIRECT_URL='/'
-REGISTRATION_OPEN = True
+MEDIA_URL = '/media/'
+MEDIA_ROOT =  os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+LOGOUT_REDIRECT_URL='/login'

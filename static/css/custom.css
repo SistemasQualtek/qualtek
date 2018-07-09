@@ -210,5 +210,13 @@ text-ligth{
   }
 }
 .text-acepted{
-  color: #699cff!important;
+  /* color: #699cff!important; */
+  color: #18c6c6!important;
+}
+.conscroll {
+  overflow:scroll;
+  height: 700px;
+}
+.conscroll table {
+  height: 700px;
 }

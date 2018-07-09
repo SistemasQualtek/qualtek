@@ -49,7 +49,7 @@ def ProductoList(request):
         'count':count
 
     }
-    print (productos)
+    # print (productos)
     return render(request, 'productos/producto_list.html', context)
 
 def ProductoDetail(request,pk):
@@ -125,7 +125,7 @@ def Entrada(request,pk):
 class ProductoUpdate(UpdateView):
     model = Producto
     success_url = reverse_lazy('almacen:producto_list')
-    fields = ['codigo', 'descripcion', 'proveedor', 'existencia', 'costo','precio', 'release']
+    fields = ['codigo', 'descripcion', 'proveedor', 'existencia', 'costo','precio', 'release', 'barcode']
 class ProductoDelete(DeleteView):
     model = Producto
     success_url = reverse_lazy('almacen:producto_list')
@@ -195,7 +195,7 @@ def Lista_Log(request):
 def pdfgen(request):
     # print "Genero el PDF"
     response = HttpResponse(content_type='application/pdf')
-    pdf_name = "Reporte de Ventas General.pdf"  # llamado clientes
+    pdf_name = "Stock.pdf"  # llamado clientes
     # la linea 26 es por si deseas descargar el pdf a tu computadora
     response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
     buff = BytesIO()
@@ -257,7 +257,7 @@ def pdfrel(request):
         [
             ('GRID', (0, 0), (3, -1), 1, colors.black),
             ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),
-            ('BACKGROUND', (0, 0), (-1, 0), colors.white)
+            ('BACKGROUND', (0, 0), (-1, 0), colors.lightblue)
         ]
     ))
 
@@ -419,5 +419,5 @@ def ReleaseList(request):
         'count':count
 
     }
-    print (productos)
+    # print (productos)
     return render(request, 'productos/release.html', context)
