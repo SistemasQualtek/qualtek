@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import ListView
+from django.conf import settings
+from django.views.generic import ListView, View
 from django.views.generic.detail import DetailView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render, get_object_or_404, render_to_response
 from .models import Producto, Proveedor, Log
 from .forms import ProductoForm, ProveedorForm, LogForm
+from django.views.generic.base import TemplateView
 import pprint
 from django.views.generic.edit import (
     CreateView,
@@ -30,6 +32,8 @@ from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.charts.legends import Legend
 from django.db.models import Q, Sum
 import time
+from openpyxl import Workbook
+
 
 def ProductoList(request):
     count = Producto.objects.count()
@@ -125,7 +129,7 @@ def Entrada(request,pk):
 class ProductoUpdate(UpdateView):
     model = Producto
     success_url = reverse_lazy('almacen:producto_list')
-    fields = ['codigo', 'descripcion', 'proveedor', 'existencia', 'costo','precio', 'release', 'barcode']
+    fields = ['codigo', 'descripcion','medida','unidad', 'proveedor', 'existencia', 'costo','precio', 'release']
 class ProductoDelete(DeleteView):
     model = Producto
     success_url = reverse_lazy('almacen:producto_list')
@@ -197,7 +201,7 @@ def pdfgen(request):
     response = HttpResponse(content_type='application/pdf')
     pdf_name = "Stock.pdf"  # llamado clientes
     # la linea 26 es por si deseas descargar el pdf a tu computadora
-    response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
     buff = BytesIO()
     doc = SimpleDocTemplate(buff,
                             pagesize=letter,
@@ -211,15 +215,16 @@ def pdfgen(request):
     header = Paragraph("Reporte General de Almacen.", styles['Title'])
     header.hAlign = 'CENTER'
     courses.append(header)
-    headings = ('Código', 'Descripción', 'Existencia', 'Proveedor')
-    allcourses = [(p.codigo, p.descripcion, p.existencia, p.proveedor) for p in Producto.objects.all().order_by('proveedor')]
+    headings = ('Código', 'Descripción','Medida','Unidad', 'Existencia', 'Proveedor')
+    allcourses = [(p.codigo, p.descripcion, p.medida, p.unidad, p.existencia, p.proveedor) for p in Producto.objects.all().order_by('proveedor', 'medida')]
     # print allcourses
     t = Table([headings] + allcourses)
     t.setStyle(TableStyle(
         [
-            ('GRID', (0, 0), (3, -1), 1, colors.black),
+            ('GRID', (0, 0), (5, -1), 1, colors.black),
             ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),
-            ('BACKGROUND', (0, 0), (-1, 0), colors.white)
+            ('BACKGROUND', (0, 0), (-1, 0), colors.white),
+            ('ALIGN',(0,0),(3,0),'CENTER'),
         ]
     ))
 
@@ -235,7 +240,7 @@ def pdfrel(request):
     response = HttpResponse(content_type='application/pdf')
     pdf_name = "Release.pdf"  # llamado clientes
     # la linea 26 es por si deseas descargar el pdf a tu computadora
-    response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
     buff = BytesIO()
     doc = SimpleDocTemplate(buff,
                             pagesize=letter,
@@ -257,7 +262,7 @@ def pdfrel(request):
         [
             ('GRID', (0, 0), (3, -1), 1, colors.black),
             ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),
-            ('BACKGROUND', (0, 0), (-1, 0), colors.lightblue)
+            ('BACKGROUND', (0, 0), (-1, 0), colors.white)
         ]
     ))
 
@@ -400,7 +405,50 @@ def grafica_pastel(request):
     buff.close()
     return response
 
+################################################## EXCEL Reporte ##########################################################
+class ReporteQualtekExcel(TemplateView):
+    def get(self, request, *args, **kwargs):
+        conta = Producto.objects.all().order_by('proveedor','medida')
+        wb = Workbook()
+        ws = wb.active
+        ws['A1'] = 'Código'
 
+
+        ws['B1'] = 'Descripcion'
+        ws['C1'] = 'Unidad'
+        ws['D1'] = 'Medida'
+        ws['E1'] = 'Existencia'
+        ws['F1'] = 'Proveedor'
+        ws['G1'] = 'Cantidad x Caja'
+        ws['H1'] = 'Cantidad x Rollo/Bolsa'
+        ws['I1'] = 'Ubicacion'
+        ws['J1'] = 'Costo'
+        ws['K1'] = 'Precio'
+        ws['L1'] = 'Release'
+        cont=2
+
+        for con in conta:
+            ws.cell(row=cont,column=1).value = con.codigo
+            ws.cell(row=cont,column=2).value = con.descripcion
+            ws.cell(row=cont,column=3).value = con.unidad
+            ws.cell(row=cont,column=4).value = con.medida
+            ws.cell(row=cont,column=5).value = con.existencia
+            ws.cell(row=cont,column=6).value = con.proveedor
+            ws.cell(row=cont,column=7).value = con.cantidad_caja
+            ws.cell(row=cont,column=8).value = con.cantidad_rb
+            ws.cell(row=cont,column=9).value = con.ubicacion
+            ws.cell(row=cont,column=10).value = con.costo
+            ws.cell(row=cont,column=11).value = con.precio
+            ws.cell(row=cont,column=12).value = con.release
+            cont = cont + 1
+
+        nombre_archivo ="AlmacenExcel.xlsx"
+        response = HttpResponse(content_type="application/ms-excel")
+        contenido = "attachment; filename={0}".format(nombre_archivo)
+        response["Content-Disposition"] = contenido
+        wb.save(response)
+        return response
+################################################## EXCEL Reporte ##########################################################
 def ReleaseList(request):
     count = Producto.objects.count()
     productos = Producto.objects.order_by('id')

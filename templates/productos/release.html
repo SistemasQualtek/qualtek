@@ -81,7 +81,7 @@
 			<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 			<div class="col-md-6" id="buscar">
 	      <div class="form-group">
-	        <input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar">
+	        <input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar" autofocus>
 	      </div>
 	    </div>
 			<!-- <div class="row">
@@ -131,7 +131,7 @@
 	              <td class="text-center align-middle">{{ productos.descripcion }}</td>
 	              <td class="text-center align-middle">{{ productos.medida }}</td>
 	              <td class="text-center align-middle">{{ productos.unidad }}</td>
-	              <td class="text-center align-middle">{{ productos.existencia }}</td>
+	              <td class="text-center align-middle">{% if productos.existencia <= 0 %}<strong class="text-danger">{{ productos.existencia }}</strong>{% else %}<strong class="text-acepted">{{ productos.existencia }}</strong>{% endif %}</td>
 	              <td class="text-center align-middle">{{ productos.proveedor }}</td>
 	              <td class="text-center align-middle">{{ productos.ubicacion }}</td>
 	              <td class="text-center align-middle">{{ productos.cantidad_caja }}</td>

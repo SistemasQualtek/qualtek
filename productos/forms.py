@@ -1,8 +1,8 @@
 # This Python file uses the following encoding: utf-8
 from django import forms
 from .models import Producto, Proveedor, Log
-from django.forms import ModelForm, Textarea, DateInput, TextInput, NumberInput, SelectDateWidget, CheckboxInput
-
+from django.forms import ModelForm, Textarea, DateInput, TextInput, NumberInput, SelectDateWidget, CheckboxInput, Select
+choicestxt=(('Tubo W','Tubo W'),('Tubo Qualtek','Tubo Qualtek'),('Varios','Varios'))
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
@@ -53,6 +53,11 @@ class ProductoForm(forms.ModelForm):
                 'name': 'existencia',
                 'placeholder':'0,0'
                 }),
+            'proveedor': forms.Select(attrs={
+                'id': 'proveedor',
+                'class':'form-control',
+                'name': 'proveedor',
+                },choices=choicestxt),
             'cantidad_caja': NumberInput(attrs={
                 'class':'form-control',
                 'id': 'cantidad_caja',

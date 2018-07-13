@@ -77,23 +77,18 @@
         <span class="icon-thumbnail"><i class="fas fa-file"></i></span>
         <ul class="sub-menu">
           <li class="">
-            <a href="{% url 'almacen:pdfgen' %}">Almacen General <i class="fas fa-file-pdf"></i></a>
+            <a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-pdf"> Almacen PDF</i></a>
           </li>
           <li class="">
-            <a href="#">Almacen General <i class="fas fa-file-excel"></i></a>
+            <a href="{% url 'almacen:reporteexcel' %}"><i class="fas fa-file-excel"> Almacen Excel</i></a>
+          </li>
+          <hr class="acheerre">
+          <li class="">
+            <a target="_blank" href="{{pedeefferelease}}"><i class="fas fa-file-pdf"> Release PDF</i></a>
           </li>
           <li class="">
-            <a href="{{pedeefferelease}}">Release <i class="fas fa-file-pdf"></i></a>
+            <a href="#"><i class="fas fa-file-excel"> Release Excel</i></a>
           </li>
-          <li class="">
-            <a href="#">Release <i class="fas fa-file-excel"></i></a>
-          </li>
-          {% if user.is_authenticated and user.is_staff%}
-          <li class="">
-            <a href="#">-------</a>
-          </li>
-          {% else %}
-          {% endif %}
         </ul>
       </li>
       <li class="">

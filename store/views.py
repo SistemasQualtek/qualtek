@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django.contrib.auth import authenticate, login, logout, get_user_model
+from productos.models import Producto, Proveedor, Log
 from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -27,13 +28,19 @@ class AuthDelete(DeleteView):
     success_url = reverse_lazy('users')
 
 def home_page(request):
-    # queryset = Modelo.objects.order_by('perfil')[1:5]
+    count = Producto.objects.count()
+    countw = Producto.objects.filter(proveedor='Tubo W').count()
+    countq = Producto.objects.filter(proveedor='Tubo Qualtek').count()
+    countv = Producto.objects.filter(proveedor='Varios').count()
     # queryseto = Modelo.objects.order_by('perfil')[0:1]
     usuario = User
     context = {
+        'countv':countv,
+        'countq':countq,
+        'countw':countw,
+        'count':count,
         "title":"Inicio",
         "content": "Welcome to home page",
-        # "queryset": queryset,
         # "queryseto": queryseto
 
     }

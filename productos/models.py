@@ -53,12 +53,11 @@ class Producto(models.Model):
     unidad = models.CharField(max_length=50,blank=True,null=True)
     medida = models.CharField(max_length=50,blank=True,null=True)
     existencia = models.IntegerField(null=True, blank=True)
-    proveedor = models.ForeignKey(Proveedor, null=True, blank=True, on_delete=models.CASCADE)
+    proveedor = models.CharField(max_length=255, blank=True,null=True)
     cantidad_caja = models.IntegerField(blank=True, null=True)
     cantidad_rb = models.IntegerField(blank=True, null=True)
     ubicacion = models.CharField(max_length=50,blank=True,null=True)
     costo = models.DecimalField(blank=True, null=True, max_digits=10, decimal_places=5)
-    barcode = models.ImageField(upload_to=upload_image_pathb, null=True, blank=True)
     precio = models.DecimalField(max_digits=9,decimal_places=3, null=True, blank=True)
     release = models.BooleanField(default=False)
     def __str__(self):

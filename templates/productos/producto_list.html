@@ -81,7 +81,7 @@
 			<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 			<div class="col-md-6" id="buscar">
 	      <div class="form-group">
-	        <input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar">
+	        <input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar" autofocus>
 	      </div>
 	    </div>
 			<div class="row">
@@ -106,13 +106,13 @@
 							<tr>
 								<th class="text-center aling-middle">#</th>
 								<th class="text-center aling-middle">Código</th>
-								<th class="text-center aling-middle">Código de Barras</th>
+								<!-- <th class="text-center aling-middle">Código de Barras</th> -->
 		            <th class="text-center aling-middle">Descripción</th>
 		            <th class="text-center aling-middle">Medida</th>
 								<th class="text-center aling-middle">Unidad</th>
 								<th class="text-center aling-middle">Existencia</th>
 		            <th class="text-center aling-middle">Proveedor</th>
-								<th class="text-center aling-middle">Ubicacion</th>
+								<!-- <th class="text-center aling-middle">Ubicacion</th> -->
 								<th class="text-center aling-middle">Cantidad x Caja</th>
 								<th class="text-center aling-middle">Cantidad x Rollo/Bolsa</th>
 								<th class="text-center aling-middle">Costo</th>
@@ -124,17 +124,17 @@
 							<tr>
 								<td class="text-center align-middle">{{ productos.id }}</td>
 								<td class="text-center align-middle">{{ productos.codigo }}</td>
-								<td class="text-center align-middle">
+								<!-- <td class="text-center align-middle">
 									{% if productos.barcode %}
 									<img src="{{ productos.barcode.url }}" alt="" width="100%">
 									{% endif %}
-								</td>
+								</td> -->
 		            <td class="text-center align-middle">{{ productos.descripcion }}</td>
 		            <td class="text-center align-middle">{{ productos.medida }}</td>
 								<td class="text-center align-middle">{{ productos.unidad }}</td>
-								<td class="text-center align-middle">{% if productos.existencia == 0 %}<strong class="text-danger">{{ productos.existencia }}</strong>{% else %}<strong class="text-acepted">{{ productos.existencia }}</strong>{% endif %}</td>
+								<td class="text-center align-middle">{% if productos.existencia <= 0 %}<strong class="text-danger">{{ productos.existencia }}</strong>{% else %}<strong class="text-acepted">{{ productos.existencia }}</strong>{% endif %}</td>
 								<td class="text-center align-middle">{{ productos.proveedor }}</td>
-								<td class="text-center align-middle">{{ productos.ubicacion }}</td>
+								<!-- <td class="text-center align-middle">{{ productos.ubicacion }}</td> -->
 								<td class="text-center align-middle">{{ productos.cantidad_caja }}</td>
 								<td class="text-center align-middle">{{ productos.cantidad_rb }}</td>
 								<td class="text-center align-middle">{{ productos.costo }}</td>
@@ -157,9 +157,7 @@
 									</a>
 									<br>
 									{% else %}
-									<a href="{% url "almacen:producto_detail" productos.id %}">
-										<button type="button" class="btn btn-success btn-block"><i class="fa fa-eye" aria-hidden="true"></i> Ver</button>
-									</a>
+
 									{% endif %}
 								</td>
 							</tr>
@@ -225,6 +223,7 @@
 									<h3>Unidad: {{productos.unidad}}</h3>
 									<h2>Cantidad (Caja): {{productos.cantidad_caja}}</h2>
 									<h2>Cantidad (Rollo/Bolsa): {{productos.cantidad_rb}}</h2>
+									{% if user.is_superuser %}
 									<div class="row">
 										<div class="col-md-6">
 											<a href="{% url "almacen:padentro" productos.id %}">
@@ -241,6 +240,8 @@
 											</a>
 										</div>
 									</div>
+									{% else %}
+									{% endif %}
 								</div>
 								<div class="col-md-3">
 									<h1>Vendedor {% firstof request.user.get_short_name request.user.get_username %}</h1>
