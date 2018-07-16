@@ -43,7 +43,7 @@ def ProductoList(request):
         if form.is_valid():
             producto = form.save()
             producto.save()
-            return HttpResponseRedirect('almacen:producto_list')
+            return HttpResponseRedirect('productos/producto_list.html')
     else:
         form = ProductoForm()
     template = loader.get_template('productos/producto_list.html')

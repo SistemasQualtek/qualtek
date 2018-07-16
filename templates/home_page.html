@@ -478,5 +478,37 @@
 <!-- END CONTAINER FLUID -->
 </div>
 <!-- END PAGE CONTENT -->
+<script type="text/javascript">
+// ------------------------------------------------------- //
+// Pie Chart
+// ------------------------------------------------------ //
+var PIECHART = $('#pieChart');
+var myPieChart = new Chart(PIECHART, {
+    type: 'doughnut',
+    data: {
+        labels: [
+            "Tubo W",
+            "Tubo Qualtek",
+            "Third"
+        ],
+        datasets: [
+            {
+                data: [300, 50, 100],
+                borderWidth: [1, 1, 1],
+                backgroundColor: [
+                    brandPrimary,
+                    "rgba(75,192,192,1)",
+                    "#FFCE56"
+                ],
+                hoverBackgroundColor: [
+                    brandPrimary,
+                    "rgba(75,192,192,1)",
+                    "#FFCE56"
+                ]
+            }]
+    }
+});
+
+</script>
 {% endblock %}
 {% include "footer.html" %}

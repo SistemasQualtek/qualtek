@@ -2,7 +2,8 @@
 from django import forms
 from .models import Producto, Proveedor, Log
 from django.forms import ModelForm, Textarea, DateInput, TextInput, NumberInput, SelectDateWidget, CheckboxInput, Select
-choicestxt=(('Tubo W','Tubo W'),('Tubo Qualtek','Tubo Qualtek'),('Varios','Varios'))
+choicestxt=(('---------','---------'),('Tubo W','Tubo W'),('Tubo Qualtek','Tubo Qualtek'),('Qualtek','Qualtek'),('Varios','Varios'))
+choicesUNI=(('---------','---------'),('METRO','METRO'), ('PZA','PZA'))
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
@@ -35,12 +36,11 @@ class ProductoForm(forms.ModelForm):
                 'name': 'descripcion',
                 'placeholder':'Descripción...'
                 }),
-            'unidad': TextInput(attrs={
-                'class':'form-control',
+            'unidad': forms.Select(attrs={
                 'id': 'unidad',
+                'class':'form-control',
                 'name': 'unidad',
-                'placeholder':'0,0'
-                }),
+                },choices=choicesUNI),
             'medida': TextInput(attrs={
                 'class':'form-control',
                 'id': 'medida',

@@ -80,8 +80,8 @@ $(document).ready(function () {
         type: 'doughnut',
         data: {
             labels: [
-                "First",
-                "Second",
+                "Tubo W",
+                "Tubo Qualtek",
                 "Third"
             ],
             datasets: [
