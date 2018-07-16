@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'productos',
     'suit',
     'bootstrap3',
+    'wkhtmltopdf',
     'django_adminlte',
     'django_adminlte_theme',
     'crispy_forms',

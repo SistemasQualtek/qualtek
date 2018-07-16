@@ -53,8 +53,14 @@
 		<div class="col-md-2 text-center">
 			<form method="post" class="form">
 				{% csrf_token %}
+				<input type="hidden" name="culpable" value="{% firstof request.user.get_full_name request.user.get_username %}" maxlength="50" placeholder="La última que te veo......" id="culpable" name="culpable" class="form-control" />
+				<input type="hidden" name="ilicito" value="{{nombre}}" maxlength="10" placeholder="Ahora si ya mamastemprano......" id="ilicito" name="ilicito" class="form-control" />
 				<input type="number" name="cantidad" required id="id_cantidad" class="form-control" placeholder="000" autofocus/><br>
+
+				<!-- {{forma.culpable}}
+				{{forma.ilicito}} -->
 				<!-- <label for="number">Total: <input type="number" name="number" id="total1" value="0" readonly></label> -->
+
 				{%if nombre == 'Entrada'%}
 				<button type="submit" name="button" class="btn btn-success btn-block">
 					<i class="fas fa-long-arrow-alt-down"></i>
@@ -71,6 +77,7 @@
 				</button>
 				{%endif%}
 				<h1>{{producto.existencia}}</h1>
+
 			</form>
 		</div>
 		<div class="col-md-5"></div>

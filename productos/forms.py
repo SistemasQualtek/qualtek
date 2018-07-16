@@ -109,5 +109,17 @@ class LogForm(ModelForm):
         fields = '__all__'
         widgets = {
         	'fecha': SelectDateWidget(),
-            'cantidad_vendida': NumberInput(attrs={'value': 0})
+            'cantidad_vendida': NumberInput(attrs={'value': 0}),
+            'culpable': TextInput(attrs={
+                'class':'form-control',
+                'id': 'culpable',
+                'name': 'culpable',
+                'placeholder':'La última que te veo......'
+                }),
+            'ilicito': TextInput(attrs={
+                'class':'form-control',
+                'id': 'ilicito',
+                'name': 'ilicito',
+                'placeholder':'Ahora si ya mamastemprano......'
+                }),
         }

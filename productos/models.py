@@ -34,11 +34,13 @@ def upload_image_path(instancia, nombrearchivo):
 
 
 class Log(models.Model):
-	fecha = models.DateField(auto_now_add=True)
-	producto = models.ForeignKey('Producto', null=True, blank=True, on_delete=models.CASCADE)
-	cantidad = models.IntegerField()
-	def __str__(self):
-		return self.producto
+    fecha = models.DateField(auto_now_add=True)
+    producto = models.ForeignKey('Producto', null=True, blank=True, on_delete=models.CASCADE)
+    cantidad = models.IntegerField()
+    culpable = models.CharField(max_length=50, blank=True, null=True)
+    ilicito = models.CharField(max_length=10, blank=True, null=True)
+    def __str__(self):
+        return self.producto
 
 class Proveedor(models.Model):
 	proveedor = models.CharField(max_length=255)

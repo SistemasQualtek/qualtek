@@ -43,7 +43,7 @@ def ProductoList(request):
         if form.is_valid():
             producto = form.save()
             producto.save()
-            return HttpResponseRedirect('productos/producto_list.html')
+            return HttpResponseRedirect('/Lista/Productos/')
     else:
         form = ProductoForm()
     template = loader.get_template('productos/producto_list.html')
@@ -84,10 +84,14 @@ def Salida(request,pk):
     forma = LogForm(request.POST, request.FILES)
     if forma.is_valid():
         cantidad = forma.cleaned_data['cantidad']
+        culpable = forma.cleaned_data['culpable']
+        ilicito = forma.cleaned_data['ilicito']
         venta = Log()
         producto.existencia = producto.existencia - cantidad
         venta.producto = producto
         venta.cantidad = cantidad
+        venta.culpable = culpable
+        venta.ilicito = ilicito
         producto.save()
         venta.save()
     context = {
@@ -109,10 +113,14 @@ def Entrada(request,pk):
     forma = LogForm(request.POST, request.FILES)
     if forma.is_valid():
         cantidad = forma.cleaned_data['cantidad']
+        culpable = forma.cleaned_data['culpable']
+        ilicito = forma.cleaned_data['ilicito']
         venta = Log()
         producto.existencia = producto.existencia + cantidad
         venta.producto = producto
         venta.cantidad = cantidad
+        venta.culpable = culpable
+        venta.ilicito = ilicito
         producto.save()
         venta.save()
     context = {
@@ -195,7 +203,10 @@ def Lista_Log(request):
     }
     return HttpResponse(template.render(context, request))
 
+###############################################REPORTES######################################
+###############################################QUALTEK######################################
 
+###############################################GENERAL######################################
 def pdfgen(request):
     # print "Genero el PDF"
     response = HttpResponse(content_type='application/pdf')
@@ -233,6 +244,131 @@ def pdfgen(request):
     response.write(buff.getvalue())
     buff.close()
     return response
+###############################################GENERAL######################################
+
+####################################### Reporte Cinchos ####################################
+def pdfcin(request):
+    # print "Genero el PDF"
+    response = HttpResponse(content_type='application/pdf')
+    pdf_name = "cinchos.pdf"  # llamado clientes
+    # la linea 26 es por si deseas descargar el pdf a tu computadora
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    buff = BytesIO()
+    doc = SimpleDocTemplate(buff,
+                            pagesize=letter,
+                            rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+    courses = []
+    styles = getSampleStyleSheet()
+    header = Paragraph("Reporte de Cinchos.", styles['Title'])
+    header.hAlign = 'CENTER'
+    courses.append(header)
+    headings = ('Código', 'Descripción','Medida','Unidad', 'Existencia', 'Proveedor')
+    allcourses = [(p.codigo, p.descripcion, p.medida, p.unidad, p.existencia, p.proveedor) for p in Producto.objects.all().filter(proveedor='Qualtek').order_by('medida')]
+    # print allcourses
+    t = Table([headings] + allcourses)
+    t.setStyle(TableStyle(
+        [
+            ('GRID', (0, 0), (5, -1), 1, colors.black),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.white),
+            ('ALIGN',(0,0),(3,0),'CENTER'),
+        ]
+    ))
+
+    courses.append(t)
+    doc.build(courses)
+    response.write(buff.getvalue())
+    buff.close()
+    return response
+#################################### Fin Reporte Cinchos ##############################################
+####################################### Reporte Tubo Qualtek ####################################
+def pdftq(request):
+    # print "Genero el PDF"
+    response = HttpResponse(content_type='application/pdf')
+    pdf_name = "tuboqualtek.pdf"  # llamado clientes
+    # la linea 26 es por si deseas descargar el pdf a tu computadora
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    buff = BytesIO()
+    doc = SimpleDocTemplate(buff,
+                            pagesize=letter,
+                            rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+    courses = []
+    styles = getSampleStyleSheet()
+    header = Paragraph("Qualtek México S.A. de C.V.", styles['Title'])
+    qualtek = Paragraph("Reporte Tubo Qualtek.", styles['Heading2'])
+    header.hAlign = 'CENTER'
+    courses.append(header)
+    courses.append(qualtek)
+    headings = ('Código', 'Descripción','Medida','Unidad', 'Existencia', 'Proveedor')
+    allcourses = [(p.codigo, p.descripcion, p.medida, p.unidad, p.existencia, p.proveedor) for p in Producto.objects.all().filter(proveedor='Tubo Qualtek').order_by('medida')]
+    # print allcourses
+    t = Table([headings] + allcourses)
+    t.setStyle(TableStyle(
+        [
+            ('GRID', (0, 0), (5, -1), 1, colors.black),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.white),
+            ('ALIGN',(0,0),(3,0),'CENTER'),
+        ]
+    ))
+
+    courses.append(t)
+    doc.build(courses)
+    response.write(buff.getvalue())
+    buff.close()
+    return response
+#################################### Fin Reporte Tubo Qualtek##############################################
+
+#######################################ReporteTubo W###########################
+def pdfW(request):
+    # print "Genero el PDF"
+    response = HttpResponse(content_type='application/pdf')
+    pdf_name = "tubow.pdf"  # llamado clientes
+    # la linea 26 es por si deseas descargar el pdf a tu computadora
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    buff = BytesIO()
+    doc = SimpleDocTemplate(buff,
+                            pagesize=letter,
+                            rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+    courses = []
+    styles = getSampleStyleSheet()
+    header = Paragraph("Qualtek México S.A. de C.V.", styles['Title'])
+    qualtek = Paragraph("Reporte Tubo W.", styles['Heading2'])
+    header.hAlign = 'CENTER'
+    courses.append(header)
+    courses.append(qualtek)
+    headings = ('Código', 'Descripción','Medida','Unidad', 'Existencia', 'Proveedor')
+    allcourses = [(p.codigo, p.descripcion, p.medida, p.unidad, p.existencia, p.proveedor) for p in Producto.objects.all().filter(proveedor='Tubo W').order_by('medida')]
+    # print allcourses
+    t = Table([headings] + allcourses)
+    t.setStyle(TableStyle(
+        [
+            ('GRID', (0, 0), (5, -1), 1, colors.black),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.white),
+            ('ALIGN',(0,0),(3,0),'CENTER'),
+        ]
+    ))
+
+    courses.append(t)
+    doc.build(courses)
+    response.write(buff.getvalue())
+    buff.close()
+    return response
+#################################### Fin Reporte Tubo Qualtek##############################################
+
 
 
 def pdfrel(request):
