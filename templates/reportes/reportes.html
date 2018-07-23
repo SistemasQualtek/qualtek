@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+	{% block head_title %}Detalle del Producto{% endblock %}
+	{% block content %}
+	{% load bootstrap3 %}
+	{% load staticfiles %}
+	{% url 'home' as home %}
+	<!-- START PAGE CONTENT -->
+	<div class="content">
+	  <!-- START JUMBOTRON -->
+	  <div class="jumbotron" data-pages="parallax">
+	    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+	      <div class="inner">
+	        <!-- START BREADCRUMB -->
+	         <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a href="{{home}}">Home</a>
+             <li class="breadcrumb-item active">Reportes Generales y Especificos
+	        </ol>
+	        <!-- END BREADCRUMB -->
+	      </div>
+	    </div>
+	  </div>
+	  <!-- END JUMBOTRON -->
+	  <!-- START CONTAINER FLUID -->
+	  <div class="container-fluid container-fixed-lg">
+	    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+	<div class="row">
+    <div class="col-md-12">
+      <h1 class="text-center">Reportes Generales</h1>
+    </div>
+    <div class="col-md-12">
+      <h1></h1>
+    </div>
+		<div class="col-md-3">
+      <!-- <img src="{% static 'img/woer1.png' %}" width="160px"> -->
+      <!-- Large button groups (default and split) -->
+      <div class="btn-group">
+        <button class="btn btn-danger btn-lg" type="button">
+          Tubo W
+        </button>
+        <button type="button" class="btn btn-lg btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+          <li><a target="_blank" href="{% url 'almacen:pdfw' %}"><i class="fas fa-file-pdf"></i> PDF</a></li>
+          <li><a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-excel"></i> EXCEL</a></li>
+          <!-- <a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-pdf"></i></a>
+          <a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-excel"></i></a> -->
+        </div>
+      </div>
+		</div>
+		<div class="col-md-3">
+      <img src="{% static 'img/azul-transparente.png' %}" width="270px">
+      <div class="btn-group">
+        <button class="btn btn-danger btn-lg" type="button">
+          Tubo Qualtek
+        </button>
+        <button type="button" class="btn btn-lg btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+          <li><a target="_blank" href="{% url 'almacen:pdfw' %}"><i class="fas fa-file-pdf"></i> PDF</a></li>
+          <li><a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-excel"></i> EXCEL</a></li>
+          <!-- <a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-pdf"></i></a>
+          <a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-excel"></i></a> -->
+        </div>
+      </div>
+		</div>
+		<div class="col-md-3">
+      <img src="{% static 'img/cinchoconz.jpg' %}" width="200px">
+      <div class="btn-group">
+        <button class="btn btn-danger btn-lg" type="button">
+          Cinchos
+        </button>
+        <button type="button" class="btn btn-lg btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+          <li><a target="_blank" href="{% url 'almacen:pdfw' %}"><i class="fas fa-file-pdf"></i> PDF</a></li>
+          <li><a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-excel"></i> EXCEL</a></li>
+          <!-- <a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-pdf"></i></a>
+          <a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-excel"></i></a> -->
+        </div>
+      </div>
+		</div>
+    <div class="col-md-3">
+      <img src="{% static 'img/cinchoconz.jpg' %}" width="200px">
+      <div class="btn-group">
+        <button class="btn btn-danger btn-lg" type="button">
+          Miscelanea
+        </button>
+        <button type="button" class="btn btn-lg btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+          <li><a target="_blank" href="{% url 'almacen:pdfw' %}"><i class="fas fa-file-pdf"></i> PDF</a></li>
+          <li><a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-excel"></i> EXCEL</a></li>
+          <!-- <a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-pdf"></i></a>
+          <a target="_blank" href="{% url 'almacen:pdfgen' %}"><i class="fas fa-file-excel"></i></a> -->
+        </div>
+      </div>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+
+2017-03-17 15:06

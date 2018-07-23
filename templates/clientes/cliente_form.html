@@ -1,13 +1,46 @@
-{% extends 'adminlte/base.html' %}
-	{% block title %}Agregar/Editar{% endblock %}
-	{% block content %}
+{% extends 'base.html' %}
 	{% load bootstrap3 %}
-	{% load staticfiles %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-        <h1>Agregar/Editar Cliente</h1>
-	<form method="post">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    <input type="submit" value="Agregar/Editar" />
-</form>
+	{% block content %}
+	{% url 'clientes:list_cliente' as lista_clientes %}
+	{% block head_title %}| Editando a {{ objects.nombre }} {{ objects.apellidos }}{% endblock %}
+	<!-- START PAGE CONTENT -->
+	<div class="content">
+	  <!-- START JUMBOTRON -->
+	  <div class="jumbotron" data-pages="parallax">
+	    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+	      <div class="inner">
+	        <!-- START BREADCRUMB -->
+	         <ol class="breadcrumb">
+						 <li class="breadcrumb-item"><a href="#">Clientes</a></li>
+						 <li class="breadcrumb-item"><a href="#">Lista de Clientes</a></li>
+             <li class="breadcrumb-item active">Editar a {{ objects.nombre }} {{ objects.apellidos }}</li>
+	        </ol>
+	        <!-- END BREADCRUMB -->
+	      </div>
+	    </div>
+	  </div>
+	  <!-- END JUMBOTRON -->
+	  <!-- START CONTAINER FLUID -->
+	  <div class="container-fluid container-fixed-lg">
+	    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+	<section class="section">
+		<div class="container">
+			<div class="row separatedv">
+				<div class="col-lg-12">
+					<h2>Editar a {{ objects.nombre }} {{ objects.apellidos }}</h2>
+				</div>
+				<form method="post" class="a">
+					{% csrf_token %}
+					{%bootstrap_form form%}
+						<input type="submit" value="Editar" class="btn btn-success"/>
+					</form>
+				</div>
+			</div>
+		</section>
+	<!-- END PLACE PAGE CONTENT HERE -->
+	</div>
+	<!-- END CONTAINER FLUID -->
+	</div>
+	<!-- END PAGE CONTENT -->
+
 {% endblock %}

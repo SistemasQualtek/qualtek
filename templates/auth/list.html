@@ -3,6 +3,7 @@
 {% block content %}
 {% url 'register' as register %}
 {% url 'users' as users %}
+{% url 'home' as home %}
 <!-- START PAGE CONTENT -->
 <div class="content">
   <!-- START JUMBOTRON -->
@@ -11,7 +12,7 @@
       <div class="inner">
         <!-- START BREADCRUMB -->
          <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
+          <li class="breadcrumb-item"><a href="{{home}}">Home</a></li>
           <li class="breadcrumb-item"><a href="{{users}}">Lista de Usuarios</a></li>
         </ol>
         <!-- END BREADCRUMB -->
@@ -74,5 +75,15 @@
 <!-- END CONTAINER FLUID -->
 </div>
 <!-- END PAGE CONTENT -->
+<script type="text/javascript">
+$(document).ready(function () {
+  var element = document.getElementsByClassName("checkbox")[0];
+  element.classList..addClass("checkbox");
+  var elemento = document.getElementsByClassName("checkbox")[0];
+  elemento.classList.add("checkbox");
+  var elemen = document.getElementsByClassName("checkbox")[0];
+  elemen.classList..addClass("checkbox");
+});
+</script>
 
 {% endblock %}

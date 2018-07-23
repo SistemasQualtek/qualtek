@@ -22,12 +22,13 @@ from django.conf.urls.static import static
 
 
 
-from .views import home_page, contact_page, about_page, login_page, register_page, lista_de_usuarios, AuthDetail,AuthDelete,AuthUpdate
+from .views import home_page, reportes, contact_page, about_page, login_page, register_page, lista_de_usuarios, AuthDetail,AuthDelete,AuthUpdate
 
 urlpatterns = [
     ########################   urls marco   ########################
     url(r'^admin/', admin.site.urls),
     url(r'^$', home_page,name='home'),
+    url(r'^Reportes/$', reportes,name='reportes'),
     url(r'^contact/$', contact_page,name='contacto'),
     url(r'^about/$', about_page,name='about'),
     url(r'^login/$', login_page,name='login'),
@@ -40,7 +41,9 @@ urlpatterns = [
     ########################   urls marco   ########################
     url(r'^', include('productos.urls', namespace='almacen')),
     ########################   urls clientes   ########################
-    #url(r'^', include('clientes.urls', namespace='clientes')),
+    url(r'^', include('clientes.urls', namespace='clientes')),
+    ########################   urls reportes   ########################
+    url(r'^', include('reportes.urls', namespace='reportes')),
 ]
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

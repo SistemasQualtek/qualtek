@@ -2,7 +2,19 @@
 	{% block head_title %}Lista de Ventas{% endblock %}
 	{% block content %}
   {% load bootstrap3 %}
-	<script type="text/javascript">
+	<style media="screen">
+.tbody{
+  width: 100%;
+  height: 800px;
+  overflow: scroll;
+  -webkit-overflow: scroll;
+  -mozkit-overflow: scroll;
+}
+.table{
+  height: 600px;
+}
+</style>
+<script type="text/javascript">
 (function(document) {
   'use strict';
 
@@ -43,38 +55,69 @@
 
 })(document);
 </script>
-
+<!-- START PAGE CONTENT -->
+<div class="content">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+         <ol class="breadcrumb">
+           <li class="breadcrumb-item active">Log</li>
+         </ol>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- BEGIN PlACE PAGE CONTENT HERE -->
 
 	<div class="row">
 		<div align="center">
-			<h1 style="color:white;">Lista de Ventas</h1>
+			<h1 style="color:black;">Lista de E/S de Hoy</h1>
 			{% load staticfiles %}
 			<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-			<div align="left" id="buscar"><h2 style="color:black">Buscar: <input type="search" class="buscar light-table-filter" data-table="order-table" placeholder="Buscar"></h2></div>
-			<a href="{% url "productos:grafica_pastel" %}"><button type="submit" class="btn btn-success">Grafica</button></a>
-			<table class="order-table table1">
-				<thead>
-						<td align="center" style="vertical-align:middle"><h1 style="color:white" class="h4">Id</h1><td>
-						<td align="center" style="vertical-align:middle"><h1 style="color:white" class="h4">Producto</h1><td>
-						<td align="center" style="vertical-align:middle"><h1 style="color:white" class="h4">Cantidad vendida</h1><td>
-            <td align="center" style="vertical-align:middle"><h1 style="color:white" class="h4">Fecha</h1><td>
+			<form target="_blank" action="{% url "reportes:pdfdia" %}" method="GET">
+				<label class"h4"=for="date">Selecciona Fecha para Consultar <input type="date" name="date" id="date" required="required"></label>
+				<a href="{% url "reportes:pdfdia" %}" target="_blank"><button type="submit" class="btn btn-info fas fa-file-pdf"></button></a>
+				<p><input type="submit" value="Reporte por Fecha" class="btn-transparent"></p>
+			</form>
+			<div class="form-group">
+				<input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar" autofocus>
+			</div>
+			
+			<div class="conscroll">
+			<table class="table table-hover">
+				<thead class="bg-dark">
+						<th class="text-center aling-middle">Id</th>
+						<th class="text-center aling-middle">Producto</th>
+						<th class="text-center aling-middle">Cantidad</th>
+						<th class="text-center aling-middle">Ilicito</th>
+						<th class="text-center aling-middle">Culpable</th>
+            <th class="text-center aling-middle">Fecha</th>
 				</thead>
-{{venta}}
-					{% for venta in playera %}
+					{% for log in log %}
+					<tbody>
 					<tr>
-						<td align="center" style="vertical-align:middle">{{ venta.id }}<td>
-						<td align="center" style="vertical-align:middle">{{ venta.producto }}<td>
-						<td align="center" style="vertical-align:middle">{{ venta.cantidad_vendida }}<td>
-            <td align="center" style="vertical-align:middle">{{ venta.fecha }}<td>
+						<td class="text-center align-middle">{{ log.id }}</td>
+						<td class="text-center align-middle">{{ log.producto }}</td>
+						<td class="text-center align-middle">{{ log.cantidad }}</td>
+						<td class="text-center align-middle">{{ log.ilicito }}</td>
+						<td class="text-center align-middle">{{ log.culpable }}</td>
+            <td class="text-center align-middle">{{ log.fecha }}</td>
 					</tr>
+				</tbody>
         {% endfor %}
 
 				</table>
-				<form action="{% url "productos:pdfdia" %}" method="GET">
-					<label class"h4"=for="date">Selecciona Fecha para Consultar <input type="date" name="date" id="date" required="required"></label>
-					<p><input type="submit" value="Reporte por Fecha" class="btn btn-success"></p>
-				</form>
-				<a href="{% url "productos:pdfgen" %}">PDF</a>
+					</div>
 			</div>
 		</div>
+		<!-- END PLACE PAGE CONTENT HERE -->
+		</div>
+		<!-- END CONTAINER FLUID -->
+		</div>
+		<!-- END PAGE CONTENT -->
 {% endblock %}

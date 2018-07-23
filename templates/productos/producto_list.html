@@ -2,6 +2,7 @@
 	{% block head_title %}Lista de Productos{% endblock %}
 	{% block content %}
   {% load bootstrap3 %}
+	{% url 'home' as home %}
 	<style media="screen">
 .tbody{
   width: 100%;
@@ -63,6 +64,7 @@
       <div class="inner">
         <!-- START BREADCRUMB -->
          <ol class="breadcrumb">
+					 <li class="breadcrumb-item"><a href="{{home}}">Home</a>
            <li class="breadcrumb-item active">Almacen</li>
          </ol>
         <!-- END BREADCRUMB -->

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% url 'productos:lista' as lista %}
+{% block head_title %}| Nuevo Cliente{% endblock %}
+{% block content %}
+{% load bootstrap3 %}
+{% url 'clientes:list_cliente' as lista_clientes %}
+<!-- START PAGE CONTENT -->
+<div class="content">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+         <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a href="#">Clientes</a></li>
+           <li class="breadcrumb-item"><a href="{{lista_clientes}}">Lista de Clientes</a></li>
+           <li class="breadcrumb-item active">Agregar Cliente</li>
+        </ol>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+<section class="section">
+  <div class="container">
+    <div class="row separatedv">
+          <div class="col-lg-12">
+            <div class="text-left">
+              <h1 class="text-center">Agregar Cliente</h1>
+            </div>
+            <hr>
+            <form method="post">
+              {% csrf_token %}
+              {% bootstrap_form form %}
+                  <div class="col-md-6">
+                    <button type="submit" class="btn btn-lg btn-default">Agregar Cliente</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END PLACE PAGE CONTENT HERE -->
+</div>
+<!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+<!-- <script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+    var phoneMask = new IMask(document.getElementById('telefono'), {
+      mask: '(00) 0000-0000'
+    }).on('accept', function() {
+      document.getElementById('phone-complete').style.display = '';
+      document.getElementById('phone-unmasked').innerHTML = phoneMask.unmaskedValue;
+    }).on('complete', function() {
+      document.getElementById('phone-complete').style.display = 'inline-block';
+    });
+    var phoneMask = new IMask(document.getElementById('telefono2'), {
+      mask: '(00) 0000-0000'
+    }).on('accept', function() {
+      document.getElementById('phone-complete').style.display = '';
+      document.getElementById('phone-unmasked').innerHTML = phoneMask.unmaskedValue;
+    }).on('complete', function() {
+      document.getElementById('phone-complete').style.display = 'inline-block';
+    });
+    var phoneMask = new IMask(document.getElementById('nombre'), {
+      mask: '00-00'
+    }).on('accept', function() {
+      document.getElementById('phone-complete').style.display = '';
+      document.getElementById('phone-unmasked').innerHTML = phoneMask.unmaskedValue;
+    }).on('complete', function() {
+      document.getElementById('phone-complete').style.display = 'inline-block';
+    });
+  });
+
+</script> -->
+
+{% endblock %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+
+    </div>
+  </div>
+</div>

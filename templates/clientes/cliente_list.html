@@ -1,28 +1,96 @@
-{% extends 'adminlte/base.html' %}
-	{% block title %}Lista de Clientes{% endblock %}
-	{% block content %}
-    	{% load bootstrap3 %}
-        <h1>Lista de Clientes</h1>
-        {% load staticfiles %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-        <table class="table1">
-        <thead>
-            
-                <th>Id</th>
-                <th> </th>
-                <th>Razón Social</th>
-                <th> </th>
-                <th>Acciones</th>
-            
-        </thead>
-        {% for clientes in object_list %}
-            <tr>
-                <td align="center" style="vertical-align:middle">{{ clientes.id }}<td>
-                <td align="center" style="vertical-align:middle">{{ clientes.Razon_Social }}<td>
-                <td style="vertical-align:middle">{% buttons %}
-                    <a href="{% url "clientes:detail" clientes.id %}"><button type="submit" class="ui-button">{% bootstrap_icon "eye-open" %}Ver</button>
-                    </a><a href="{% url "clientes:delete" clientes.id %}"><button type="submit" class="ui-button">{% bootstrap_icon "erase" %}Borrar</button></a>{% endbuttons %}
+{% extends 'base.html' %}
+{% block head_title %}| Lista de Clientes{% endblock %}
+{% block content %}
+{% url 'clientes:list_cliente' as lista_clientes %}
+{% url 'clientes:cliente' as cliente %}
+{% url 'home' as home %}
+<!-- START PAGE CONTENT -->
+<div class="content">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+         <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a href="{{home}}">Home</a></li>
+           <li class="breadcrumb-item active">Lista de Clientes</li>
+        </ol>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+<section class="section">
+  <div class="container">
+    <h1 class="text-center">Clientes</h1>
+    <div class="row separatedv">
+      <div class="col-lg-12 text-center">
+        <a class="" href="{{cliente}}">
+          <button type="button" name="button" class="btn btn-default">
+            Registrar Cliente <i class="far fa-edit"></i>
+          </button>
+        </a>
+      </div>
+          <div class="col-lg-12">
+            <table class="table table-hover">
+              <tr>
+                <thead class="bg-dark">
+                  <!-- <th class="text-center">ID</th> -->
+                  <th class="text-center">Empresa</th>
+                  <th class="text-center">Nombre</th>
+                  <th class="text-center">Email</th>
+                  <!-- <th class="text-center">Teléfono</th>
+                  <th class="text-center">Teléfono Adicional</th> -->
+                  <th class="text-center">Acciones</th>
+                </thead>
+              </tr>
+              {% for objects in queryset %}
+              <tr>
+                <!-- <td class="text-center">{{ objects.id }}</td> -->
+                <td class="text-center">{{ objects.empresa }}</td>
+                <td class="text-center">{{ objects.nombre }}</td>
+                <td class="text-center">{{ objects.email }}</td>
+                <!-- <td class="text-center">{{ objects.telefono }}</td>
+                <td class="text-center">{{ objects.telefono2 }}</td> -->
+                {% if user.is_superuser %}
+                <td class="text-right">
+                  <a href="{% url "clientes:detail_cliente" objects.id %}">
+                    <button type="submit" class="btn btn-info">
+                      <i class="far fa-eye"></i>
+                    </button>
+                  </a>
+                  <a href="{% url "clientes:delete_cliente" objects.id %}">
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fas fa-eraser"></i>
+                    </button>
+                  </a>
                 </td>
-            </tr>
-        {% endfor %}
-{% endblock %}  
+                {% else %}
+                  {% if user.is_staff %}
+                      <td class="text-right">
+                        <a href="{% url "clientes:detail_cliente" objects.id %}">
+                          <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-pen-square"></i>
+                          </button>
+                        </a>
+                      </td>
+                  {% else %}
+                  {% endif %}
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+    </div>
+  </div>
+</section>
+<!-- END PLACE PAGE CONTENT HERE -->
+</div>
+<!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+
+{% endblock %}

@@ -48,32 +48,32 @@ function validateForm() {
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    var phoneMask = new IMask(document.getElementById('telefono'), {
-      mask: '(00) 0000-0000'
-    }).on('accept', function() {
-      document.getElementById('phone-complete').style.display = '';
-      document.getElementById('phone-unmasked').innerHTML = phoneMask.unmaskedValue;
-    }).on('complete', function() {
-      document.getElementById('phone-complete').style.display = 'inline-block';
-    });
-    var cellphoneMask = new IMask(document.getElementById('celular'), {
-      mask: '+{52} (00) 0000-0000'
-    }).on('accept', function() {
-      document.getElementById('phone-complete').style.display = '';
-      document.getElementById('phone-unmasked').innerHTML = phoneMask.unmaskedValue;
-    }).on('complete', function() {
-      document.getElementById('phone-complete').style.display = 'inline-block';
-    });
-    var phoneMask = new IMask(document.getElementById('nombre_modelo'), {
-      mask: '00-00'
-    }).on('accept', function() {
-      document.getElementById('phone-complete').style.display = '';
-      document.getElementById('phone-unmasked').innerHTML = phoneMask.unmaskedValue;
-    }).on('complete', function() {
-      document.getElementById('phone-complete').style.display = 'inline-block';
-    });
-  });
+// document.addEventListener("DOMContentLoaded", function () {
+//     var phoneMask = new IMask(document.getElementById('telefono'), {
+//       mask: '(00) 0000-0000'
+//     }).on('accept', function() {
+//       document.getElementById('phone-complete').style.display = '';
+//       document.getElementById('phone-unmasked').innerHTML = phoneMask.unmaskedValue;
+//     }).on('complete', function() {
+//       document.getElementById('phone-complete').style.display = 'inline-block';
+//     });
+//     var phoneMask = new IMask(document.getElementById('telefono2'), {
+//       mask: '(00) 0000-0000'
+//     }).on('accept', function() {
+//       document.getElementById('phone-complete').style.display = '';
+//       document.getElementById('phone-unmasked').innerHTML = phoneMask.unmaskedValue;
+//     }).on('complete', function() {
+//       document.getElementById('phone-complete').style.display = 'inline-block';
+//     });
+//     var phoneMask = new IMask(document.getElementById('nombre'), {
+//       mask: '00-00'
+//     }).on('accept', function() {
+//       document.getElementById('phone-complete').style.display = '';
+//       document.getElementById('phone-unmasked').innerHTML = phoneMask.unmaskedValue;
+//     }).on('complete', function() {
+//       document.getElementById('phone-complete').style.display = 'inline-block';
+//     });
+//   });
 
   $(document).ready(function () {
     $("#modelo").change(function () {

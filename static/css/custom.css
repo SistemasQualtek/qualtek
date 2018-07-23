@@ -223,3 +223,8 @@ text-ligth{
 .acheerre{
   border: 2px #ffffff solid !important;
 }
+.btn-block{
+  min-width: 100% !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}

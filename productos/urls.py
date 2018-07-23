@@ -4,8 +4,7 @@ from . import views
 from .views import (
     ProductoList,
     ProductoUpdate,
-    ProductoDelete,
-    ReporteQualtekExcel
+    ProductoDelete
 )
 urlpatterns = [
     url(r'^inicio/',views.inicio, name='inicio'),
@@ -16,14 +15,14 @@ urlpatterns = [
     url(r'^Salida/(?P<pk>[0-9]+)/$',login_required(views.Salida),name='pafuera'),
     url(r'^Proveedor/Nueva',views.categoria,name="nuevo_proveedor"),
     url(r'^Almacen/Log/',views.Lista_Log,name="log_list"),
-    url(r'^Pdf/Dia',views.pdfdia,name="pdfdia"),
-    url(r'^Pdf/General',login_required(views.pdfgen),name="pdfgen"),
-    url(r'^Pdf/Cinchos',login_required(views.pdfcin),name="pdfcin"),
-    url(r'^Pdf/TuboQualtek',login_required(views.pdftq),name="pdftq"),
-    url(r'^Pdf/TuboW',login_required(views.pdfW),name="pdfw"),
-    url(r'^Pdf/Release',login_required(views.pdfrel),name="pdfrel"),
-    url(r'^excel/', login_required(ReporteQualtekExcel.as_view()), name="reporteexcel"),
-    url(r'^PDF/Grafica',views.grafica_pastel,name="grafica_pastel"),
+    # url(r'^Pdf/Dia',views.pdfdia,name="pdfdia"),
+    # url(r'^Pdf/General',login_required(views.pdfgen),name="pdfgen"),
+    # url(r'^Pdf/Cinchos',login_required(views.pdfcin),name="pdfcin"),
+    # url(r'^Pdf/TuboQualtek',login_required(views.pdftq),name="pdftq"),
+    # url(r'^Pdf/TuboW',login_required(views.pdfW),name="pdfw"),
+    # url(r'^Pdf/Release',login_required(views.pdfrel),name="pdfrel"),
+    # url(r'^excel/', login_required(ReporteQualtekExcel.as_view()), name="reporteexcel"),
+    # url(r'^PDF/Grafica',views.grafica_pastel,name="grafica_pastel"),
     url(r'^Editar/(?P<pk>\d+)', login_required(ProductoUpdate.as_view()), name='edit'),
     url(r'^Borrar/(?P<pk>\d+)', login_required(ProductoDelete.as_view()), name='delete'),
 ]

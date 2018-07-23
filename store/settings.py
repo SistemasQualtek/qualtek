@@ -25,13 +25,14 @@ SECRET_KEY = 'rg3=ghm5$-1()8n*_)&ko&q8fp&=+d1ip3-fw%q7pcgt7a73_v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','192.168.1.100', '192.168.1.80']
+ALLOWED_HOSTS = ['localhost','192.168.1.100', 'www.qualtekmx.sys']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'productos',
+    'clientes',
     'suit',
     'bootstrap3',
     'wkhtmltopdf',
