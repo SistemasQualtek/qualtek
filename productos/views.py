@@ -38,6 +38,7 @@ from openpyxl import Workbook
 def ProductoList(request):
     count = Producto.objects.count()
     productos = Producto.objects.order_by('id')
+    tubow = Producto.objects.filter(proveedor='Tubo W').order_by('medida').values('medida')
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -50,7 +51,8 @@ def ProductoList(request):
     context = {
         'productos':productos,
         'form':form,
-        'count':count
+        'count':count,
+        'tubow':tubow,
 
     }
     # print (productos)
@@ -224,3 +226,43 @@ def ReleaseList(request):
     }
     # print (productos)
     return render(request, 'productos/release.html', context)
+
+####################################### ahuevo ################################
+
+def pdftwm(request):
+    # print "Genero el PDF Ventas del Dia"
+    date = request.GET.get('date','2017-05-04')
+    medida = request.GET.get('medida','2017-05-04')
+    response = HttpResponse(content_type='application/pdf')
+    pdf_name = "Tubo_W_con_Medida_de_"+medida+".pdf"  # llamado clientes
+    # la linea 26 es por si deseas descargar el pdf a tu computadora
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    buff = BytesIO()
+    doc = SimpleDocTemplate(buff,
+                            pagesize=letter,
+                            rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+    courses = []
+    styles = getSampleStyleSheet()
+    header = Paragraph("Tubo W de "+medida, styles['Title'])
+    courses.append(header)
+    headings = ('Codigo', 'Descripcion', 'Medida', 'Existencia')
+    allcourses = [(p.codigo, p.descripcion, p.medida, p.existencia) for p in Producto.objects.filter(medida = medida).order_by('descripcion')]
+    t = Table([headings] + allcourses)
+    t.setStyle(TableStyle(
+        [
+            ('GRID', (0, 0), (3, -1), 1, colors.black),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.white)
+        ]
+    ))
+
+    courses.append(t)
+    doc.build(courses)
+    response.write(buff.getvalue())
+    buff.close()
+    return response
+####################################### ahuevo ################################

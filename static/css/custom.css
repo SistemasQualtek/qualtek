@@ -228,3 +228,9 @@ text-ligth{
   max-width: 100% !important;
   width: 100% !important;
 }
+.conscrollov{
+  overflow-y:scroll!important;
+  overflow-x:hidden!important;
+  height: 700px!important;
+  width: 100%!important;
+}

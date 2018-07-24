@@ -59,55 +59,6 @@
       {% if user.is_authenticated %}
       <li class="">
         <a href="javascript:;">
-          <span class="title">Almacen</span>
-          <span class="arrow"></span>
-        </a>
-        <span class="icon-thumbnail"><i class="fas fa-boxes"></i></span>
-        <ul class="sub-menu">
-          <li class="">
-            <a href="{{ list_almacen }}">Almacen</a>
-          </li>
-          <li class="">
-            <a href="{{ release }}">Release</a>
-          </li>
-        </ul>
-      </li>
-      <li class="">
-        <a href="javascript:;">
-          <span class="title">Reportes</span>
-          <span class=" arrow"></span>
-        </a>
-        <span class="icon-thumbnail"><i class="fas fa-file"></i></span>
-        <ul class="sub-menu">
-          <!-- <li class="">
-            <a href="{{reportes}}"> Reportes Qualtek</i></a>
-          </li> -->
-          <li class="">
-            <a target="_blank" href="{% url 'reportes:pdfgen' %}"><i class="fas fa-file-pdf"> Almacen PDF</i></a>
-          </li>
-          <li class="">
-            <a target="_blank" href="{% url 'reportes:pdftq' %}"><i class="fas fa-file-pdf"> Tubo Qualtek PDF</i></a>
-          </li>
-          <li class="">
-            <a target="_blank" href="{% url 'reportes:pdfw' %}"><i class="fas fa-file-pdf"> Tubo W PDF</i></a>
-          </li>
-          <li class="">
-            <a target="_blank" href="{% url 'reportes:pdfcin' %}"><i class="fas fa-file-pdf"> Cinchos PDF</i></a>
-          </li>
-          <li class="">
-            <a href="{% url 'reportes:reporteexcel' %}"><i class="fas fa-file-excel"> Almacen Excel</i></a>
-          </li>
-          <hr class="acheerre">
-          <li class="">
-            <a target="_blank" href="{{pedeefferelease}}"><i class="fas fa-file-pdf"> Release PDF</i></a>
-          </li>
-          <li class="">
-            <a href="#"><i class="fas fa-file-excel"> Release Excel</i></a>
-          </li>
-        </ul>
-      </li>
-      <li class="">
-        <a href="javascript:;">
           <span class="title">Clientes</span>
           <span class=" arrow"></span>
         </a>
@@ -122,6 +73,21 @@
           </li>
           {% else %}
           {% endif %}
+        </ul>
+      </li>
+      <li class="">
+        <a href="javascript:;">
+          <span class="title">Almacen</span>
+          <span class="arrow"></span>
+        </a>
+        <span class="icon-thumbnail"><i class="fas fa-boxes"></i></span>
+        <ul class="sub-menu">
+          <li class="">
+            <a href="{{ list_almacen }}">Almacen</a>
+          </li>
+          <li class="">
+            <a href="{{ release }}">Release</a>
+          </li>
         </ul>
       </li>
       <li class="">
@@ -158,6 +124,40 @@
           </li>
           {% else %}
           {% endif %}
+        </ul>
+      </li>
+      <li class="">
+        <a href="javascript:;">
+          <span class="title">Reportes</span>
+          <span class=" arrow"></span>
+        </a>
+        <span class="icon-thumbnail"><i class="fas fa-file"></i></span>
+        <ul class="sub-menu">
+          <li class="">
+            <a href="{{reportes}}"> Reportes Qualtek</i></a>
+          </li>
+          <!-- <li class="">
+            <a target="_blank" href="{% url 'reportes:pdfgen' %}"><i class="fas fa-file-pdf"> Almacen PDF</i></a>
+          </li>
+          <li class="">
+            <a target="_blank" href="{% url 'reportes:pdftq' %}"><i class="fas fa-file-pdf"> Tubo Qualtek PDF</i></a>
+          </li>
+          <li class="">
+            <a target="_blank" href="{% url 'reportes:pdfw' %}"><i class="fas fa-file-pdf"> Tubo W PDF</i></a>
+          </li>
+          <li class="">
+            <a target="_blank" href="{% url 'reportes:pdfcin' %}"><i class="fas fa-file-pdf"> Cinchos PDF</i></a>
+          </li>
+          <li class="">
+            <a href="{% url 'reportes:reporteexcel' %}"><i class="fas fa-file-excel"> Almacen Excel</i></a>
+          </li>
+          <hr class="acheerre">
+          <li class="">
+            <a target="_blank" href="{{pedeefferelease}}"><i class="fas fa-file-pdf"> Release PDF</i></a>
+          </li>
+          <li class="">
+            <a href="#"><i class="fas fa-file-excel"> Release Excel</i></a>
+          </li> -->
         </ul>
       </li>
       {% else %}

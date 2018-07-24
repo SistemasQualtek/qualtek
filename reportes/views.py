@@ -33,7 +33,10 @@ from reportlab.graphics.charts.legends import Legend
 from django.db.models import Q, Sum
 import time
 from openpyxl import Workbook
+from django.db.models import Avg
 
+def reportes(request):
+    return render(request, 'reportes/reportes.html', {})
 ###############################################REPORTES######################################
 ###############################################QUALTEK######################################
 
@@ -54,9 +57,11 @@ def pdfgen(request):
                             )
     courses = []
     styles = getSampleStyleSheet()
-    header = Paragraph("Reporte General de Almacen.", styles['Title'])
+    header = Paragraph("Qualtek México S.A. de C.V.", styles['Title'])
+    qualtek = Paragraph("Reporte General Almacen.", styles['Heading2'])
     header.hAlign = 'CENTER'
     courses.append(header)
+    courses.append(qualtek)
     headings = ('Código', 'Descripción','Medida','Unidad', 'Existencia', 'Proveedor')
     allcourses = [(p.codigo, p.descripcion, p.medida, p.unidad, p.existencia, p.proveedor) for p in Producto.objects.all().order_by('proveedor', 'medida')]
     # print allcourses
@@ -76,6 +81,42 @@ def pdfgen(request):
     buff.close()
     return response
 ###############################################GENERAL######################################
+################################################## Reportes Especificos ###################################################
+
+def pdfTWM(request):
+    medida = request.GET.get('medida')
+    response = HttpResponse(content_type='application/pdf')
+    pdf_name = "ReporteTuboWMedida "+medida+".pdf"  # llamado clientes
+    # la linea 26 es por si deseas descargar el pdf a tu computadora
+    response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    buff = BytesIO()
+    doc = SimpleDocTemplate(buff,
+    pagesize=letter,
+    rightMargin=40,
+    leftMargin=40,
+    topMargin=60,
+    bottomMargin=18,
+    )
+    courses = []
+    styles = getSampleStyleSheet()
+    header = Paragraph("Reporte Tubo W por "+medida, styles['Title'])
+    courses.append(header)
+    headings = ('Código', 'Descripción', 'Medida', 'Existencia', 'Proveedor')
+    allcourses = [(p.codigo, p.descripcion, p.medida, p.existencia, p.proveedor) for p in Productos.objects.filter(medida = 'medida')]
+    t = Table([headings] + allcourses)
+    t.setStyle(TableStyle(
+    [
+    ('GRID', (0, 0), (4, -1), 1, colors.black),
+    ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),
+    ('BACKGROUND', (0, 0), (-1, 0), colors.white)
+    ]
+    ))
+    courses.append(t)
+    doc.build(courses)
+    response.write(buff.getvalue())
+    buff.close()
+    return response
+######################################## Reportes Especificos ##########################################
 
 ####################################### Reporte Cinchos ####################################
 def pdfcin(request):
@@ -94,9 +135,11 @@ def pdfcin(request):
                             )
     courses = []
     styles = getSampleStyleSheet()
-    header = Paragraph("Reporte de Cinchos.", styles['Title'])
+    header = Paragraph("Qualtek México S.A. de C.V.", styles['Title'])
+    qualtek = Paragraph("Reporte Cinchos.", styles['Heading2'])
     header.hAlign = 'CENTER'
     courses.append(header)
+    courses.append(qualtek)
     headings = ('Código', 'Descripción','Medida','Unidad', 'Existencia', 'Proveedor')
     allcourses = [(p.codigo, p.descripcion, p.medida, p.unidad, p.existencia, p.proveedor) for p in Producto.objects.all().filter(proveedor='Qualtek').order_by('medida')]
     # print allcourses
@@ -200,7 +243,47 @@ def pdfW(request):
     return response
 #################################### Fin Reporte Tubo Qualtek##############################################
 
+#######################################Reporte Miscelanea###########################
+def pdfM(request):
+    # print "Genero el PDF"
+    response = HttpResponse(content_type='application/pdf')
+    pdf_name = "miscelanea.pdf"  # llamado clientes
+    # la linea 26 es por si deseas descargar el pdf a tu computadora
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    buff = BytesIO()
+    doc = SimpleDocTemplate(buff,
+                            pagesize=letter,
+                            rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+    courses = []
+    styles = getSampleStyleSheet()
+    header = Paragraph("Qualtek México S.A. de C.V.", styles['Title'])
+    qualtek = Paragraph("Reporte Miscelanea.", styles['Heading2'])
+    header.hAlign = 'CENTER'
+    courses.append(header)
+    courses.append(qualtek)
+    headings = ('Código', 'Descripción','Medida','Unidad', 'Existencia', 'Proveedor')
+    allcourses = [(p.codigo, p.descripcion, p.medida, p.unidad, p.existencia, p.proveedor) for p in Producto.objects.all().filter(proveedor='Varios').order_by('medida')]
+    # print allcourses
+    t = Table([headings] + allcourses)
+    t.setStyle(TableStyle(
+        [
+            ('GRID', (0, 0), (5, -1), 1, colors.black),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.white),
+            ('ALIGN',(0,0),(3,0),'CENTER'),
+        ]
+    ))
 
+    courses.append(t)
+    doc.build(courses)
+    response.write(buff.getvalue())
+    buff.close()
+    return response
+#################################### Fin Reporte Miscelanea##############################################
 
 def pdfrel(request):
     # print "Genero el PDF"
@@ -218,7 +301,8 @@ def pdfrel(request):
                             )
     courses = []
     styles = getSampleStyleSheet()
-    header = Paragraph("Release", styles['Title'])
+    header = Paragraph("Qualtek México S.A. de C.V.", styles['Title'])
+    qualtek = Paragraph("Release.", styles['Heading2'])
     header.Align = 'CENTER'
     courses.append(header)
     headings = ('Código', 'Descripción', 'Existencia', 'Proveedor')
@@ -325,6 +409,230 @@ class ReporteQualtekExcel(TemplateView):
             cont = cont + 1
 
         nombre_archivo ="AlmacenExcel.xlsx"
+        response = HttpResponse(content_type="application/ms-excel")
+        contenido = "attachment; filename={0}".format(nombre_archivo)
+        response["Content-Disposition"] = contenido
+        wb.save(response)
+        return response
+################################################## EXCEL Reporte ##########################################################
+
+################################################## EXCEL Reporte ##########################################################
+class ReporteTWExcel(TemplateView):
+    def get(self, request, *args, **kwargs):
+        conta = Producto.objects.all().filter(proveedor='Tubo W').order_by('medida')
+        wb = Workbook()
+        ws = wb.active
+        ws['A1'] = 'Código'
+
+
+        ws['B1'] = 'Descripcion'
+        ws['C1'] = 'Unidad'
+        ws['D1'] = 'Medida'
+        ws['E1'] = 'Existencia'
+        ws['F1'] = 'Proveedor'
+        ws['G1'] = 'Cantidad x Caja'
+        ws['H1'] = 'Cantidad x Rollo/Bolsa'
+        ws['I1'] = 'Ubicacion'
+        ws['J1'] = 'Costo'
+        ws['K1'] = 'Precio'
+        ws['L1'] = 'Release'
+        cont=2
+
+        for con in conta:
+            ws.cell(row=cont,column=1).value = con.codigo
+            ws.cell(row=cont,column=2).value = con.descripcion
+            ws.cell(row=cont,column=3).value = con.unidad
+            ws.cell(row=cont,column=4).value = con.medida
+            ws.cell(row=cont,column=5).value = con.existencia
+            ws.cell(row=cont,column=6).value = con.proveedor
+            ws.cell(row=cont,column=7).value = con.cantidad_caja
+            ws.cell(row=cont,column=8).value = con.cantidad_rb
+            ws.cell(row=cont,column=9).value = con.ubicacion
+            ws.cell(row=cont,column=10).value = con.costo
+            ws.cell(row=cont,column=11).value = con.precio
+            ws.cell(row=cont,column=12).value = con.release
+            cont = cont + 1
+
+        nombre_archivo ="TuboWExcel.xlsx"
+        response = HttpResponse(content_type="application/ms-excel")
+        contenido = "attachment; filename={0}".format(nombre_archivo)
+        response["Content-Disposition"] = contenido
+        wb.save(response)
+        return response
+################################################## EXCEL Reporte ##########################################################
+
+################################################## EXCEL Reporte ##########################################################
+class ReporteTQTKExcel(TemplateView):
+    def get(self, request, *args, **kwargs):
+        conta = Producto.objects.all().filter(proveedor='Tubo Qualtek').order_by('medida')
+        wb = Workbook()
+        ws = wb.active
+        ws['A1'] = 'Código'
+
+
+        ws['B1'] = 'Descripcion'
+        ws['C1'] = 'Unidad'
+        ws['D1'] = 'Medida'
+        ws['E1'] = 'Existencia'
+        ws['F1'] = 'Proveedor'
+        ws['G1'] = 'Cantidad x Caja'
+        ws['H1'] = 'Cantidad x Rollo/Bolsa'
+        ws['I1'] = 'Ubicacion'
+        ws['J1'] = 'Costo'
+        ws['K1'] = 'Precio'
+        ws['L1'] = 'Release'
+        cont=2
+
+        for con in conta:
+            ws.cell(row=cont,column=1).value = con.codigo
+            ws.cell(row=cont,column=2).value = con.descripcion
+            ws.cell(row=cont,column=3).value = con.unidad
+            ws.cell(row=cont,column=4).value = con.medida
+            ws.cell(row=cont,column=5).value = con.existencia
+            ws.cell(row=cont,column=6).value = con.proveedor
+            ws.cell(row=cont,column=7).value = con.cantidad_caja
+            ws.cell(row=cont,column=8).value = con.cantidad_rb
+            ws.cell(row=cont,column=9).value = con.ubicacion
+            ws.cell(row=cont,column=10).value = con.costo
+            ws.cell(row=cont,column=11).value = con.precio
+            ws.cell(row=cont,column=12).value = con.release
+            cont = cont + 1
+
+        nombre_archivo ="TuboQualtekExcel.xlsx"
+        response = HttpResponse(content_type="application/ms-excel")
+        contenido = "attachment; filename={0}".format(nombre_archivo)
+        response["Content-Disposition"] = contenido
+        wb.save(response)
+        return response
+################################################## EXCEL Reporte ##########################################################
+
+################################################## EXCEL Reporte ##########################################################
+class ReporteCQExcel(TemplateView):
+    def get(self, request, *args, **kwargs):
+        conta = Producto.objects.all().filter(proveedor='Qualtek').order_by('medida')
+        wb = Workbook()
+        ws = wb.active
+        ws['A1'] = 'Código'
+
+
+        ws['B1'] = 'Descripcion'
+        ws['C1'] = 'Unidad'
+        ws['D1'] = 'Medida'
+        ws['E1'] = 'Existencia'
+        ws['F1'] = 'Proveedor'
+        ws['G1'] = 'Cantidad x Caja'
+        ws['H1'] = 'Cantidad x Rollo/Bolsa'
+        ws['I1'] = 'Ubicacion'
+        ws['J1'] = 'Costo'
+        ws['K1'] = 'Precio'
+        ws['L1'] = 'Release'
+        cont=2
+
+        for con in conta:
+            ws.cell(row=cont,column=1).value = con.codigo
+            ws.cell(row=cont,column=2).value = con.descripcion
+            ws.cell(row=cont,column=3).value = con.unidad
+            ws.cell(row=cont,column=4).value = con.medida
+            ws.cell(row=cont,column=5).value = con.existencia
+            ws.cell(row=cont,column=6).value = con.proveedor
+            ws.cell(row=cont,column=7).value = con.cantidad_caja
+            ws.cell(row=cont,column=8).value = con.cantidad_rb
+            ws.cell(row=cont,column=9).value = con.ubicacion
+            ws.cell(row=cont,column=10).value = con.costo
+            ws.cell(row=cont,column=11).value = con.precio
+            ws.cell(row=cont,column=12).value = con.release
+            cont = cont + 1
+
+        nombre_archivo ="CinchosExcel.xlsx"
+        response = HttpResponse(content_type="application/ms-excel")
+        contenido = "attachment; filename={0}".format(nombre_archivo)
+        response["Content-Disposition"] = contenido
+        wb.save(response)
+        return response
+################################################## EXCEL Reporte ##########################################################
+
+################################################## EXCEL Reporte ##########################################################
+class ReporteMExcel(TemplateView):
+    def get(self, request, *args, **kwargs):
+        conta = Producto.objects.all().filter(proveedor='Varios').order_by('medida')
+        wb = Workbook()
+        ws = wb.active
+        ws['A1'] = 'Código'
+
+
+        ws['B1'] = 'Descripcion'
+        ws['C1'] = 'Unidad'
+        ws['D1'] = 'Medida'
+        ws['E1'] = 'Existencia'
+        ws['F1'] = 'Proveedor'
+        ws['G1'] = 'Cantidad x Caja'
+        ws['H1'] = 'Cantidad x Rollo/Bolsa'
+        ws['I1'] = 'Ubicacion'
+        ws['J1'] = 'Costo'
+        ws['K1'] = 'Precio'
+        ws['L1'] = 'Release'
+        cont=2
+
+        for con in conta:
+            ws.cell(row=cont,column=1).value = con.codigo
+            ws.cell(row=cont,column=2).value = con.descripcion
+            ws.cell(row=cont,column=3).value = con.unidad
+            ws.cell(row=cont,column=4).value = con.medida
+            ws.cell(row=cont,column=5).value = con.existencia
+            ws.cell(row=cont,column=6).value = con.proveedor
+            ws.cell(row=cont,column=7).value = con.cantidad_caja
+            ws.cell(row=cont,column=8).value = con.cantidad_rb
+            ws.cell(row=cont,column=9).value = con.ubicacion
+            ws.cell(row=cont,column=10).value = con.costo
+            ws.cell(row=cont,column=11).value = con.precio
+            ws.cell(row=cont,column=12).value = con.release
+            cont = cont + 1
+
+        nombre_archivo ="MiscelaneaExcel.xlsx"
+        response = HttpResponse(content_type="application/ms-excel")
+        contenido = "attachment; filename={0}".format(nombre_archivo)
+        response["Content-Disposition"] = contenido
+        wb.save(response)
+        return response
+################################################## EXCEL Reporte ##########################################################
+
+################################################## EXCEL Reporte ##########################################################
+class ReporteMExcel(TemplateView):
+    def get(self, request, *args, **kwargs):
+        conta = Producto.objects.all().filter(proveedor='Varios').order_by('medida')
+        medida = request.GET.get('medida','2017-05-04')
+        wb = Workbook()
+        ws = wb.active
+        ws['A1'] = 'Código'
+        ws['B1'] = 'Descripcion'
+        ws['C1'] = 'Unidad'
+        ws['D1'] = 'Medida'
+        ws['E1'] = 'Existencia'
+        ws['F1'] = 'Proveedor'
+        # ws['G1'] = 'Cantidad x Caja'
+        # ws['H1'] = 'Cantidad x Rollo/Bolsa'
+        # ws['I1'] = 'Ubicacion'
+        # ws['J1'] = 'Costo'
+        # ws['K1'] = 'Precio'
+        ws['L1'] = 'Release'
+        cont=2
+
+        for con in conta:
+            ws.cell(row=cont,column=1).value = con.codigo
+            ws.cell(row=cont,column=2).value = con.descripcion
+            ws.cell(row=cont,column=3).value = con.unidad
+            ws.cell(row=cont,column=4).value = con.medida
+            ws.cell(row=cont,column=5).value = con.existencia
+            ws.cell(row=cont,column=6).value = con.proveedor
+            ws.cell(row=cont,column=7).value = con.cantidad_caja
+            ws.cell(row=cont,column=8).value = con.cantidad_rb
+            ws.cell(row=cont,column=9).value = con.ubicacion
+            ws.cell(row=cont,column=10).value = con.costo
+            ws.cell(row=cont,column=11).value = con.precio
+            ws.cell(row=cont,column=12).value = con.release
+            cont = cont + 1
+
+        nombre_archivo ="MiscelaneaExcel.xlsx"
         response = HttpResponse(content_type="application/ms-excel")
         contenido = "attachment; filename={0}".format(nombre_archivo)
         response["Content-Disposition"] = contenido
