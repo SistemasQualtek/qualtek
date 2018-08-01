@@ -4,6 +4,47 @@
 {% url 'clientes:list_cliente' as lista_clientes %}
 {% url 'clientes:cliente' as cliente %}
 {% url 'home' as home %}
+<script type="text/javascript">
+(function(document) {
+  'use strict';
+
+  var LightTableFilter = (function(Arr) {
+
+    var _input;
+
+    function _onInputEvent(e) {
+      _input = e.target;
+      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+      Arr.forEach.call(tables, function(table) {
+        Arr.forEach.call(table.tBodies, function(tbody) {
+          Arr.forEach.call(tbody.rows, _filter);
+        });
+      });
+    }
+
+    function _filter(row) {
+      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+    }
+
+    return {
+      init: function() {
+        var inputs = document.getElementsByClassName('light-table-filter');
+        Arr.forEach.call(inputs, function(input) {
+          input.oninput = _onInputEvent;
+        });
+      }
+    };
+  })(Array.prototype);
+
+  document.addEventListener('readystatechange', function() {
+    if (document.readyState === 'complete') {
+      LightTableFilter.init();
+    }
+  });
+
+})(document);
+</script>
 <!-- START PAGE CONTENT -->
 <div class="content">
   <!-- START JUMBOTRON -->
@@ -13,7 +54,7 @@
         <!-- START BREADCRUMB -->
          <ol class="breadcrumb">
            <li class="breadcrumb-item"><a href="{{home}}">Home</a></li>
-           <li class="breadcrumb-item active">Lista de Clientes</li>
+           <li class="breadcrumb-item active"><a href="{{lista_clientes}}">Lista Clientes</a></li>
         </ol>
         <!-- END BREADCRUMB -->
       </div>
@@ -26,7 +67,14 @@
 <section class="section">
   <div class="container">
     <h1 class="text-center">Clientes</h1>
-    <div class="row separatedv">
+    <div class="row text-center">
+      {% load staticfiles %}
+			<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+			<div class="col-md-12" id="buscar">
+	      <div class="form-group">
+	        <input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar" autofocus>
+	      </div>
+	    </div>
       <div class="col-lg-12 text-center">
         <a class="" href="{{cliente}}">
           <button type="button" name="button" class="btn btn-default">
@@ -34,6 +82,7 @@
           </button>
         </a>
       </div>
+
           <div class="col-lg-12">
             <table class="table table-hover">
               <tr>
@@ -55,7 +104,7 @@
                 <td class="text-center">{{ objects.email }}</td>
                 <!-- <td class="text-center">{{ objects.telefono }}</td>
                 <td class="text-center">{{ objects.telefono2 }}</td> -->
-                {% if user.is_superuser %}
+                {% if user.is_staff %}
                 <td class="text-right">
                   <a href="{% url "clientes:detail_cliente" objects.id %}">
                     <button type="submit" class="btn btn-info">
@@ -68,18 +117,8 @@
                     </button>
                   </a>
                 </td>
-                {% else %}
-                  {% if user.is_staff %}
-                      <td class="text-right">
-                        <a href="{% url "clientes:detail_cliente" objects.id %}">
-                          <button type="submit" class="btn btn-warning">
-                            <i class="fas fa-pen-square"></i>
-                          </button>
-                        </a>
-                      </td>
                   {% else %}
                   {% endif %}
-                {% endif %}
               </tr>
               {% endfor %}
             </table>

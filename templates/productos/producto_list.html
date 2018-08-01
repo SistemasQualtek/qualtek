@@ -106,7 +106,7 @@
 				<table class="table table-hover">
 						<thead class="bg-dark">
 							<tr>
-								<th class="text-center aling-middle">#</th>
+								<!-- <th class="text-center aling-middle">#</th> -->
 								<th class="text-center aling-middle">Código</th>
 								<!-- <th class="text-center aling-middle">Código de Barras</th> -->
 		            <th class="text-center aling-middle">Descripción</th>
@@ -123,9 +123,9 @@
 						</thead>
 						<tbody>
 							{% for productos in productos %}
-							<tr>
-								<td class="text-center align-middle">{{ productos.id }}</td>
-								<td class="text-center align-middle">{{ productos.codigo }}</td>
+							<tr class="bg-qualtek">
+								<!-- <td class="text-center align-middle">{{ productos.id }}</td> -->
+								<td class="text-center align-middle {%if productos.proveedor == 'Tubo Qualtek'%}bg-qualtek{% elif productos.proveedor == 'Tubo W'%}bg-tubow{% elif productos.proveedor == 'Qualtek'%}bg-cinchos{%else%}bg-varios{%endif%}">{{ productos.codigo }}</td>
 								<!-- <td class="text-center align-middle">
 									{% if productos.barcode %}
 									<img src="{{ productos.barcode.url }}" alt="" width="100%">
@@ -135,7 +135,7 @@
 		            <td class="text-center align-middle">{{ productos.medida }}</td>
 								<td class="text-center align-middle">{{ productos.unidad }}</td>
 								<td class="text-center align-middle">{% if productos.existencia <= 0 %}<strong class="text-danger">{{ productos.existencia }}</strong>{% else %}<strong class="text-acepted">{{ productos.existencia }}</strong>{% endif %}</td>
-								<td class="text-center align-middle">{{ productos.proveedor }}</td>
+								<td class="text-center align-middle">{% if productos.proveedor == 'Tubo Qualtek' %}<strong class="text-warning">{{ productos.proveedor }}</strong>{% elif productos.proveedor == 'Tubo W'%}<strong class="text-danger">{{ productos.proveedor }}</strong>{% elif productos.proveedor == 'Qualtek' %}<strong class="text-primary">{{ productos.proveedor }}</strong>{% else %}<strong class="text-success">{{ productos.proveedor }}</strong>{% endif %}</td>
 								<!-- <td class="text-center align-middle">{{ productos.ubicacion }}</td> -->
 								<td class="text-center align-middle">{{ productos.cantidad_caja }}</td>
 								<td class="text-center align-middle">{{ productos.cantidad_rb }}</td>
@@ -163,6 +163,7 @@
 									{% endif %}
 								</td>
 							</tr>
+
 		        {% endfor %}
 						</tbody>
 					</table>

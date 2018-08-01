@@ -1,6 +1,68 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.http import HttpResponse, HttpResponseRedirect
+from django.template import loader
+from django.shortcuts import render, get_object_or_404
+from .models import Venta
+from .forms import VentaForm
+from productos.models import Producto
+from clientes.models import Cliente
+import pprint
+from django.views.generic.edit import (
+    CreateView,
+    UpdateView,
+    DeleteView
+)
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
-from django.shortcuts import render
+class VentaUpdate(UpdateView):
+    model = Venta
+    fields = ['producto', 'cantidad_requerida','cantidad_entregada','cantidad_faltante','observaciones','estado','orden_corte']
+    success_url = reverse_lazy('ventas:venta_list')
 
-# Create your views here.
+class VentaDelete(DeleteView):
+    model = Venta
+    fields = ['producto', 'cantidad_requerida','cantidad_entregada','cantidad_faltante','observaciones','estado','orden_corte']
+    success_url = reverse_lazy('ventas:venta_list')
+
+def VentaDetail(request,pk):
+    venta = get_object_or_404(Venta, pk=pk)
+    osa = Venta.objects.filter(osa = venta.osa)
+    template = loader.get_template('ventas/venta_detail.html')
+    forma = VentaForm(request.POST, request.FILES)
+    if forma.is_valid():
+        venta2 = Venta()
+        venta.save()
+        venta2.save()
+    context = {
+    'forma': forma,
+    'venta': venta,
+    'osa':osa
+    }
+    if request.user.is_authenticated():
+        return HttpResponse(template.render(context, request))
+    else:
+        return HttpResponseRedirect(reverse('ventas/venta_detail.html', args=(venta.osa,)))
+
+def VentaList(request):
+    querysetv = Venta.objects.all()
+    queryset = Producto.objects.all()
+    querysetc = Cliente.objects.all()
+    if request.method == 'POST':
+        form = VentaForm(request.POST, request.FILES)
+        if form.is_valid():
+            producto = form.save()
+            producto.save()
+            return HttpResponseRedirect('/Ventas/Bitacora/')
+    else:
+        form = VentaForm()
+        template = loader.get_template('ventas/venta_list.html')
+        context = {
+            'form':form,
+            'queryset':queryset,
+            'querysetc':querysetc,
+            'querysetv':querysetv,
+            }
+        return render(request, 'ventas/venta_list.html', context)

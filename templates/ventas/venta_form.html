@@ -12,7 +12,7 @@
 	        <!-- START BREADCRUMB -->
 	         <ol class="breadcrumb">
 						 <li class="breadcrumb-item"><a href="#">Clientes</a></li>
-						 <li class="breadcrumb-item"><a href="{{lista_clientes}}">Lista de Clientes</a></li>
+						 <li class="breadcrumb-item"><a href="#">Lista de Clientes</a></li>
              <li class="breadcrumb-item active">Editar a {{ objects.nombre }} {{ objects.apellidos }}</li>
 	        </ol>
 	        <!-- END BREADCRUMB -->
@@ -24,23 +24,19 @@
 	  <div class="container-fluid container-fixed-lg">
 	    <!-- BEGIN PlACE PAGE CONTENT HERE -->
 	<section class="section">
-		<div class="container">
 			<div class="row separatedv">
 				<div class="col-lg-12 text-center">
-					<h2>Editar a: {{ cliente.empresa }} | {{ cliente.nombre }}</h2>
+					<h2>Editar a {{ objects.nombre }} {{ objects.apellidos }}</h2>
 				</div>
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
-					<form method="post">
+					<form method="post" class="a">
 						{% csrf_token %}
 						{%bootstrap_form form%}
 						<input type="submit" value="Editar" class="btn btn-success"/>
 					</form>
 				</div>
-				<div class="col-md-3">
-
-				</div>
-				</div>
+				<div class="col-md-3"></div>
 			</div>
 		</section>
 	<!-- END PLACE PAGE CONTENT HERE -->

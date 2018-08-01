@@ -8,6 +8,7 @@
 {% url 'users' as users %}
 {% url 'reportes' as reportes %}
 {% url 'clientes:list_cliente' as clientes %}
+{% url 'ventas:ventas_list' as ventas %}
 {% url 'clientes:cliente' as nuevocliente %}
 {% url 'almacen:producto_list' as list_almacen %}
 {% url 'almacen:release' as release %}
@@ -85,9 +86,9 @@
           <li class="">
             <a href="{{ list_almacen }}">Almacen</a>
           </li>
-          <li class="">
+          <!-- <li class="">
             <a href="{{ release }}">Release</a>
-          </li>
+          </li> -->
         </ul>
       </li>
       <li class="">
@@ -98,11 +99,11 @@
         <span class="icon-thumbnail"><i class="fas fa-shopping-cart"></i></span>
         <ul class="sub-menu">
           <li class="">
-            <a href="#">------</a>
+            <a href="{{ventas}}">Lista de Ventas</a>
           </li>
           {% if user.is_authenticated and user.is_staff%}
           <li class="">
-            <a href="#">-------</a>
+            <a href="#">Agregar Venta</a>
           </li>
           {% else %}
           {% endif %}

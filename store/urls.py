@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 from .views import home_page, reportes, contact_page, about_page, login_page, register_page, lista_de_usuarios, AuthDetail,AuthDelete,AuthUpdate
 
 urlpatterns = [
-    ########################   urls marco   ########################
+    ########################   urls qualtek   ########################
     url(r'^admin/', admin.site.urls),
     url(r'^$', home_page,name='home'),
     url(r'^Reportes/$', reportes,name='reportes'),
@@ -38,12 +38,14 @@ urlpatterns = [
     url(r'^borrar/(?P<pk>\d+)', AuthDelete.as_view(), name='delete'),
     url(r'^(?P<pk>\d+)', AuthDetail.as_view(), name='detail'),
     url(r'^editar/(?P<pk>\d+)', AuthUpdate.as_view(), name='edit'),
-    ########################   urls marco   ########################
+    ########################   urls qualtek   ########################
     url(r'^', include('productos.urls', namespace='almacen')),
     ########################   urls clientes   ########################
     url(r'^', include('clientes.urls', namespace='clientes')),
     ########################   urls reportes   ########################
     url(r'^', include('reportes.urls', namespace='reportes')),
+    ########################   urls ventas   ########################
+    url(r'^', include('ventas.urls', namespace='ventas')),
 ]
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

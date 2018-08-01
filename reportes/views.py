@@ -609,11 +609,6 @@ class ReporteMExcel(TemplateView):
         ws['D1'] = 'Medida'
         ws['E1'] = 'Existencia'
         ws['F1'] = 'Proveedor'
-        # ws['G1'] = 'Cantidad x Caja'
-        # ws['H1'] = 'Cantidad x Rollo/Bolsa'
-        # ws['I1'] = 'Ubicacion'
-        # ws['J1'] = 'Costo'
-        # ws['K1'] = 'Precio'
         ws['L1'] = 'Release'
         cont=2
 

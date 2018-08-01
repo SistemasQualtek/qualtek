@@ -1,12 +1,12 @@
 .sidebar-menu{
-  background-color: #0d59b3!important;
+  background-color: #2d2f32!important;
   padding-top: 100px;
 }
 .sidebar-header{
-  background-color: #0d59b3!important;
+  background-color: #2d2f32!important;
   color: #FFFFFF!important;
-  border-top: 2px solid #FFFFFF!important;
-  border-bottom: 2px solid #FFFFFF!important;
+  border-top: 2px solid #838383!important;
+  border-bottom: 2px solid #838383!important;
 }
 .sidebar-overlay-slide{
   background-color: #000000!important;
@@ -14,12 +14,12 @@
   border-bottom: 1px solid #3b3b3b!important;
 }
 .icon-thumbnail{
-  background-color: #FFFFFF!important;
-  color: #0d59b3!important;
+  background-color: #838383!important;
+  color: #2d2f32!important;
 }
 .sub-menu{
-  background-color: #15355b!important;
-  color: #FFFFFF!important;
+  background-color: #2d2f32!important;
+  color: #000000!important;
   border-top: 1px solid #3b3b3b!important;
   border-bottom: 1px solid #3b3b3b!important;
 }
@@ -188,7 +188,7 @@ text-ligth{
   color: transparent!important;
 }
 .bg-dark{
-  background: #000000!important;
+  background: #2d2f32!important;
   color: #FFFFFF!important;
 }
 .drop{
@@ -234,3 +234,39 @@ text-ligth{
   height: 700px!important;
   width: 100%!important;
 }
+.separatedsearch{
+  padding-top: 200px !important;
+}
+.headfactura{
+  height: 170px !important;
+  padding-top: 150px !important;
+  padding-bottom: 150px !important;
+}
+.clientefactura{
+  height: 150px !important;
+  padding-top: 50px!important;
+}
+.ombligo{
+  height: 250px !important;
+}
+.obserfacturas{
+  height: 76px !important;
+}
+.footerfacturas{
+  height: 500px !important;
+  padding-top: 480px!important;
+}
+.headimagen{
+  padding: 50px!important;
+}
+.acheerredos{
+  border-color: #000000 2px !important;
+}
+.checks{
+  margin-top: 40px!important;
+}
+/* .table-hoversa:hover{
+  background-color: #23d923!important;
+  opacity: .8;
+  color: #000000!important;
+} */

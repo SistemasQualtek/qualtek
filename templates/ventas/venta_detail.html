@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<link href="{% static 'dashbord/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'dashbord/css/css.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'dashbord/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'dashbord/css/fontastic.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'dashbord/css/grasp_mobile_progress_circle-1.0.0.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'dashbord/css/jquery.mCustomScrollbar.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'dashbord/css/style.default.css' %}" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+		<title></title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row headfactura">
+				<div class="col-md-3">
+					<img src="{% static 'img/azul-transparente.png' %}" alt="LogoQualtek" width="100%">
+				</div>
+				<div class="col-md-6 text-center align-bottom">
+				</div>
+				<div class="col-md-3 text-right">
+					<p>Fecha: {{venta.fecha_pedido}}</p>
+					<p>Vendedor: {{venta.culpable}}</p>
+					<hr class='acheerredos'>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-md-3">
+
+				</div>
+				<div class="col-md-6 text-center align-middle">
+					<h1>Orden de Salida de Almacen</h1>
+					<h2>{{venta.osa}}</h2>
+					<br>
+					<h3>Estado: {{venta.estado}}</h3>
+				</div>
+				<div class="col-md-3">
+
+				</div>
+			</div>
+			<div class="row clientefactura">
+				<div class="col-md-12 text-center">
+					<h4>Cliente</h4>
+					<p>{{venta.cliente}}</p>
+					<!-- <p>Empresa:</p>
+					<p>Dirección:</p>
+					<p>Telefonos:</p>
+					<p>Telefonos:</p>
+					<p>Correo Electronico:</p> -->
+				</div>
+			</div>
+			<div class="row obserfacturas">
+				<div class="col-md-12">
+					<h2>Observaciones</h2>
+					<p>{{venta.observaciones}}</p>
+				</div>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-1"></div>
+				<div class="col-md-4 checks">
+					<p>_____________________________________</p>
+					<p>Recolector</p>
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-4 checks">
+					<p>_____________________________________</p>
+					<p>Almacen</p>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div class="row ombligo">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<table class="table">
+						<thead class="bg-dark">
+							<th class="text-center">Producto</th>
+							<th class="text-center">Unidad</th>
+							<th class="text-center">Cantidad Requerida</th>
+							<th class="text-center">Orden de Corte</th>
+
+						</thead>
+						<tbody>
+							{% for productos in osa %}
+							<tr>
+								<td class="text-center align-top">{{productos.producto}}</td>
+								<td class="text-center align-top">{{productos.unidad}}</td>
+								<td class="text-center align-top">{{productos.cantidad_requerida}}</td>
+								<td class="text-center align-top">{{productos.orden_corte}}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row footerfacturas text-center">
+					<div class="col-md-2"></div>
+					<div class="col-md-8">
+						<p>Cerrada de la Virgen #18, Colonia Ejido de Santa Cruz Xochitepec, Xochimilco CDMX C.P.16100</p>
+					</div>
+					<div class="col-md-2"></div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</body>
+</html>
