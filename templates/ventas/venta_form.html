@@ -11,9 +11,9 @@
 	      <div class="inner">
 	        <!-- START BREADCRUMB -->
 	         <ol class="breadcrumb">
-						 <li class="breadcrumb-item"><a href="#">Clientes</a></li>
-						 <li class="breadcrumb-item"><a href="#">Lista de Clientes</a></li>
-             <li class="breadcrumb-item active">Editar a {{ objects.nombre }} {{ objects.apellidos }}</li>
+						 <li class="breadcrumb-item"><a href="#">Home</a></li>
+						 <li class="breadcrumb-item"><a href="#">Bitacora</a></li>
+             <li class="breadcrumb-item active">Editar a {{ venta.producto }}--{{ venta.cliente }}</li>
 	        </ol>
 	        <!-- END BREADCRUMB -->
 	      </div>
@@ -26,13 +26,42 @@
 	<section class="section">
 			<div class="row separatedv">
 				<div class="col-lg-12 text-center">
-					<h2>Editar a {{ objects.nombre }} {{ objects.apellidos }}</h2>
+					<h2>Editar a {{ venta.producto }} para "{{ venta.cliente }}"</h2>
 				</div>
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
 					<form method="post" class="a">
 						{% csrf_token %}
-						{%bootstrap_form form%}
+						<!-- {%bootstrap_form form %} -->
+						<div class="form-group">
+							<label class="control-label" for="id_paqueteria">Paqueteria</label>
+							<input value="{{venta.paqueteria}}" type="text" name="paqueteria" title="" id="id_paqueteria" maxlength="255" placeholder="Paqueteria" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="id_factura">Factura</label>
+							<input value="{{venta.factura}}" type="number" name="factura" title="" placeholder="Factura" class="form-control" id="id_factura" />
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="id_observaciones">Observaciones</label>
+							<input value="{{venta.observaciones}}" type="text" name="observaciones" title="" id="id_observaciones" maxlength="255" placeholder="Observaciones" class="form-control" />
+						</div>
+						<div class="form-group">
+	            <label class="control-label" for="estado">Estado</label>
+	            <select name="estado" name="estado" title="" id="estado" maxlength="255" class="form-control">
+								<option value="{{venta.estado}}">{{venta.estado}}</option>
+								<option value="Armada">Armada</option>
+								<option value="Entregada">Entregada</option>
+								<option value="Cancelada">Cancelada</option>
+							</select>
+	          </div>
+						{% if user.is_superuser %}
+						<div class="form-group">
+							<div>
+								<label for="id_descontado">
+									<input value="False" type="checkbox" name="descontado" class="" id="id_descontado" /> Descontado</label>
+								</div>
+							</div>
+							{% endif %}
 						<input type="submit" value="Editar" class="btn btn-success"/>
 					</form>
 				</div>
@@ -44,5 +73,10 @@
 	<!-- END CONTAINER FLUID -->
 	</div>
 	<!-- END PAGE CONTENT -->
-
+<script type="text/javascript">
+$(document).ready(function () {
+  var elemen = document.getElementsByClassName("checkbox")[0];
+  elemen.classList..addClass("checkbox");
+});
+</script>
 {% endblock %}

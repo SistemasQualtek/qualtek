@@ -7,33 +7,41 @@ unidad=(('---------','---------'),('METROS','METROS'), ('PZS','PZS'))
 class VentaForm(forms.ModelForm):
     class Meta:
         model = Venta
-        fields = '__all__'
+        fields = ['osa', 'producto','oc', 'unidad', 'cliente', 'no_part_cli', 'fecha_pedido', 'cantidad_requerida', 'cantidad_entregada', 'cantidad_faltante', 'fecha_entrega', 'estado', 'culpable', 'orden_corte']
         labels ={
-            'osa':'O. S. A.',
-            'factura':'Factura',
+            'osa':'Orden de Salida Almacen',
             'producto':'Producto',
+            'oc':'Orden de Compra',
             'unidad':'Unidad',
             'cliente':'Cliente',
+            'no_part_cli':'No. de Parte del Cliente',
             'fecha_pedido':'Fecha de Pedido',
             'cantidad_requerida':'Cantidad Requerida',
+            'cantidad_entregada':'Cantidad Entregada',
+            'cantidad_faltante':'Cantidad Faltante',
             'fecha_entrega':'Fecha de Entrega',
-            'observaciones':'Observaciones',
             'estado':'Estado',
             'culpable':'Culpable',
             'orden_corte':'Orden de Corte',
         }
         widgets = {
-            'factura':TextInput(attrs={
+            'osa':TextInput(attrs={
                 'class':'form-control',
-                'id':'factura',
-                'name':'factura',
-                'placeholder':'Factura'
+                'id':'osa',
+                'name':'osa',
+                'placeholder':'Orden de Salida Almacen'
             }),
             'producto':forms.Select(attrs={
                 'class':'form-control',
                 'id':'producto',
                 'name':'producto',
                 'placeholder':'Producto',
+            }),
+            'oc':TextInput(attrs={
+                'class':'form-control',
+                'id':'oc',
+                'name':'oc',
+                'placeholder':'Orden de Compra'
             }),
             'unidad':forms.Select(attrs={
                 'class':'form-control',
@@ -46,6 +54,12 @@ class VentaForm(forms.ModelForm):
                 'id':'cliente',
                 'name':'cliente',
             }),
+            'no_part_cli':TextInput(attrs={
+                'class':'form-control',
+                'id':'no_part_cli',
+                'name':'no_part_cli',
+                'placeholder':'No. de Parte del Cliente',
+            }),
             'fecha_pedido':SelectDateWidget(),
             'cantidad_requerida':TextInput(attrs={
                 'class':'form-control',
@@ -53,13 +67,19 @@ class VentaForm(forms.ModelForm):
                 'name':'cantidad_requerida',
                 'placeholder':'Cantidad Requerida',
             }),
-            'fecha_entrega':SelectDateWidget(),
-            'observaciones':Textarea(attrs={
+            'cantidad_entregada':TextInput(attrs={
                 'class':'form-control',
-                'id':'observaciones',
-                'name':'observaciones',
-                'placeholder':'Observaciones...',
+                'id':'cantidad_entregada',
+                'name':'cantidad_entregada',
+                'placeholder':'Cantidad Entregada ',
             }),
+            'cantidad_faltante':TextInput(attrs={
+                'class':'form-control',
+                'id':'cantidad_faltante',
+                'name':'cantidad_faltante',
+                'placeholder':'Cantidad Faltante ',
+            }),
+            'fecha_entrega':SelectDateWidget(),
             'estado': forms.Select(attrs={
                 'id': 'estado',
                 'class':'form-control',

@@ -19,13 +19,13 @@ User = get_user_model()
 
 class VentaUpdate(UpdateView):
     model = Venta
-    fields = ['producto', 'cantidad_requerida','cantidad_entregada','cantidad_faltante','observaciones','estado','orden_corte']
-    success_url = reverse_lazy('ventas:venta_list')
+    fields = ['paqueteria','factura', 'observaciones','descontado','estado']
+    success_url = reverse_lazy('ventas:ventas_list')
 
 class VentaDelete(DeleteView):
     model = Venta
-    fields = ['producto', 'cantidad_requerida','cantidad_entregada','cantidad_faltante','observaciones','estado','orden_corte']
-    success_url = reverse_lazy('ventas:venta_list')
+    fields = ['oas','prdoucto','unidad','oc', 'cliente','no_part_cli', 'paqueteria', 'factura','fecha_pedido','cantidad_requerida','cantidad_entregada','cantidad_faltante','fecha_entrega', 'observaciones', 'estado', 'culpable','frecolector', 'falmacen', 'orden_corte']
+    success_url = reverse_lazy('ventas:ventas_list')
 
 def VentaDetail(request,pk):
     venta = get_object_or_404(Venta, pk=pk)
@@ -44,10 +44,10 @@ def VentaDetail(request,pk):
     if request.user.is_authenticated():
         return HttpResponse(template.render(context, request))
     else:
-        return HttpResponseRedirect(reverse('ventas/venta_detail.html', args=(venta.osa,)))
+        return HttpResponseRedirect(reverse('ventas/venta_detail.html', context))
 
 def VentaList(request):
-    querysetv = Venta.objects.all()
+    querysetv = Venta.objects.all().order_by('osa')
     queryset = Producto.objects.all()
     querysetc = Cliente.objects.all()
     if request.method == 'POST':

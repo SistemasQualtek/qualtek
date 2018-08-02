@@ -100,14 +100,14 @@ function checkTime(i) {
     return i;
 }
 
-$(document).ready(function () {
-  var element = document.getElementsByClassName("checkbox")[0];
-  element.classList..addClass("checkbox");
-  var elemento = document.getElementsByClassName("checkbox")[0];
-  elemento.classList.add("checkbox");
-  var elemen = document.getElementsByClassName("checkbox")[0];
-  elemen.classList..addClass("checkbox");
-});
+// $(document).ready(function () {
+//   var element = document.getElementsByClassName("checkbox")[0];
+//   element.classList..addClass("checkbox");
+//   var elemento = document.getElementsByClassName("checkbox")[0];
+//   elemento.classList.add("checkbox");
+//   var elemen = document.getElementsByClassName("checkbox")[0];
+//   elemen.classList..addClass("checkbox");
+// });
 
  $('#cantidad').bind('input', function() {
    qty = $(this).val() // get the current value of the input field.

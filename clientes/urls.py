@@ -10,8 +10,8 @@ from .views import (
 )
 urlpatterns = [
     url(r'^ClienteList/$', ClienteList,name='list_cliente'),
-    url(r'^Cliente/(?P<pk>[0-9]+)/$', views.ClienteDetail, name='detail_cliente'),
-    url(r'^Cliente/nuevo',views.cliente,name="cliente"),
-    url(r'^editar_cliente/(?P<pk>\d+)', login_required(ClienteUpdate.as_view()), name='edit_cliente'),
-    url(r'^borrar_cliente/(?P<pk>\d+)', login_required(ClienteDelete.as_view()), name='delete_cliente'),
+    url(r'^Cliente/Detalle/(?P<pk>[0-9]+)/$', views.ClienteDetail, name='detail_cliente'),
+    url(r'^Nuevo/Cliente/',views.cliente,name="cliente"),
+    url(r'^Editar/Cliente/(?P<pk>\d+)', login_required(ClienteUpdate.as_view()), name='edit_cliente'),
+    url(r'^Borrar/Cliente/(?P<pk>\d+)', login_required(ClienteDelete.as_view()), name='delete_cliente'),
 ]

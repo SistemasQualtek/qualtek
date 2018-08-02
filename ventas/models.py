@@ -24,7 +24,7 @@ class Venta(models.Model):
     no_part_cli = models.CharField(max_length=255, null=True, blank=True)
     paqueteria = models.CharField(max_length=255, null=True, blank=True)
     factura = models.IntegerField(null=True, blank=True)
-    fecha_pedido = models.DateField(auto_now_add=True)
+    fecha_pedido = models.DateField()
     cantidad_requerida = models.IntegerField()
     cantidad_entregada = models.IntegerField(default=0)
     cantidad_faltante = models.IntegerField(default=0)
@@ -35,6 +35,7 @@ class Venta(models.Model):
     frecolector = models.CharField(max_length=255, blank=True, null=True, default='Ventas')
     falmacen = models.CharField(max_length=255, blank=True, null=True, default='Sistemas')
     orden_corte = models.CharField(max_length=255, blank=True, null=True)
-    descontaado = models.BooleanField(default=False)
+    descontado = models.BooleanField(default=False)
+
     def __str__(self):
         return self.osa

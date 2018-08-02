@@ -35,9 +35,9 @@ urlpatterns = [
     url(r'^user_list/$', lista_de_usuarios,name='users'),
     url(r'^register/$', register_page,name='register'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
-    url(r'^borrar/(?P<pk>\d+)', AuthDelete.as_view(), name='delete'),
-    url(r'^(?P<pk>\d+)', AuthDetail.as_view(), name='detail'),
-    url(r'^editar/(?P<pk>\d+)', AuthUpdate.as_view(), name='edit'),
+    url(r'^borrar/usuario/(?P<pk>\d+)', AuthDelete.as_view(), name='delete'),
+    url(r'^usuario/(?P<pk>\d+)', AuthDetail.as_view(), name='detail'),
+    url(r'^editar/usuario(?P<pk>\d+)', AuthUpdate.as_view(), name='edit'),
     ########################   urls qualtek   ########################
     url(r'^', include('productos.urls', namespace='almacen')),
     ########################   urls clientes   ########################
