@@ -32,44 +32,11 @@
 
 				</div>
 				<div class="col-md-6 text-center align-middle">
-					<h1>Orden de Salida de Almacen</h1>
-					<h2>{{venta.osa}}</h2>
-					<br>
-					<h3>Estado: {{venta.estado}}</h3>
+					<h1>Estado: {{venta.estado}}</h1>
 				</div>
 				<div class="col-md-3">
 
 				</div>
-			</div>
-			<div class="row clientefactura">
-				<div class="col-md-12 text-center">
-					<h4>Cliente</h4>
-					<p>{{venta.cliente}}</p>
-					<!-- <p>Empresa:</p>
-					<p>Dirección:</p>
-					<p>Telefonos:</p>
-					<p>Telefonos:</p>
-					<p>Correo Electronico:</p> -->
-				</div>
-			</div>
-			<div class="row obserfacturas">
-				<!-- <div class="col-md-12">
-					<h2>Observaciones</h2>
-					<p>{{venta.observaciones}}</p>
-				</div> -->
-			</div>
-			<div class="row text-center">
-				<div class="col-md-1"></div>
-				<div class="col-md-4 checks">
-					<p>_____________________________________</p>
-					<p>Recolector</p>
-				</div>
-				<div class="col-md-2"></div>
-				<div class="col-md-4 checks">
-					<p>_____________________________________</p>
-					<p>Almacen</p>
-				</div>
-				<div class="col-md-1"></div>
 			</div>
 			<div class="row ombligo">
 				<div class="col-md-2"></div>
@@ -80,10 +47,9 @@
 							<th class="text-center">Unidad</th>
 							<th class="text-center">Cantidad Requerida</th>
 							<th class="text-center">Orden de Corte</th>
-
 						</thead>
 						<tbody>
-							{% for productos in osa %}
+							{% for productos in id %}
 							<tr>
 								<td class="text-center align-top">{{productos.producto}}</td>
 								<td class="text-center align-top">{{productos.unidad}}</td>
@@ -95,18 +61,5 @@
 					</table>
 				</div>
 			</div>
-			<div class="container">
-				<div class="row footerfacturas text-center">
-					<div class="col-md-2"></div>
-					<div class="col-md-8">
-						<p>Cerrada de la Virgen #18, Colonia Ejido de Santa Cruz Xochitepec, Xochimilco CDMX C.P.16100</p>
-					</div>
-					<div class="col-md-2"></div>
-				</div>
-			</div>
-		</div>
-
-
-
 	</body>
 </html>

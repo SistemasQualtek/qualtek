@@ -1,9 +1,50 @@
 {% extends 'base.html' %}
 {% block head_title %}| Lista de Clientes{% endblock %}
 {% block content %}
-{% url 'ventas:ventas_list' as ventas_list %}
+{% url 'clientes:ventas_list' as ventas_list %}
 {% url 'home' as home %}
 {% load bootstrap3 %}
+<script type="text/javascript">
+(function(document) {
+  'use strict';
+
+  var LightTableFilter = (function(Arr) {
+
+    var _input;
+
+    function _onInputEvent(e) {
+      _input = e.target;
+      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+      Arr.forEach.call(tables, function(table) {
+        Arr.forEach.call(table.tBodies, function(tbody) {
+          Arr.forEach.call(tbody.rows, _filter);
+        });
+      });
+    }
+
+    function _filter(row) {
+      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+    }
+
+    return {
+      init: function() {
+        var inputs = document.getElementsByClassName('light-table-filter');
+        Arr.forEach.call(inputs, function(input) {
+          input.oninput = _onInputEvent;
+        });
+      }
+    };
+  })(Array.prototype);
+
+  document.addEventListener('readystatechange', function() {
+    if (document.readyState === 'complete') {
+      LightTableFilter.init();
+    }
+  });
+
+})(document);
+</script>
 <!-- START PAGE CONTENT -->
 <div class="content">
   <!-- START JUMBOTRON -->
@@ -26,6 +67,13 @@
 <section class="section">
 
     <h1 class="text-center">Bitacora</h1>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <div aling="center" class="col-md-12 text-center" id="buscar">
+      <div class="form-group text-center">
+        <input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar" autofocus>
+      </div>
+    </div>
     <div class="row separatedv">
       <div class="col-lg-12 text-center">
         <button type="button" name="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
@@ -36,7 +84,7 @@
             <table class="table table-hover">
               <tr>
                 <thead class="bg-dark">
-                  <th class="text-center">O.S.A.</th>
+                  <!-- <th class="text-center">O.S.A.</th> -->
                   <th class="text-center">Producto</th>
                   <th class="text-center">Unidad</th>
                   <th class="text-center">O. C.</th>
@@ -53,7 +101,7 @@
                   <th class="text-center">Observaciones</th>
                   <th class="text-center">Estado</th>
                   <th class="text-center">Culpable</th>
-                  <th class="text-center">Checado</th>
+                  <!-- <th class="text-center">Checado</th> -->
                   <th class="text-center">Acciones</th>
                   {% if user.is_superuser %}
                   {% endif %}
@@ -62,7 +110,7 @@
               {% for objects in querysetv %}
               <tr>
 
-                <td class="text-center">{{ objects.osa }}</td>
+                <!-- <td class="text-center">{{ objects.osa }}</td> -->
                 <td class="text-center">{{ objects.producto }}</td>
                 <td class="text-center">{{ objects.unidad }}</td>
                 <td class="text-center">{{ objects.oc }}</td>
@@ -80,20 +128,20 @@
                 <td class="text-center">{{ objects.estado }}</td>
                 <td class="text-center">{{ objects.culpable }}</td>
 
-                <td class="text-center">{% if objects.descontado == True %} <strong class="text-success">Si</strong> {% else %} <strong class="text-danger">No</strong> {% endif %} </td>
+                <!-- <td class="text-center">{% if objects.descontado == True %} <strong class="text-success">Si</strong> {% else %} <strong class="text-danger">No</strong> {% endif %} </td> -->
 
                 <td class="text-right">
-                  <a href="{% url "ventas:ventas_detail" objects.id %}" target="blank">
+                  <a href="{% url "clientes:ventas_detail" objects.id %}" target="blank">
                     <button type="submit" class="btn btn-info">
                       <i class="far fa-file"></i>
                     </button>
                   </a>
-                  <a href="{% url "ventas:ventas_delete" objects.id %}">
+                  <a href="{% url "clientes:ventas_delete" objects.id %}">
                     <button type="submit" class="btn btn-danger">
                       <i class="fas fa-eraser"></i>
                     </button>
                   </a>
-                  <a href="{% url "ventas:ventasedit" objects.id %}">
+                  <a href="{% url "clientes:ventasedit" objects.id %}">
 										<button type="button" class="btn btn-info btn-block">
 											<i class="fas fa-pencil-alt"></i>
 										</button>
@@ -118,18 +166,16 @@
       <div class="modal-body">
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="control-label" for="osa">Orden de Salida Almacen</label>
             <input type="text" name="osa" name="osa" title="" class="form-control" placeholder="Orden de Salida Almacen" id="osa" />
-          </div>
+          </div> -->
           <div class="form-group">
             <label class="control-label" for="producto">Producto</label>
             <select name="producto" name="producto" title="" class="form-control" maxlength="255" placeholder="Producto" id="producto">
               <option value="null"><strong class="text-select-pos">----------------------------------</strong></option>
               {% for obj in queryset %}
-              {% if obj.existencia > 0 %}
-              <option value="{{obj.descripcion}}"><strong class="text-select-pos">{{obj.descripcion}}</strong></option>
-              {% endif %}
+                <option value="{{obj.descripcion}}"><strong class="text-select-pos">({{obj.id}}) {{obj.descripcion}}</strong></option>
               {% endfor %}
             </select>
           </div>

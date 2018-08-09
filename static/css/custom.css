@@ -237,34 +237,7 @@ text-ligth{
 .separatedsearch{
   padding-top: 200px !important;
 }
-.headfactura{
-  height: 170px !important;
-  padding-top: 150px !important;
-  padding-bottom: 150px !important;
-}
-.clientefactura{
-  height: 150px !important;
-  padding-top: 50px!important;
-}
-.ombligo{
-  height: 250px !important;
-}
-.obserfacturas{
-  height: 76px !important;
-}
-.footerfacturas{
-  height: 500px !important;
-  padding-top: 480px!important;
-}
-.headimagen{
-  padding: 50px!important;
-}
-.acheerredos{
-  border-color: #000000 2px !important;
-}
-.checks{
-  margin-top: 40px!important;
-}
+
 /* .table-hoversa:hover{
   background-color: #23d923!important;
   opacity: .8;

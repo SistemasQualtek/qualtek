@@ -45,7 +45,7 @@ urlpatterns = [
     ########################   urls reportes   ########################
     url(r'^', include('reportes.urls', namespace='reportes')),
     ########################   urls ventas   ########################
-    url(r'^', include('ventas.urls', namespace='ventas')),
+    # url(r'^', include('ventas.urls', namespace='ventas')),
 ]
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -2,6 +2,47 @@
 	{% block head_title %}| Detalle de {{ cliente.nombre }} {{ cliente.apellidos }}{% endblock %}
 	{% block content %}
 	{% url 'clientes:list_cliente' as lista_clientes %}
+	<script type="text/javascript">
+	(function(document) {
+	  'use strict';
+
+	  var LightTableFilter = (function(Arr) {
+
+	    var _input;
+
+	    function _onInputEvent(e) {
+	      _input = e.target;
+	      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+	      Arr.forEach.call(tables, function(table) {
+	        Arr.forEach.call(table.tBodies, function(tbody) {
+	          Arr.forEach.call(tbody.rows, _filter);
+	        });
+	      });
+	    }
+
+	    function _filter(row) {
+	      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+	      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+	    }
+
+	    return {
+	      init: function() {
+	        var inputs = document.getElementsByClassName('light-table-filter');
+	        Arr.forEach.call(inputs, function(input) {
+	          input.oninput = _onInputEvent;
+	        });
+	      }
+	    };
+	  })(Array.prototype);
+
+	  document.addEventListener('readystatechange', function() {
+	    if (document.readyState === 'complete') {
+	      LightTableFilter.init();
+	    }
+	  });
+
+	})(document);
+	</script>
 	<!-- START PAGE CONTENT -->
 	<div class="content">
 	  <!-- START JUMBOTRON -->
@@ -82,11 +123,329 @@
 			</div>
 		</div>
 	</section>
+	<div class="col-md-12 text-center">
+		<hr>
+		<h1>Lista de Productos</h1>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center" id="buscar">
+				<div class="form-group">
+					<input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar" autofocus>
+				</div>
+				<div class="col-lg-12 text-center">
+	        <button type="button" name="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+	          Registrar O. C. <i class="far fa-edit"></i>
+	        </button>
+	      </div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12">
+		<table class="table table-hover">
+			<tr>
+				<thead class="bg-dark">
+					<!-- <th class="text-center">O.S.A.</th> -->
+					<th class="text-center">Producto</th>
+					<th class="text-center">Unidad</th>
+					<th class="text-center">O. C.</th>
+					<th class="text-center">Cliente</th>
+					<th class="text-center">No. de Parte Cliente</th>
+					<th class="text-center">Paqueteria</th>
+					<th class="text-center">Factura</th>
+					<th class="text-center">Fecha de Pedido</th>
+					<th class="text-center">Cantidad Requerida</th>
+					<th class="text-center">Cantidad Entregada</th>
+					<th class="text-center">Cantidad Faltante</th>
+					<th class="text-center">Fecha de Entrega</th>
+					<th class="text-center">Orden de Corte</th>
+					<th class="text-center">Observaciones</th>
+					<th class="text-center">Estado</th>
+					<th class="text-center">Culpable</th>
+					<!-- <th class="text-center">Checado</th> -->
+					<th class="text-center">Acciones</th>
+					{% if user.is_superuser %}
+					{% endif %}
+				</thead>
+			</tr>
+			{% for objects in bitacora %}
+
+			<tr>
+
+				<!-- <td class="text-center">{{ objects.osa }}</td> -->
+				<td class="text-center">{{ objects.producto }}</td>
+				<td class="text-center">{{ objects.unidad }}</td>
+				<td class="text-center">{{ objects.oc }}</td>
+				<td class="text-center">{{ objects.cliente }}</td>
+				<td class="text-center">{{ objects.no_part_cli }}</td>
+				<td class="text-center">{{ objects.paqueteria }}</td>
+				<td class="text-center">{{ objects.factura }}</td>
+				<td class="text-center">{{ objects.fecha_pedido }}</td>
+				<td class="text-center">{{ objects.cantidad_requerida }}</td>
+				<td class="text-center">{{ objects.cantidad_entregada }}</td>
+				<td class="text-center">{{ objects.cantidad_faltante }}</td>
+				<td class="text-center">{{ objects.fecha_entrega }}</td>
+				<td class="text-center">{{ objects.orden_corte }}</td>
+				<td class="text-center">{{ objects.observaciones }}</td>
+				<td class="text-center">{{ objects.estado }}</td>
+				<td class="text-center">{{ objects.culpable }}</td>
+
+				<!-- <td class="text-center">{% if objects.descontado == True %} <strong class="text-success">Si</strong> {% else %} <strong class="text-danger">No</strong> {% endif %} </td> -->
+
+				<td class="text-right">
+					<!-- <a href="{% url "clientes:ventas_detail" objects.id %}" target="blank">
+						<button type="submit" class="btn btn-info">
+							<i class="far fa-file"></i>
+						</button>
+					</a> -->
+					<a href="{% url "clientes:ventas_delete" objects.id %}">
+						<button type="submit" class="btn btn-danger">
+							<i class="fas fa-eraser"></i>
+						</button>
+					</a>
+					<a href="{% url "clientes:ventasedit" objects.id %}">
+						<button type="button" class="btn btn-info btn-block">
+							<i class="fas fa-pencil-alt"></i>
+						</button>
+					</a>
+				</td>
+			</tr>
+
+			{% endfor %}
+		</table>
+	</div>
 <!-- END PLACE PAGE CONTENT HERE -->
 </div>
 <!-- END CONTAINER FLUID -->
 </div>
 <!-- END PAGE CONTENT -->
+<!-- Inicio Modal Nuevo Producto -->
+<div id="myModal" class="modal fade" role="dialog">
+<div class="modal-dialog" style="max-width:900px; min-width:900px;">
+	<!-- Modal content-->
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Agregar Producto</h4>
+		</div>
+		<div class="modal-body">
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<!-- <div class="form-group">
+					<label class="control-label" for="osa">Orden de Salida Almacen</label>
+					<input type="text" name="osa" name="osa" title="" class="form-control" placeholder="Orden de Salida Almacen" id="osa" />
+				</div> -->
+				<div class="form-group">
+					<label class="control-label" for="producto">Producto</label>
+					<select name="producto" name="producto" title="" class="form-control" maxlength="255" placeholder="Producto" id="producto">
+						<option value="null"><strong class="text-select-pos">----------------------------------</strong></option>
+						{% for obj in queryset %}
+							<option value="{{obj.descripcion}}"><strong class="text-select-pos">({{obj.id}}) {{obj.descripcion}}</strong></option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="oc">Orden de Compra</label>
+					<input type="text" name="oc" name="oc" title="" id="oc" maxlength="255" placeholder="Orden de Compra" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="unidad">Unidad</label>
+					<select name="unidad" name="unidad" title="" class="form-control" maxlength="255" placeholder="Unidad" id="unidad">
+						<option value="----------------------------------">----------------------------------</option>
+						<option value="METROS">METROS</option>
+						<option value="PZS">PZS</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="cliente">Cliente</label>
+					<select name="cliente" name="cliente" title="" class="form-control" maxlength="255" id="cliente">
+						<option value="null">----------------------------------</option>
+						{% for obj in querysetc %}
+						<option value="{{obj.empresa}}">{{obj.empresa}}-{{obj.nombre}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="no_part_cli">No. de Parte del Cliente</label>
+					<input type="text" name="no_part_cli" name="no_part_cli" title="" id="no_part_cli" maxlength="255" placeholder="No. de Parte del Cliente" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="id_fecha_pedido_day">Fecha de Pedido</label>
+					<div class="row bootstrap3-multi-input">
+						<div class="col-xs-4">
+							<select name="fecha_pedido_day" title="" required id="id_fecha_pedido_day" class="form-control">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+								<option value="24">24</option>
+								<option value="25">25</option>
+								<option value="26">26</option>
+								<option value="27">27</option>
+								<option value="28">28</option>
+								<option value="29">29</option>
+								<option value="30">30</option>
+								<option value="31">31</option>
+							</select>
+						</div>
+						<div class="col-xs-4">
+							<select name="fecha_pedido_month" title="" required id="id_fecha_pedido_month" class="form-control">
+								<option value="1">Enero</option>
+								<option value="2">Febrero</option>
+								<option value="3">Marzo</option>
+								<option value="4">Abril</option>
+								<option value="5">Mayo</option>
+								<option value="6">Junio</option>
+								<option value="7">Julio</option>
+								<option value="8">Agosto</option>
+								<option value="9">Septiembre</option>
+								<option value="10">Octubre</option>
+								<option value="11">Noviembre</option>
+								<option value="12">Diciembre</option>
+							</select>
+						</div>
+						<div class="col-xs-4">
+							<select name="fecha_pedido_year" title="" required id="id_fecha_pedido_year" class="form-control">
+								<option value="2018">2018</option>
+								<option value="2019">2019</option>
+								<option value="2020">2020</option>
+								<option value="2021">2021</option>
+								<option value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+								<option value="2025">2025</option>
+								<option value="2026">2026</option>
+								<option value="2027">2027</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="cantidad_requerida">Cantidad Requerida</label>
+					<input type="text" name="cantidad_requerida" name="cantidad_requerida" title="" required class="form-control" placeholder="Cantidad Requerida" id="cantidad_requerida" />
+				</div>
+				<div class="form-group">
+					<!-- <label class="control-label" for="cantidad_entregada">Cantidad Entregada</label> -->
+					<input type="hidden" name="cantidad_entregada" value="0" name="cantidad_entregada" title="" required class="form-control" placeholder="Cantidad Entregada " id="cantidad_entregada" />
+				</div>
+				<div class="form-group">
+					<!-- <label class="control-label" for="cantidad_faltante">Cantidad Faltante</label> -->
+					<input type="hidden" name="cantidad_faltante" value="0" name="cantidad_faltante" title="" required class="form-control" placeholder="Cantidad Faltante " id="cantidad_faltante" />
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="id_fecha_entrega_day">Fecha de Entrega</label>
+					<div class="row bootstrap3-multi-input">
+						<div class="col-xs-4">
+							<select name="fecha_entrega_day" title="" required id="id_fecha_entrega_day" class="form-control">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+								<option value="24">24</option>
+								<option value="25">25</option>
+								<option value="26">26</option>
+								<option value="27">27</option>
+								<option value="28">28</option>
+								<option value="29">29</option>
+								<option value="30">30</option>
+								<option value="31">31</option>
+							</select>
+						</div>
+						<div class="col-xs-4">
+							<select name="fecha_entrega_month" title="" required id="id_fecha_entrega_month" class="form-control">
+								<option value="1">Enero</option>
+								<option value="2">Febrero</option>
+								<option value="3">Marzo</option>
+								<option value="4">Abril</option>
+								<option value="5">Mayo</option>
+								<option value="6">Junio</option>
+								<option value="7">Julio</option>
+								<option value="8">Agosto</option>
+								<option value="9">Septiembre</option>
+								<option value="10">Octubre</option>
+								<option value="11">Noviembre</option>
+								<option value="12">Diciembre</option>
+							</select>
+						</div>
+						<div class="col-xs-4">
+							<select name="fecha_entrega_year" title="" required id="id_fecha_entrega_year" class="form-control">
+								<option value="2018">2018</option>
+								<option value="2019">2019</option>
+								<option value="2020">2020</option>
+								<option value="2021">2021</option>
+								<option value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+								<option value="2025">2025</option>
+								<option value="2026">2026</option>
+								<option value="2027">2027</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="form-group">
+					<label class="control-label" for="estado">Estado</label>
+					<select name="estado" name="estado" title="" id="estado" maxlength="255" class="form-control"></select>
+				</div> -->
+				<div class="form-group">
+					<input value="{{user}}" type="hidden" name="culpable" name="culpable" title="" id="culpable" maxlength="50" placeholder="Culpable" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="id_orden_corte">Orden de Corte</label>
+					<input type="text" name="orden_corte" title="" id="id_orden_corte" maxlength="255" placeholder="Orden de Corte" class="form-control" />
+				</div>
+
+					<div class="row">
+						<div class="col-md-12 text-right">
+							<button  type="submit" name="submit" class="btn btn-default">Hecho</button>
+						</div>
+					</div>
+				</form>
+		</div>
+	</div>
+</div>
+</div>
+<!-- Fin Modal Nuevo Producto -->
+
+
 <script type="text/javascript">
   $("#money").maskMoney({ formatOnBlur: true, reverse: true, prefix: '$' });
 </script>

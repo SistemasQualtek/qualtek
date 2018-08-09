@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ['localhost','192.168.1.100', 'qqq.qualtekmx.sys']
 INSTALLED_APPS = [
     'productos',
     'clientes',
-    'ventas',
     'suit',
     'bootstrap3',
     'wkhtmltopdf',

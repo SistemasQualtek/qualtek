@@ -12,7 +12,7 @@
 	         <ol class="breadcrumb">
 						 <li class="breadcrumb-item"><a href="#">Clientes</a></li>
  						<li class="breadcrumb-item"><a href="{{lista_clientes}}">Lista Clientes</a></li>
- 						<li class="breadcrumb-item active">Eliminar a {{ cliente.nombre }} {{ cliente.apellidos }}</li>
+ 						<li class="breadcrumb-item active">Eliminar a {{ venta.producto }} para {{ venta.cliente }} de la fecha {{ venta.fecha_pedido }} </li>
 	        </ol>
 	        <!-- END BREADCRUMB -->
 	      </div>
@@ -25,8 +25,8 @@
 	<section class="section">
 	  <div class="container">
 	    <div class="row separatedv">
-				<h5>¿Estás seguro que deseas <strong>Eliminar</strong> a "{{ cliente.empresa }}"?</h5>
-				<p class="slidein"> <strong>{{ cliente.nombre }}</strong> </p>
+				<h5>¿Estás seguro que deseas <strong>Eliminar</strong> a "{{ venta.producto }} para {{ venta.cliente }} de la fecha {{ venta.fecha_pedido }}"?</h5>
+				<p class="slidein"> <strong>{{ venta.producto }} para {{ venta.cliente }} de la fecha {{ venta.fecha_pedido }}</strong> </p>
 				<form method="post">
 					{% csrf_token %}
 					<input type="submit" value="Confirmar" class="btn btn-info" />

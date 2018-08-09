@@ -38,6 +38,14 @@
 							<input value="{{venta.paqueteria}}" type="text" name="paqueteria" title="" id="id_paqueteria" maxlength="255" placeholder="Paqueteria" class="form-control" />
 						</div>
 						<div class="form-group">
+	            <label class="control-label" for="cantidad_requerida">Cantidad Requerida</label>
+	            <input value="{{venta.cantidad_requerida}}" type="text" name="cantidad_requerida" name="cantidad_requerida" title="" required class="form-control" placeholder="Cantidad Requerida" id="cantidad_requerida" />
+	          </div>
+						<div class="form-group">
+							<label class="control-label" for="fecha_entrega">Fecha de Entrega</label>
+							<input class="form-control" type="date" name="fecha_entrega" value="{{venta.fecha_entrega}}">
+						</div>
+						<div class="form-group">
 							<label class="control-label" for="id_factura">Factura</label>
 							<input value="{{venta.factura}}" type="number" name="factura" title="" placeholder="Factura" class="form-control" id="id_factura" />
 						</div>

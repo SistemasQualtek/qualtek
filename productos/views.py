@@ -139,7 +139,7 @@ def Entrada(request,pk):
 class ProductoUpdate(UpdateView):
     model = Producto
     success_url = reverse_lazy('almacen:producto_list')
-    fields = ['codigo', 'descripcion','medida','unidad', 'proveedor', 'existencia', 'costo','precio', 'release']
+    fields = ['codigo', 'descripcion','medida','unidad', 'proveedor','ubicacion', 'existencia', 'costo','precio', 'release']
 class ProductoDelete(DeleteView):
     model = Producto
     success_url = reverse_lazy('almacen:producto_list')
