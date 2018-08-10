@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import random
+import os
 from productos.models import Producto
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -19,10 +20,10 @@ class Cliente(models.Model):
         return self.empresa
 
 class Prod_Cli(models.Model):
-    producto_cliente = models.ForeignKey(Producto, max_length=255,blank=False)
-    empresa_cliente = models.ForeignKey('Cliente', max_length=255,blank=False)
+    producto_cliente = models.ForeignKey(Producto, null=True, blank=True, on_delete=models.CASCADE)
+    empresa_cliente = models.ForeignKey('Cliente', null=True, blank=True, on_delete=models.CASCADE)
     def __str__(self):
-        return self.empresa
+        return self.producto_cliente
 
 
 

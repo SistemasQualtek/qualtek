@@ -8,6 +8,7 @@
 {% url 'users' as users %}
 {% url 'reportes' as reportes %}
 {% url 'clientes:list_cliente' as clientes %}
+{% url 'clientes:pro_cli_list' as proclilist %}
 {% url 'clientes:ventas_list' as ventas %}
 {% url 'clientes:cliente' as nuevocliente %}
 {% url 'almacen:producto_list' as list_almacen %}
@@ -70,7 +71,7 @@
           </li>
           {% if user.is_authenticated and user.is_staff%}
           <li class="">
-            <a href="{{nuevocliente}}">Agregar Cliente</a>
+            <a href="{{proclilist}}">Lista de Productos por Cliente</a>
           </li>
           {% else %}
           {% endif %}

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -72,15 +74,24 @@ def ClienteList(request):
 
 def ClienteDetail(request,pk):
     cliente = get_object_or_404(Cliente, pk=pk)
-    queryset = Producto.objects.all()
     querysetc = Cliente.objects.all()
+    queryset = Prod_Cli.objects.filter(empresa_cliente=cliente)
     bitacora = Venta.objects.filter(cliente=cliente).order_by('fecha_pedido')
-    template = loader.get_template('clientes/cliente_detail.html')
+    if request.method == 'POST':
+        form = VentaForm(request.POST, request.FILES)
+        if form.is_valid():
+            producto = form.save()
+            producto.save()
+            return HttpResponseRedirect('/ClienteList/')
+    else:
+        form = VentaForm()
+        template = loader.get_template('clientes/cliente_detail.html')
     context = {
     'cliente': cliente,
     'bitacora':bitacora,
     'queryset':queryset,
     'querysetc':querysetc,
+    'form':form,
     }
     if request.user.is_authenticated():
         return HttpResponse(template.render(context, request))
@@ -92,12 +103,12 @@ def ClienteDetail(request,pk):
 class VentaUpdate(UpdateView):
     model = Venta
     fields = ['paqueteria','cantidad_requerida','fecha_entrega','factura', 'observaciones','descontado','estado']
-    success_url = reverse_lazy('ventas:ventas_list')
+    success_url = reverse_lazy('clientes:ventas_list')
 
 class VentaDelete(DeleteView):
     model = Venta
     fields = ['prdoucto','unidad','oc', 'cliente','no_part_cli', 'paqueteria', 'factura','fecha_pedido','cantidad_requerida','cantidad_entregada','cantidad_faltante','fecha_entrega', 'observaciones', 'estado', 'culpable','frecolector', 'falmacen', 'orden_corte']
-    success_url = reverse_lazy('ventas:ventas_list')
+    success_url = reverse_lazy('clientes:ventas_list')
 
 def VentaDetail(request,pk):
     venta = get_object_or_404(Venta, pk=pk)
@@ -146,6 +157,7 @@ class ProCliUpdate(UpdateView):
 class ProCliDelete(DeleteView):
     model = Prod_Cli
     success_url = reverse_lazy('clientes:pro_cli_list')
+    fields = ['producto_cliente', 'empresa_cliente']
 
 def Producto_ClienteList(request):
     queryset = Prod_Cli.objects.all().order_by('empresa_cliente')
