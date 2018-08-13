@@ -76,7 +76,7 @@ def ClienteDetail(request,pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     querysetc = Cliente.objects.all()
     queryset = Prod_Cli.objects.filter(empresa_cliente=cliente)
-    bitacora = Venta.objects.filter(cliente=cliente).order_by('fecha_pedido')
+    bitacora = Venta.objects.filter(cliente=cliente).order_by('fecha_entrega')
     if request.method == 'POST':
         form = VentaForm(request.POST, request.FILES)
         if form.is_valid():
@@ -102,7 +102,7 @@ def ClienteDetail(request,pk):
 
 class VentaUpdate(UpdateView):
     model = Venta
-    fields = ['paqueteria','cantidad_requerida','fecha_entrega','factura', 'observaciones','descontado','estado']
+    fields = ['paqueteria','cantidad_requerida', 'cantidad_entregada','cantidad_faltante','fecha_entrega','factura', 'observaciones','descontado','estado']
     success_url = reverse_lazy('clientes:ventas_list')
 
 class VentaDelete(DeleteView):

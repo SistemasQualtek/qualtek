@@ -102,7 +102,9 @@
                   <th class="text-center">Estado</th>
                   <th class="text-center">Culpable</th>
                   <!-- <th class="text-center">descontado</th> -->
+                  {%if user.is_superuser%}
                   <th class="text-center">Acciones</th>
+                  {%endif%}
                   {% if user.is_superuser %}
                   {% endif %}
                 </thead>

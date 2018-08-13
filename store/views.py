@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse_lazy
-# from productos.models import Perfil, Modelo
+from clientes.models import Venta
 from .forms import ContactoForm, LoginForm, RegisterForm
 from django.views.generic.edit import (
     CreateView,
@@ -14,6 +14,7 @@ from django.views.generic.edit import (
     DeleteView
 )
 from django.views.generic.detail import DetailView
+import time
 User = get_user_model()
 
 class AuthDetail(DetailView):
@@ -33,6 +34,7 @@ def home_page(request):
     countq = Producto.objects.filter(proveedor='Tubo Qualtek').count()
     countv = Producto.objects.filter(proveedor='Varios').count()
     countqk = Producto.objects.filter(proveedor='Qualtek').count()
+    proxima = Venta.objects.filter(estado='Generada')
     # queryseto = Modelo.objects.order_by('perfil')[0:1]
     usuario = User
     context = {
@@ -42,6 +44,7 @@ def home_page(request):
         'countqk':countqk,
         'count':count,
         "title":"Inicio",
+        'proxima':proxima,
         "content": "Welcome to home page",
         # "queryseto": queryseto
 

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 	{% load bootstrap3 %}
 	{% block content %}
+	{% url 'home' as home %}
 	{% url 'clientes:list_cliente' as lista_clientes %}
 	{% block head_title %}| Editando a {{ objects.nombre }} {{ objects.apellidos }}{% endblock %}
 	<!-- START PAGE CONTENT -->
@@ -11,8 +12,8 @@
 	      <div class="inner">
 	        <!-- START BREADCRUMB -->
 	         <ol class="breadcrumb">
-						 <li class="breadcrumb-item"><a href="#">Home</a></li>
-						 <li class="breadcrumb-item"><a href="#">Bitacora</a></li>
+						 <li class="breadcrumb-item"><a href="{{home}}">Home</a></li>
+						 <li class="breadcrumb-item"><a href="javascript:history.back()">Bitacora</a></li>
              <li class="breadcrumb-item active">Editar a {{ venta.producto }}--{{ venta.cliente }}</li>
 	        </ol>
 	        <!-- END BREADCRUMB -->
@@ -39,8 +40,16 @@
 						</div>
 						<div class="form-group">
 	            <label class="control-label" for="cantidad_requerida">Cantidad Requerida</label>
-	            <input value="{{venta.cantidad_requerida}}" type="text" name="cantidad_requerida" name="cantidad_requerida" title="" required class="form-control" placeholder="Cantidad Requerida" id="cantidad_requerida" />
+	            <input value="{{venta.cantidad_requerida}}" type="text" name="cantidad_requerida" name="cantidad_requerida" title="" required class="form-control" placeholder="Cantidad Requerida" id="cantidad_requerida" onkeyup="sumar();" />
 	          </div>
+						<div class="form-group">
+							<label class="control-label" for="cantidad_entregada">Cantidad Entregada</label>
+							<input type="text" name="cantidad_entregada" value="0" name="cantidad_entregada" title="" required class="form-control" placeholder="Cantidad Entregada " id="cantidad_entregada"onkeyup="sumar();" />
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="cantidad_faltante">Cantidad Faltante</label>
+							<input type="text" name="cantidad_faltante" value="0" name="cantidad_faltante" title="" required class="form-control" placeholder="Cantidad Faltante " id="cantidad_faltante" />
+						</div>
 						<div class="form-group">
 							<label class="control-label" for="fecha_entrega">Fecha de Entrega</label>
 							<input class="form-control" type="date" name="fecha_entrega" value="{{venta.fecha_entrega}}">
@@ -87,4 +96,71 @@ $(document).ready(function () {
   elemen.classList..addClass("checkbox");
 });
 </script>
+<script type="text/javascript">
+    /**
+     * Funcion que se ejecuta cada vez que se añade una letra en un cuadro de texto
+     * Suma los valores de los cuadros de texto
+     */
+    function sumar()
+    {
+        var valor1=verificar("cantidad_requerida");
+        var valor2=verificar("cantidad_entregada");
+        // realizamos la suma de los valores y los ponemos en la casilla del
+        // formulario que contiene el total
+        document.getElementById("cantidad_faltante").value=parseFloat(valor1)-parseFloat(valor2);
+    }
+
+    /**
+     * Funcion para verificar los valores de los cuadros de texto. Si no es un
+     * valor numerico, cambia de color el borde del cuadro de texto
+     */
+    function verificar(id)
+    {
+        var obj=document.getElementById(id);
+        if(obj.value=="")
+            value="0";
+        else
+            value=obj.value;
+        if(validate_importe(value,1))
+        {
+            // marcamos como erroneo
+            obj.style.borderColor="#808080";
+            return value;
+        }else{
+            // marcamos como erroneo
+            obj.style.borderColor="#f00";
+            return 0;
+        }
+    }
+
+    /**
+     * Funcion para validar el importe
+     * Tiene que recibir:
+     *  El valor del importe (Ej. document.formName.operator)
+     *  Determina si permite o no decimales [1-si|0-no]
+     * Devuelve:
+     *  true-Todo correcto
+     *  false-Incorrecto
+     */
+    function validate_importe(value,decimal)
+    {
+        if(decimal==undefined)
+            decimal=0;
+
+        if(decimal==1)
+        {
+            // Permite decimales tanto por . como por ,
+            var patron=new RegExp("^[0-9]+((,|\.)[0-9]{1,2})?$");
+        }else{
+            // Numero entero normal
+            var patron=new RegExp("^([0-9])*$")
+        }
+
+        if(value && value.search(patron)==0)
+        {
+            return true;
+        }
+        return false;
+    }
+    </script>
 {% endblock %}

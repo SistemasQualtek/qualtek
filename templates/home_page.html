@@ -250,86 +250,33 @@
       <section class="mt-30px mb-30px">
         <div class="container-fluid">
           <div class="row">
+            <div class="col-md-12 text-center">
+              <h1>Ventas</h1>
+            </div>
             <div class="col-lg-4 col-md-12">
-              <!-- Recent Updates Widget          -->
+              <!-- Recent Updates Widget -->
               <div id="new-updates" class="card updates recent-updated">
                 <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
-                  <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">News Updates</a></h2><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
+                  <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Proximas Entregas</a></h2><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
                 </div>
                 <div id="updates-box" role="tabpanel" class="collapse show">
                   <ul class="news list-unstyled">
+                    {% for shit in proxima %}
                     <!-- Item-->
                     <li class="d-flex justify-content-between">
                       <div class="left-col d-flex">
-                        <div class="icon"><i class="icon-rss-feed"></i></div>
-                        <div class="title"><strong>Lorem ipsum dolor sit amet.</strong>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+                        <div class="title">
+                          <h1 class="text-dark">{{shit.cliente}}</h1>
+                          <h5 class="text-dark">{{shit.producto}}</h5>
+                          <h6 class="text-primary">Cantidad Requerida: {{shit.cantidad_requerida}}</h6>
+                          <h6 class="text-success">Cantidad Entregada: {{shit.cantidad_entregada}}</h6>
+                          <h6 class="text-danger">Cantidad Faltante: {{shit.cantidad_faltante}}</h6>
+                          <p>Fecha de Pedido: {{shit.fecha_pedido}}</p>
+                          <p class="text-info">Fecha de Entrega: {{shit.fecha_entrega}}</p>
                         </div>
                       </div>
-                      <div class="right-col text-right">
-                        <div class="update-date">24<span class="month">Jan</span></div>
-                      </div>
                     </li>
-                    <!-- Item-->
-                    <li class="d-flex justify-content-between">
-                      <div class="left-col d-flex">
-                        <div class="icon"><i class="icon-rss-feed"></i></div>
-                        <div class="title"><strong>Lorem ipsum dolor sit amet.</strong>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-                        </div>
-                      </div>
-                      <div class="right-col text-right">
-                        <div class="update-date">24<span class="month">Jan</span></div>
-                      </div>
-                    </li>
-                    <!-- Item-->
-                    <li class="d-flex justify-content-between">
-                      <div class="left-col d-flex">
-                        <div class="icon"><i class="icon-rss-feed"></i></div>
-                        <div class="title"><strong>Lorem ipsum dolor sit amet.</strong>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-                        </div>
-                      </div>
-                      <div class="right-col text-right">
-                        <div class="update-date">24<span class="month">Jan</span></div>
-                      </div>
-                    </li>
-                    <!-- Item-->
-                    <li class="d-flex justify-content-between">
-                      <div class="left-col d-flex">
-                        <div class="icon"><i class="icon-rss-feed"></i></div>
-                        <div class="title"><strong>Lorem ipsum dolor sit amet.</strong>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-                        </div>
-                      </div>
-                      <div class="right-col text-right">
-                        <div class="update-date">24<span class="month">Jan</span></div>
-                      </div>
-                    </li>
-                    <!-- Item-->
-                    <li class="d-flex justify-content-between">
-                      <div class="left-col d-flex">
-                        <div class="icon"><i class="icon-rss-feed"></i></div>
-                        <div class="title"><strong>Lorem ipsum dolor sit amet.</strong>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-                        </div>
-                      </div>
-                      <div class="right-col text-right">
-                        <div class="update-date">24<span class="month">Jan</span></div>
-                      </div>
-                    </li>
-                    <!-- Item-->
-                    <li class="d-flex justify-content-between">
-                      <div class="left-col d-flex">
-                        <div class="icon"><i class="icon-rss-feed"></i></div>
-                        <div class="title"><strong>Lorem ipsum dolor sit amet.</strong>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-                        </div>
-                      </div>
-                      <div class="right-col text-right">
-                        <div class="update-date">24<span class="month">Jan</span></div>
-                      </div>
-                    </li>
+                    {% endfor %}
                   </ul>
                 </div>
               </div>
