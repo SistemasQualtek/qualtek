@@ -12,6 +12,7 @@
 {% url 'clientes:ventas_list' as ventas %}
 {% url 'clientes:cliente' as nuevocliente %}
 {% url 'almacen:producto_list' as list_almacen %}
+{% url 'almacen:pedidos_list' as pedidos_list %}
 {% url 'almacen:release' as release %}
 {% url 'reportes:pdfrel' as pedeefferelease %}
 <!-- BEGIN SIDEBAR -->
@@ -53,7 +54,7 @@
           {% endif %}
           {% else %}
           <li class="">
-            <a href="{{login}}">Iniciar Sesión</a>
+            <a class="linksidebar" href="{{login}}">Iniciar Sesión</a>
           </li>
           {% endif %}
         </ul>
@@ -67,11 +68,11 @@
         <span class="icon-thumbnail"><i class="fas fa-users"></i></span>
         <ul class="sub-menu">
           <li class="">
-            <a href="{{clientes}}">Lista de Clientes</a>
+            <a class="linksidebar" href="{{clientes}}">Lista de Clientes</a>
           </li>
           {% if user.is_authenticated and user.is_staff%}
           <li class="">
-            <a href="{{proclilist}}">Lista de Productos por Cliente</a>
+            <a class="linksidebar" href="{{proclilist}}">Lista de Productos por Cliente</a>
           </li>
           {% else %}
           {% endif %}
@@ -85,7 +86,7 @@
         <span class="icon-thumbnail"><i class="fas fa-boxes"></i></span>
         <ul class="sub-menu">
           <li class="">
-            <a href="{{ list_almacen }}">Almacen</a>
+            <a class="linksidebar" href="{{ list_almacen }}">Almacen</a>
           </li>
           <!-- <li class="">
             <a href="{{ release }}">Release</a>
@@ -100,7 +101,7 @@
         <span class="icon-thumbnail"><i class="fas fa-shopping-cart"></i></span>
         <ul class="sub-menu">
           <li class="">
-            <a href="{{ventas}}">Lista de Ventas</a>
+            <a class="linksidebar" href="{{ventas}}">Lista de Ventas</a>
           </li>
           {% if user.is_authenticated and user.is_staff%}
           <!-- <li class="">
@@ -118,14 +119,8 @@
         <span class="icon-thumbnail"><i class="fas fa-people-carry"></i></span>
         <ul class="sub-menu">
           <li class="">
-            <a href="#">------</a>
+            <a class="linksidebar" href="{{pedidos_list}}">Lista de Pedidos</a>
           </li>
-          {% if user.is_authenticated and user.is_staff%}
-          <li class="">
-            <a href="#">-------</a>
-          </li>
-          {% else %}
-          {% endif %}
         </ul>
       </li>
       <li class="">
@@ -136,7 +131,7 @@
         <span class="icon-thumbnail"><i class="fas fa-file"></i></span>
         <ul class="sub-menu">
           <li class="">
-            <a href="{{reportes}}"> Reportes Qualtek</i></a>
+            <a class="linksidebar" href="{{reportes}}"> Reportes Qualtek</i></a>
           </li>
           <!-- <li class="">
             <a target="_blank" href="{% url 'reportes:pdfgen' %}"><i class="fas fa-file-pdf"> Almacen PDF</i></a>

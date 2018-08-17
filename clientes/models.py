@@ -43,7 +43,7 @@ class Venta(models.Model):
     cliente = models.CharField(max_length=255, null=True, blank=True)
     no_part_cli = models.CharField(max_length=255, null=True, blank=True)
     paqueteria = models.CharField(max_length=255, null=True, blank=True)
-    factura = models.IntegerField(null=True, blank=True)
+    factura = models.CharField(max_length=255, null=True, blank=True)
     fecha_pedido = models.DateField()
     cantidad_requerida = models.IntegerField()
     cantidad_entregada = models.IntegerField(default=0)

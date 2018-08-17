@@ -78,7 +78,7 @@
 {%if user.is_authenticated%}
 	<div class="row">
 		<div align="center">
-			<h1 style="color:black">Productos por Cliente</h1>
+			<h1 style="color:black">Almacen</h1>
 			{% load staticfiles %}
 			<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 			<div class="col-md-12" id="buscar">
@@ -88,11 +88,6 @@
 	    </div>
 			<div class="row">
         <div class="col-lg-12 text-center">
-
-            <button type="button" name="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
-              Registrar Producto <i class="far fa-edit"></i>
-            </button>
-
             <div class="row">
               <div class="col-md-12 text-right">
                 <sub class="text-muted">Cantidad de Productos: {{count}}</sub>
@@ -105,15 +100,29 @@
 				<table class="table table-hover">
 						<thead class="bg-dark">
 							<tr>
-								<th class="text-center aling-middle">Producto</th>
-		            <th class="text-center aling-middle">Cliente</th>
+								<th class="text-center aling-middle">#</th>
+								<th class="text-center aling-middle">Código</th>
+		            <th class="text-center aling-middle">Descripción</th>
+								<th class="text-center aling-middle">Unidad</th>
+								<th class="text-center aling-middle">Existencia</th>
+                <th class="text-center aling-middle">Proveedor</th>
+								<th class="text-center aling-middle">Costo</th>
+                <th class="text-center aling-middle">Cantidad</th>
+                <th class="text-center aling-middle">Total</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for productos in queryset %}
+							{% for productos in productos %}
 							<tr class="bg-qualtek">
-								<td class="text-center align-middle">{{ productos.producto_cliente }}</td>
-								<td class="text-center align-middle">{{ productos.empresa_cliente }}</td>
+								<td class="text-center align-middle">{{ productos.id }}</td>
+								<td class="text-center align-middle {%if productos.proveedor == 'Tubo Qualtek'%}bg-qualtek{% elif productos.proveedor == 'Tubo W'%}bg-tubow{% elif productos.proveedor == 'Qualtek'%}bg-cinchos{%else%}bg-varios{%endif%}">{{ productos.codigo }}</td>
+		            <td class="text-center align-middle">{{ productos.descripcion }}</td>
+								<td class="text-center align-middle">{{ productos.unidad }}</td>
+								<td class="text-center align-middle">{% if productos.existencia <= 0 %}<strong class="text-danger">{{ productos.existencia }}</strong>{% else %}<strong class="text-acepted">{{ productos.existencia }}</strong>{% endif %}</td>
+								<td class="text-center align-middle">{% if productos.proveedor == 'Tubo Qualtek' %}<strong class="text-warning">{{ productos.proveedor }}</strong>{% elif productos.proveedor == 'Tubo W'%}<strong class="text-danger">{{ productos.proveedor }}</strong>{% elif productos.proveedor == 'Qualtek' %}<strong class="text-primary">{{ productos.proveedor }}</strong>{% else %}<strong class="text-success">{{ productos.proveedor }}</strong>{% endif %}</td>
+								<td class="text-center align-middle">{{ productos.costo }}</td>
+                <td class="text-center align-middle"></td>
+                <td class="text-center align-middle"></td>
 							</tr>
 
 		        {% endfor %}
@@ -135,23 +144,65 @@
                 {% csrf_token %}
 								<!-- {% bootstrap_form form %} -->
 								<div class="form-group">
-									<label class="control-label" for="id_producto_cliente">Producto cliente</label>
-									<select name="producto_cliente" id="id_producto_cliente" class="form-control" title="" required>
-										<option value=""></option>
-										{% for producto in producto %}
-										<option value="{{producto.id}}">{{producto.proveedor}} - {{producto.descripcion}}</option>
-										{% endfor %}
+									<label class="control-label" for="codigo">Código</label>
+									<input type="text" name="codigo" name="codigo" title="" class="form-control" placeholder="Código..." id="codigo" />
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="descripcion">Descripción</label>
+									<input type="text" name="descripcion" name="descripcion" title="" id="descripcion" maxlength="255" placeholder="Descripción..." class="form-control" />
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="unidad">Unidad</label>
+									<select name="unidad" name="unidad" title="" id="unidad" maxlength="50" class="form-control">
+										<option value="---------">---------</option>
+										<option value="METRO">METRO</option>
+										<option value="PZA">PZA</option>
 									</select>
 								</div>
 								<div class="form-group">
-									<label class="control-label" for="id_empresa_cliente">Empresa cliente</label>
-									<select name="empresa_cliente" id="id_empresa_cliente" class="form-control" title="" required>
-										<option value=""></option>
-										{% for cliente in cliente %}
-										<option value="{{cliente.id}}">{{cliente.empresa}}</option>
-										{% endfor %}
+									<label class="control-label" for="medida">Medida</label>
+									<input type="text" name="medida" name="medida" title="" id="medida" maxlength="50" placeholder="0,0" class="form-control"/>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="existencia">Existencia</label>
+									<input type="number" name="existencia" name="existencia" title="" class="form-control" placeholder="0,0" id="existencia"/>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="proveedor">Proveedor</label>
+									<select name="proveedor" name="proveedor" title="" id="proveedor" maxlength="255" class="form-control">
+										<option value="---------">---------</option>
+										<option value="Tubo W">Tubo W</option>
+										<option value="Tubo Qualtek">Tubo Qualtek</option>
+										<option value="Qualtek">Qualtek</option>
+										<option value="Varios">Varios</option>
 									</select>
 								</div>
+								<div class="form-group">
+									<label class="control-label" for="cantidad_caja">Cantidad (Caja)</label>
+									<input type="number" name="cantidad_caja" name="cantidad_caja" title="" class="form-control" placeholder="0,0" id="cantidad_caja" />
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="cantidad_rb">Cantidad (Rollo/Bolsa)</label>
+									<input type="number" name="cantidad_rb" name="cantidad_rb" title="" class="form-control" placeholder="0,0" id="cantidad_rb" />
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="ubicacion">Ubicación</label>
+									<input type="text" name="ubicacion" name="ubicacion" title="" id="ubicacion" maxlength="50" placeholder="Ubicación..." class="form-control" />
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="costo">Costo</label>
+									<input type="number" name="costo" name="costo" title="" class="form-control" step="0.00001" placeholder="0,0" id="costo" />
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="precio">Precio</label>
+									<input type="number" name="precio" name="precio" title="" class="form-control" step="0.001" placeholder="0,0" id="precio" />
+								</div>
+								<div class="form-group">
+									<div class="">
+										<label for="release">
+											<input type="checkbox" name="release" name="release" class="checkbox" placeholder="0,0" id="release" /> Release</label>
+										</div>
+									</div>
 									<div class="row">
 										<div class="col-md-12 text-right">
 											<button  type="submit" name="submit" class="btn btn-default">Hecho</button>

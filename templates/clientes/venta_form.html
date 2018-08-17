@@ -44,7 +44,7 @@
 	          </div>
 						<div class="form-group">
 							<label class="control-label" for="cantidad_entregada">Cantidad Entregada</label>
-							<input type="text" name="cantidad_entregada" value="0" name="cantidad_entregada" title="" required class="form-control" placeholder="Cantidad Entregada " id="cantidad_entregada"onkeyup="sumar();" />
+							<input type="text" name="cantidad_entregada" value="{{venta.cantidad_entregada}}" name="cantidad_entregada" title="" required class="form-control" placeholder="Cantidad Entregada " id="cantidad_entregada"onkeyup="sumar();" />
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="cantidad_faltante">Cantidad Faltante</label>
@@ -56,7 +56,7 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="id_factura">Factura</label>
-							<input value="{{venta.factura}}" type="number" name="factura" title="" placeholder="Factura" class="form-control" id="id_factura" />
+							<input value="{{venta.factura}}" type="text" name="factura" title="" placeholder="Factura" class="form-control" id="id_factura" />
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="id_observaciones">Observaciones</label>
@@ -66,7 +66,6 @@
 	            <label class="control-label" for="estado">Estado</label>
 	            <select name="estado" name="estado" title="" id="estado" maxlength="255" class="form-control">
 								<option value="{{venta.estado}}">{{venta.estado}}</option>
-								<option value="Armada">Armada</option>
 								<option value="Entregada">Entregada</option>
 								<option value="Cancelada">Cancelada</option>
 							</select>

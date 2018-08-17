@@ -127,7 +127,13 @@
                 <td class="text-center">{{ objects.fecha_entrega }}</td>
                 <td class="text-center">{{ objects.orden_corte }}</td>
                 <td class="text-center">{{ objects.observaciones }}</td>
-                <td class="text-center">{{ objects.estado }}</td>
+                <td class="text-center">
+        					{% if objects.estado == 'Generada' %}
+        							<strong class="text-danger">{{ objects.estado }}</strong>
+        					{% else %}
+        							<strong class="text-success">{{ objects.estado }}</strong>
+        					{% endif %}
+        				</td>
                 <td class="text-center">{{ objects.culpable }}</td>
 
                 <!-- <td class="text-center">{% if objects.descontado == True %} <strong class="text-success">Si</strong> {% else %} <strong class="text-danger">No</strong> {% endif %} </td> -->

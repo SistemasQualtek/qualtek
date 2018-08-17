@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-	{% block head_title %}| Detalle de {{ cliente.nombre }} {{ cliente.apellidos }}{% endblock %}
+	{% block head_title %}| Detalle de {{ elculodealberto.proveedor }} {{ cliente.apellidos }}{% endblock %}
 	{% block content %}
 	{% url 'clientes:list_cliente' as lista_clientes %}
 	<script type="text/javascript">
@@ -53,7 +53,7 @@
 	         <ol class="breadcrumb">
 						 <li class="breadcrumb-item"><a href="#">Clientes</a></li>
 						 <li class="breadcrumb-item"><a href="{{lista_clientes}}">Lista Clientes</a></li>
-	           <li class="breadcrumb-item active">Detalle de {{ cliente.nombre }} {{ cliente.apellidos }}</li>
+	           <li class="breadcrumb-item active">Detalle de {{ elculodealberto.proveedor }} - {{ elculodealberto.nombre }}</li>
 	        </ol>
 	        <!-- END BREADCRUMB -->
 	      </div>
@@ -67,65 +67,34 @@
 		<div class="container">
 			<hr>
 			<div class="row separatedv">
-				<div class="col-lg-4">
-					<h4>Nombre Completo</h4>
-					<p><strong>{{ cliente.nombre }} {{ cliente.apellidos }}</strong></p>
-					<h4>Correo Electrónico</h4>
-					<p><strong>{{cliente.email}}</strong></p>
-					<h4>Empresa</h4>
-					<p><strong>{{ cliente.empresa }}</strong></p>
-					<h4>Dirección</h4>
-					<p><strong>{{ cliente.direccion }}</strong></p>
-				</div>
-				<div class="col-lg-4">
-					<h4>Fecha de Registro</h4>
-					<p><strong>{{cliente.fecha_registro}}</strong></p>
-					<h4>Telefono Principal</h4>
-					<p><strong>{{cliente.telefono}}</strong></p>
-					<h4>Telefono Adicional</h4>
-					<p><strong>{{cliente.telefono2}}</strong></p>
-				</div>
-				<div class="col-lg-4 text-center">
-					<h4>Contacto</h4>
-					<div class="row">
-						{% if cliente.email %}
-						<div class="col-md-12 text-center">
-							<a href="https://mail.zoho.com/zm/#compose" target="_black">
-								<button type="button" name="button" class="btn btn-info btn-block"><i class="fas fa-envelope-square"></i></button>
-							</a>
-							<br>
-						</div>
-						{% endif %}
-						{% if cliente.telefono %}
-						<div class="col-md-12 text-center">
-							<a href="tel:{{ cliente.telefono }}">
-								<button type="button" name="button" class="btn btn-info btn-block"><i class="fas fa-phone"></i> Principal</button>
-							</a><br>						</div>
-						{% endif %}
-						{% if cliente.telefono2 %}
-						<div class="col-md-12 text-center">
-							<a href="tel:{{ cliente.telefono2 }}">
-								<button type="button" name="button" class="btn btn-info btn-block"><i class="fas fa-phone"></i> Adicional</button>
-							</a>
-						</div>
-						{% endif %}
-					</div>
-				</div>
+				<div class="col-md-4">
+          <h1>Proveedor</h1>
+          <h3>{{elculodealberto.proveedor}}</h3>
+          <h1>Nombre</h1>
+          <h3>{{elculodealberto.nombre}}</h3>
+          <h1>Dirección</h1>
+          <h3>{{elculodealberto.direccion}}</h3>
+          <h1>Telefono</h1>
+          <h3>{{elculodealberto.telefono}}</h3>
+          <h1>Fax</h1>
+          <h3>{{elculodealberto.fax}}</h3>
+          <h1>Sitio Web</h1>
+          <h3>{{elculodealberto.sitio}}</h3>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 text-right">
+          <h1>Qualtek México S.A. de C.V.</h1>
+          <h2>Cerrada de la Virgen #18, Colonia Ejido de Santa Cruz Xochitepec, Xochimilco CDMX, C.P. 16100</h2>
+        </div>
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-lg-3">
-					<br>
-					<a href="{% url "clientes:edit_cliente" cliente.id %}">
-						<button type="submit" class="btn btn-info">Editar</button>
-					</a>
-				</div>
 			</div>
 		</div>
 	</section>
 	<div class="col-md-12 text-center">
 		<hr>
-		<h1>Lista de Productos</h1>
+		<h1>Lista de Proveedores</h1>
 	</div>
 	<div class="container">
 		<div class="row">

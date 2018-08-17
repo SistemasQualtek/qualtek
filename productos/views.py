@@ -266,3 +266,59 @@ def pdftwm(request):
     buff.close()
     return response
 ####################################### ahuevo ################################
+
+####################################### Proveedores Pedidos ########################
+def PedidosList(request):
+    count = Producto.objects.count()
+    productos = Producto.objects.order_by('id')
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            producto = form.save()
+            producto.save()
+            return HttpResponseRedirect('/Lista/Pedidos/')
+    else:
+        form = ProductoForm()
+    template = loader.get_template('productos/pedidos_list.html')
+    context = {
+        'productos':productos,
+        'form':form,
+        'count':count
+
+    }
+    # print (productos)
+    return render(request, 'productos/pedidos_list.html', context)
+
+
+################################## Proveedor #######################################
+def ProveedorList(request):
+    count = Proveedor.objects.count()
+    proveedor = Proveedor.objects.order_by('id')
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST, request.FILES)
+        if form.is_valid():
+            producto = form.save()
+            producto.save()
+            return HttpResponseRedirect('/Lista/Proveedores/')
+    else:
+        form = ProveedorForm()
+    template = loader.get_template('proveedores/proveedor_list.html')
+    context = {
+        'proveedor':proveedor,
+        'form':form,
+        'count':count
+
+    }
+    # print (productos)
+    return render(request, 'proveedores/proveedor_list.html', context)
+
+def ProveedorDetail(request,pk):
+    elculodealberto = get_object_or_404(Proveedor, pk=pk)
+    template = loader.get_template('proveedores/proveedor_detail.html')
+    context = {
+    'elculodealberto':elculodealberto
+    }
+    if request.user.is_authenticated():
+        return HttpResponse(template.render(context, request))
+    else:
+        return HttpResponseRedirect(reverse('proveedores/proveedor_detail.html', args=(elculodealberto.id,)))

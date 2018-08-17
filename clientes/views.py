@@ -77,12 +77,12 @@ def ClienteDetail(request,pk):
     querysetc = Cliente.objects.all()
     queryset = Prod_Cli.objects.filter(empresa_cliente=cliente)
     bitacora = Venta.objects.filter(cliente=cliente).order_by('fecha_entrega')
+    template = loader.get_template('clientes/cliente_detail.html')
     if request.method == 'POST':
         form = VentaForm(request.POST, request.FILES)
         if form.is_valid():
             producto = form.save()
             producto.save()
-            return HttpResponseRedirect('/ClienteList/')
     else:
         form = VentaForm()
         template = loader.get_template('clientes/cliente_detail.html')
@@ -161,6 +161,8 @@ class ProCliDelete(DeleteView):
 
 def Producto_ClienteList(request):
     queryset = Prod_Cli.objects.all().order_by('empresa_cliente')
+    producto = Producto.objects.all().order_by('medida').order_by('proveedor')
+    cliente = Cliente.objects.all().order_by('empresa')
     if request.method == 'POST':
         form = ProdCliForm(request.POST, request.FILES)
         if form.is_valid():
@@ -172,7 +174,9 @@ def Producto_ClienteList(request):
     template = loader.get_template('productos_clientes/prod_cli_list.html')
     context = {
         'queryset':queryset,
-        'form':form
+        'form':form,
+        'producto':producto,
+        'cliente':cliente
     }
     return render(request, "productos_clientes/prod_cli_list.html",context)
 

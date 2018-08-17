@@ -1,12 +1,12 @@
 .sidebar-menu{
-  background-color: #2d2f32!important;
+  background-color: #187ac1!important;
   padding-top: 100px;
 }
 .sidebar-header{
-  background-color: #2d2f32!important;
-  color: #FFFFFF!important;
-  border-top: 2px solid #838383!important;
-  border-bottom: 2px solid #838383!important;
+  background-color: #187ac1!important;
+  color: #000000!important;
+  border-top: 2px solid #ffffff!important;
+  border-bottom: 2px solid #ffffff!important;
 }
 .sidebar-overlay-slide{
   background-color: #000000!important;
@@ -14,14 +14,14 @@
   border-bottom: 1px solid #3b3b3b!important;
 }
 .icon-thumbnail{
-  background-color: #838383!important;
-  color: #2d2f32!important;
+  background-color: #ffffff!important;
+  color: #187ac1!important;
 }
 .sub-menu{
-  background-color: #2d2f32!important;
+  background-color: #187ac1!important;
   color: #000000!important;
-  border-top: 1px solid #3b3b3b!important;
-  border-bottom: 1px solid #3b3b3b!important;
+  border-top: 1px solid #ffffff!important;
+  border-bottom: 1px solid #ffffff!important;
 }
 .title{
 color: #FFFFFF!important;
@@ -188,7 +188,7 @@ text-ligth{
   color: transparent!important;
 }
 .bg-dark{
-  background: #2d2f32!important;
+  background: #187ac1!important;
   color: #FFFFFF!important;
 }
 .drop{
@@ -243,3 +243,25 @@ text-ligth{
   opacity: .8;
   color: #000000!important;
 } */
+.linksidebar{
+  color:#ffffff!important;
+}
+.linksidebar:hover{
+  color:#ffffff!important;
+  opacity: .5;
+}
+.table tbody tr td{
+  border: 1px #187ac1 solid;
+
+}
+.table tbody tr{
+  border: 1px #187ac1 solid;
+}
+.table thead th{
+  border-radius: 0px 0px 0px 30px;
+  -moz-border-radius: 0px 0px 0px 30px;
+  -webkit-border-radius: 0px 0px 0px 30px;
+}
+.table thead{
+
+}

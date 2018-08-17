@@ -43,10 +43,14 @@ class Log(models.Model):
         return self.producto
 
 class Proveedor(models.Model):
-	proveedor = models.CharField(max_length=255)
-
-	def __str__(self):
-		return self.proveedor
+    proveedor = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=255, null=True, blank=True)
+    direccion = models.CharField(max_length=255, null=True, blank=True)
+    telefono = models.CharField(max_length=255, null=True, blank=True)
+    fax = models.CharField(max_length=255, null=True, blank=True)
+    sitio = models.CharField(max_length=255, null=True, blank=True)
+    def __str__(self):
+        return self.proveedor
 
 
 class Producto(models.Model):
@@ -54,7 +58,9 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=255, blank=True,null=True)
     unidad = models.CharField(max_length=50,blank=True,null=True)
     medida = models.CharField(max_length=50,blank=True,null=True)
+    existencia_max = models.IntegerField(null=True, blank=True, default=0)
     existencia = models.IntegerField(null=True, blank=True)
+    existencia_min = models.IntegerField(null=True, blank=True, default=0)
     proveedor = models.CharField(max_length=255, blank=True,null=True)
     cantidad_caja = models.IntegerField(blank=True, null=True)
     cantidad_rb = models.IntegerField(blank=True, null=True)
