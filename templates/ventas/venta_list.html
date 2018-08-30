@@ -84,7 +84,7 @@
             <table class="table table-hover">
               <tr>
                 <thead class="bg-dark">
-                  <!-- <th class="text-center">O.S.A.</th> -->
+                  <th class="text-center">id</th>
                   <th class="text-center">Producto</th>
                   <th class="text-center">Unidad</th>
                   <th class="text-center">O. C.</th>
@@ -111,40 +111,34 @@
               </tr>
               {% for objects in querysetv %}
               <tr>
-
-                <!-- <td class="text-center">{{ objects.osa }}</td> -->
-                <td class="text-center">{{ objects.producto }}</td>
-                <td class="text-center">{{ objects.unidad }}</td>
-                <td class="text-center">{{ objects.oc }}</td>
-                <td class="text-center">{{ objects.cliente }}</td>
-                <td class="text-center">{{ objects.no_part_cli }}</td>
-                <td class="text-center">{{ objects.paqueteria }}</td>
-                <td class="text-center">{{ objects.factura }}</td>
-                <td class="text-center">{{ objects.fecha_pedido }}</td>
-                <td class="text-center">{{ objects.cantidad_requerida }}</td>
-                <td class="text-center">{{ objects.cantidad_entregada }}</td>
-                <td class="text-center">{{ objects.cantidad_faltante }}</td>
-                <td class="text-center">{{ objects.fecha_entrega }}</td>
-                <td class="text-center">{{ objects.orden_corte }}</td>
-                <td class="text-center">{{ objects.observaciones }}</td>
-                <td class="text-center">
+                <td class="text-center">{{ objects.id }}</td>
+                <td class="align-middle text-center"><h5>{{ objects.producto }}</h5></td>
+                <td class="align-middle text-center">{{ objects.unidad }}</td>
+                <td class="align-middle text-center">{{ objects.oc }}</td>
+                <td class="align-middle text-center">{{ objects.cliente }}</td>
+                <td class="align-middle text-center">{{ objects.no_part_cli }}</td>
+                <td class="align-middle text-center">{{ objects.paqueteria }}</td>
+                <td class="align-middle text-center">{{ objects.factura }}</td>
+                <td class="align-middle text-center">{{ objects.fecha_pedido|date:"d-m-Y" }}</td>
+                <td class="align-middle text-center text-success">{{ objects.cantidad_requerida }}</td>
+                <td class="align-middle text-center {%if objects.cantidad_entregada < objects.cantidad_requerida%}text-danger{%else%}text-success{%endif%}">{{ objects.cantidad_entregada }}</td>
+                <td class="align-middle text-center {%if objects.cantidad_faltante == 0%}text-success{%else%}text-danger{%endif%}">{{ objects.cantidad_faltante }}</td>
+                <td class="align-middle text-center">{{ objects.fecha_entrega|date:"d-m-Y" }}</td>
+                <td class="align-middle text-center">{{ objects.orden_corte }}</td>
+                <td class="align-middle text-center">{{ objects.observaciones }}</td>
+                <td class="align-middle text-center">
         					{% if objects.estado == 'Generada' %}
         							<strong class="text-danger">{{ objects.estado }}</strong>
         					{% else %}
         							<strong class="text-success">{{ objects.estado }}</strong>
         					{% endif %}
         				</td>
-                <td class="text-center">{{ objects.culpable }}</td>
+                <td class="align-middle text-center"><h5>{{ objects.culpable }}</h5></td>
 
                 <!-- <td class="text-center">{% if objects.descontado == True %} <strong class="text-success">Si</strong> {% else %} <strong class="text-danger">No</strong> {% endif %} </td> -->
 
                 {% if user.is_superuser %}
                 <td class="text-right">
-                  <a href="{% url "clientes:ventas_detail" objects.id %}" target="blank">
-                    <button type="submit" class="btn btn-info">
-                      <i class="far fa-file"></i>
-                    </button>
-                  </a>
                   <a href="{% url "clientes:ventas_delete" objects.id %}">
                     <button type="submit" class="btn btn-danger">
                       <i class="fas fa-eraser"></i>

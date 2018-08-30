@@ -8,12 +8,16 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse_lazy
 from clientes.models import Venta
 from .forms import ContactoForm, LoginForm, RegisterForm
+import datetime
 from django.views.generic.edit import (
     CreateView,
     UpdateView,
     DeleteView
 )
 from django.views.generic.detail import DetailView
+from datetime import date
+
+
 import time
 User = get_user_model()
 
@@ -34,18 +38,28 @@ def home_page(request):
     countq = Producto.objects.filter(proveedor='Tubo Qualtek').count()
     countv = Producto.objects.filter(proveedor='Varios').count()
     countqk = Producto.objects.filter(proveedor='Qualtek').count()
-    proxima = Venta.objects.filter(estado='Generada')
-    # queryseto = Modelo.objects.order_by('perfil')[0:1]
+    countcyg = Producto.objects.filter(proveedor='Tubo CYG').count()
+    countiewc = Producto.objects.filter(proveedor='Tubo IEWC').count()
+    today = time.strftime("%Y-%m-%d")
+    mes = time.strftime("%Y-%m")
+    ent_hoy = Venta.objects.filter(estado='Generada', fecha_entrega = today).order_by('fecha_entrega')
+    ent_ayer = Venta.objects.filter(estado='Generada', fecha_entrega__icontains = '2018-11').order_by('fecha_entrega')
+    ent_manana = Venta.objects.filter(estado='Generada').order_by('fecha_entrega')
     usuario = User
     context = {
         'countv':countv,
         'countq':countq,
         'countw':countw,
+        'countcyg':countcyg,
+        'countiewc':countiewc,
         'countqk':countqk,
         'count':count,
         "title":"Inicio",
-        'proxima':proxima,
         "content": "Welcome to home page",
+        'ent_hoy':ent_hoy,
+        'ent_ayer':ent_ayer,
+        'ent_manana':ent_manana,
+        'today':today
         # "queryseto": queryseto
 
     }

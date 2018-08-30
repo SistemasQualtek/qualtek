@@ -19,7 +19,7 @@ $(document).ready(function () {
             }
         },
         data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "June", "July"],
+            labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto" , "Septiembre","Octubre", "Noviembre", "Diciembre"],
             datasets: [
                 {
                     label: "My First dataset",
@@ -82,21 +82,21 @@ $(document).ready(function () {
             labels: [
                 "Tubo W",
                 "Tubo Qualtek",
-                "Third"
+                "Cintillo"
             ],
             datasets: [
                 {
-                    data: [300, 50, 100],
+                    data: [200, 200, 200],
                     borderWidth: [1, 1, 1],
                     backgroundColor: [
                         brandPrimary,
-                        "rgba(75,192,192,1)",
-                        "#FFCE56"
+                        "rgba(193, 75, 75, 1)",
+                        "#a10e0e"
                     ],
                     hoverBackgroundColor: [
                         brandPrimary,
-                        "rgba(75,192,192,1)",
-                        "#FFCE56"
+                        "rgba(123, 193, 75, 1)",
+                        "#080704"
                     ]
                 }]
         }

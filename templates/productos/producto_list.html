@@ -77,11 +77,11 @@
     <!-- BEGIN PlACE PAGE CONTENT HERE -->
 {%if user.is_authenticated%}
 	<div class="row">
-		<div align="center">
+		<div class="col-md-12 text-center">
 			<h1 style="color:black">Almacen</h1>
 			{% load staticfiles %}
 			<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-			<div class="col-md-12" id="buscar">
+			<div class="col-md-12 text-center" id="buscar">
 	      <div class="form-group">
 	        <input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar" autofocus>
 	      </div>
@@ -102,72 +102,7 @@
         </div>
       </div>
 
-			<div class="conscroll">
-				<table class="table table-hover">
-						<thead class="bg-dark">
-							<tr>
-								<th class="text-center aling-middle">#</th>
-								<th class="text-center aling-middle">Código</th>
-								<!-- <th class="text-center aling-middle">Código de Barras</th> -->
-		            <th class="text-center aling-middle">Descripción</th>
-		            <th class="text-center aling-middle">Medida</th>
-								<th class="text-center aling-middle">Unidad</th>
-								<th class="text-center aling-middle">Existencia</th>
-		            <th class="text-center aling-middle">Proveedor</th>
-								<th class="text-center aling-middle">Ubicacion</th>
-								<th class="text-center aling-middle">Cantidad x Caja</th>
-								<th class="text-center aling-middle">Cantidad x Rollo/Bolsa</th>
-								<!-- <th class="text-center aling-middle">Costo</th> -->
-								<th class="text-center aling-middle">Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for productos in productos %}
-							<tr class="bg-qualtek">
-								<td class="text-center align-middle">{{ productos.id }}</td>
-								<td class="text-center align-middle {%if productos.proveedor == 'Tubo Qualtek'%}bg-qualtek{% elif productos.proveedor == 'Tubo W'%}bg-tubow{% elif productos.proveedor == 'Qualtek'%}bg-cinchos{%else%}bg-varios{%endif%}">{{ productos.codigo }}</td>
-								<!-- <td class="text-center align-middle">
-									{% if productos.barcode %}
-									<img src="{{ productos.barcode.url }}" alt="" width="100%">
-									{% endif %}
-								</td> -->
-		            <td class="text-center align-middle">{{ productos.descripcion }}</td>
-		            <td class="text-center align-middle">{{ productos.medida }}</td>
-								<td class="text-center align-middle">{{ productos.unidad }}</td>
-								<td class="text-center align-middle">{% if productos.existencia <= 0 %}<strong class="text-danger">{{ productos.existencia }}</strong>{% else %}<strong class="text-acepted">{{ productos.existencia }}</strong>{% endif %}</td>
-								<td class="text-center align-middle">{% if productos.proveedor == 'Tubo Qualtek' %}<strong class="text-warning">{{ productos.proveedor }}</strong>{% elif productos.proveedor == 'Tubo W'%}<strong class="text-danger">{{ productos.proveedor }}</strong>{% elif productos.proveedor == 'Qualtek' %}<strong class="text-primary">{{ productos.proveedor }}</strong>{% else %}<strong class="text-success">{{ productos.proveedor }}</strong>{% endif %}</td>
-								<td class="text-center align-middle">{{ productos.ubicacion }}</td>
-								<td class="text-center align-middle">{{ productos.cantidad_caja }}</td>
-								<td class="text-center align-middle">{{ productos.cantidad_rb }}</td>
-								<!-- <td class="text-center align-middle">{{ productos.costo }}</td> -->
-		            <td class="text-center align-middle">
-									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-dark btn-block" data-toggle="modal" data-target="#myModal{{productos.id}}">
-									  <i class="far fa-eye"></i>
-									</button>
-									<!-- Button trigger modal -->
-									{% if request.user.is_superuser %}
-									<a href="{% url "almacen:edit" productos.id %}">
-										<button type="button" class="btn btn-info btn-block">
-											<i class="fas fa-edit"></i>
-										</button>
-									</a>
-									<a href="{% url "almacen:delete" productos.id %}">
-										<button type="button" class="btn btn-danger btn-block">
-											<i class="fa fa-eraser" aria-hidden="true"></i>
-										</button>
-									</a>
-									<br>
-									{% else %}
 
-									{% endif %}
-								</td>
-							</tr>
-
-		        {% endfor %}
-						</tbody>
-					</table>
-			</div>
 
 				<!-- Inicio Modal Nuevo Producto -->
       <div id="myModal" class="modal fade" role="dialog">
@@ -213,6 +148,8 @@
 										<option value="Tubo W">Tubo W</option>
 										<option value="Tubo Qualtek">Tubo Qualtek</option>
 										<option value="Qualtek">Qualtek</option>
+										<option value="Tubo CYG">Tubo CYG</option>
+										<option value="Tubo IEWC">Tubo IEWC</option>
 										<option value="Varios">Varios</option>
 									</select>
 								</div>
@@ -269,35 +206,32 @@
 						<!-- Body Modal -->
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-md-3">
-									<h1>Existencia: {% if productos.existencia == 0 %} <strong class="text-danger">{{productos.existencia}}</strong> {% else %} <strong class="text-success">{{productos.existencia}}</strong> {% endif %} </h1>
-									<h2>Ubicación: {% if productos.ubicacion == None %}<strong class="text-danger">Sin Asignar</strong>{% else %}<strong class="text-success">{{productos.ubicacion}}</strong>{% endif %}</h2>
-									{% if user.is_superuser %}
-										<h3>Precio: $<i>{{productos.precio}}</i></h3>
-										<h4>Costo: $<i>{{productos.costo}}</i></h4>
-									{% else %}
-									{% endif %}
-								</div>
-								<div class="col-sm-6 text-center">
+								<div class="col-sm-12 text-center">
 									<h1>{{productos.descripcion}}<sup><span class="badge badge-info">{{productos.existencia}}</span></sup></h1>
-									<h4>Código: {{productos.codigo}}</h4>
-									<h4>Descripción: {{productos.descripcion}}</h4>
-									<h3>Proveedor: {{productos.proveedor}}</h3>
-									<h3>Unidad: {{productos.unidad}}</h3>
-									<h2>Cantidad (Caja): {{productos.cantidad_caja}}</h2>
-									<h2>Cantidad (Rollo/Bolsa): {{productos.cantidad_rb}}</h2>
+									<h2>Código: {{productos.codigo}}</h2>
+									<h4>{{productos.proveedor}}</h4>
+									<h5>Unidad: {{productos.unidad}}</h5>
+									<h6>Cantidad (Caja): {{productos.cantidad_caja}}</h6>
+									<h6>Cantidad (Rollo/Bolsa): {{productos.cantidad_rb}}</h6>
+									<h1>Existencia: {% if productos.existencia == 0 %} <strong class="text-danger">{{productos.existencia}}</strong> {% else %} <strong class="text-success">{{productos.existencia}}</strong> {% endif %} </h1>
+									<h6>Ubicación: {% if productos.ubicacion == None %}<strong class="text-danger">Sin Asignar</strong>{% else %}<strong class="text-success">{{productos.ubicacion}}</strong>{% endif %}</h6>
+										{% if user.is_superuser %}
+											<h5>Precio: $<i>{{productos.precio}}</i></h5>
+											<h4>Costo: $<i>{{productos.costo}}</i></h4>
+										{% else %}
+										{% endif %}
 									{% if user.is_superuser %}
 									<div class="row">
 										<div class="col-md-6">
 											<a href="{% url "almacen:padentro" productos.id %}">
-												<button type="button" class="btn btn-success btn-block">
+												<button type="button" class="btn btn-success btn-block btn-lg">
 													<i class="fas fa-sign-in-alt"></i>
 												</button>
 											</a>
 										</div>
 										<div class="col-md-6">
 											<a href="{% url "almacen:pafuera" productos.id %}">
-												<button type="button" class="btn btn-danger btn-block">
+												<button type="button" class="btn btn-danger btn-block btn-lg">
 													<i class="fas fa-sign-out-alt"></i>
 												</button>
 											</a>
@@ -306,11 +240,7 @@
 									{% else %}
 									{% endif %}
 								</div>
-								<div class="col-md-3">
-									<h1>Vendedor {% firstof request.user.get_short_name request.user.get_username %}</h1>
-									<h2>Superusuario: {% if user.is_superuser %} Si {% else %} No {% endif %}</h2>
-									<h2>Staff:{% if user.is_staff %} Si {% else %} No {% endif %}</h2>
-								</div>
+
 							</div>
 						</div>
 						<!-- Body Modal -->
@@ -328,8 +258,89 @@
 		        <a href="{{login}}"><button type="button" name="button" class="btn btn-info">Iniciar Sesión</button></a>
 		      </div>
 		      {%endif%}
+
 		      <!-- END PLACE PAGE CONTENT HERE -->
 		      </div>
+					<div class="conscroll">
+						<table class="table table-hover">
+								<thead class="bg-dark">
+									<tr>
+										<th class="text-center aling-middle">#</th>
+										<th class="text-center aling-middle">Código</th>
+										<!-- <th class="text-center aling-middle">Código de Barras</th> -->
+										<th class="text-center aling-middle">Descripción</th>
+										<th class="text-center aling-middle">Medida</th>
+										<th class="text-center aling-middle">Unidad</th>
+										<th class="text-center aling-middle">Existencia</th>
+										<th class="text-center aling-middle">Proveedor</th>
+										<th class="text-center aling-middle">Ubicacion</th>
+										<th class="text-center aling-middle">Cantidad x Caja</th>
+										<th class="text-center aling-middle">Cantidad x Rollo/Bolsa</th>
+										<!-- <th class="text-center aling-middle">Costo</th> -->
+										<th class="text-center aling-middle">Acciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for productos in productos %}
+									<tr class="bg-qualtek">
+										<td class="text-center align-middle">{{ productos.id }}</td>
+										<td class="text-center align-middle">{{ productos.codigo }}</td>
+										<!-- <td class="text-center align-middle">
+											{% if productos.barcode %}
+											<img src="{{ productos.barcode.url }}" alt="" width="100%">
+											{% endif %}
+										</td> -->
+										<td class="text-center align-middle">{{ productos.descripcion }}</td>
+										<td class="text-center align-middle">{{ productos.medida }}</td>
+										<td class="text-center align-middle">{{ productos.unidad }}</td>
+										<td class="text-center align-middle">{% if productos.existencia <= 0 %}<strong class="text-danger">{{ productos.existencia }}</strong>{% else %}<strong class="text-success">{{ productos.existencia }}</strong>{% endif %}</td>
+										<td class="text-center align-middle">
+											{%if productos.proveedor == 'Tubo Qualtek'%}
+											<strong id="tqualtek">{{productos.proveedor}}</strong>
+											{% elif productos.proveedor == 'Tubo W'%}
+											<strong id="tdobleu">{{productos.proveedor}}</strong>
+											{% elif productos.proveedor == 'Qualtek'%}
+											<strong id="cintiqualtek">{{productos.proveedor}}</strong>
+											{% elif productos.proveedor == 'Tubo CYG'%}
+											<strong id="tcyg">{{productos.proveedor}}</strong>
+											{% elif productos.proveedor == 'Tubo IEWC'%}
+											<strong id="tiewc">{{productos.proveedor}}</strong>
+											{%else%}
+											<strong id="variosmisce">{{productos.proveedor}}</strong>
+											{%endif%}
+										</td>
+										<td class="text-center align-middle">{{ productos.ubicacion }}</td>
+										<td class="text-center align-middle">{{ productos.cantidad_caja }}</td>
+										<td class="text-center align-middle">{{ productos.cantidad_rb }}</td>
+										<!-- <td class="text-center align-middle">{{ productos.costo }}</td> -->
+										<td class="text-center align-middle">
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal{{productos.id}}">
+												<i class="far fa-eye"></i>
+											</button>
+											<!-- Button trigger modal -->
+											{% if request.user.is_superuser %}
+											<a href="{% url "almacen:edit" productos.id %}">
+												<button type="button" class="btn btn-info btn-block">
+													<i class="fas fa-edit"></i>
+												</button>
+											</a>
+											<a href="{% url "almacen:delete" productos.id %}">
+												<button type="button" class="btn btn-danger btn-block">
+													<i class="fa fa-eraser" aria-hidden="true"></i>
+												</button>
+											</a>
+											<br>
+											{% else %}
+
+											{% endif %}
+										</td>
+									</tr>
+
+								{% endfor %}
+								</tbody>
+							</table>
+					</div>
 		      <!-- END CONTAINER FLUID -->
 		      </div>
 		      <!-- END PAGE CONTENT -->

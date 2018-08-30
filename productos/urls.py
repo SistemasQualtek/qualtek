@@ -4,6 +4,7 @@ from . import views
 from .views import (
     ProductoUpdate,
     ProductoDelete,
+    Reportar_Pedidos,
 )
 urlpatterns = [
     url(r'^inicio/',views.inicio, name='inicio'),
@@ -20,4 +21,5 @@ urlpatterns = [
     url(r'^PDF/TuboWMedida',login_required(views.pdftwm),name="pdfclitoris"),
     url(r'^Editar/Producto/(?P<pk>\d+)', login_required(ProductoUpdate.as_view()), name='edit'),
     url(r'^Borrar/Producto/(?P<pk>\d+)', login_required(ProductoDelete.as_view()), name='delete'),
+    url(r'^XML/Pedidos', login_required(Reportar_Pedidos.as_view()), name="reporteexcelm"),
 ]

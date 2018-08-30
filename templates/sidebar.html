@@ -15,6 +15,8 @@
 {% url 'almacen:pedidos_list' as pedidos_list %}
 {% url 'almacen:release' as release %}
 {% url 'reportes:pdfrel' as pedeefferelease %}
+{% url 'almacen:log_list' as log_list %}
+
 <!-- BEGIN SIDEBAR -->
     <!-- BEGIN SIDEBPANEL-->
 <nav class="page-sidebar" data-pages="sidebar">
@@ -44,11 +46,11 @@
         <ul class="sub-menu">
           {% if user.is_authenticated %}
           <li class="">
-            <a class="" href="{{ logout }}">Cerrar Sesión</a>
+            <a class="linksidebar" href="{{ logout }}">Cerrar Sesión</a>
           </li>
           {% if user.is_authenticated and user.is_staff and user.is_superuser %}
           <li class="">
-            <a class="" href="{{users}}">Lista de Usuarios</a>
+            <a class="linksidebar" href="{{users}}">Lista de Usuarios</a>
           </li>
           {% else %}
           {% endif %}
@@ -88,6 +90,12 @@
           <li class="">
             <a class="linksidebar" href="{{ list_almacen }}">Almacen</a>
           </li>
+          {% if user.username == 'Root' %}
+          <li class="">
+            <a class="linksidebar" href="{{ log_list }}">Log</a>
+          </li>
+          {% else %}
+          {% endif %}
           <!-- <li class="">
             <a href="{{ release }}">Release</a>
           </li> -->

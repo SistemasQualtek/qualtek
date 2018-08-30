@@ -3144,7 +3144,7 @@ hr.dotted {
   color: #48b0f7 !important;
 }
 .text-success {
-  color: #10cfbd !important;
+  color: #28a745 !important;
 }
 .text-info {
   color: #3b4752 !important;
@@ -8727,10 +8727,10 @@ div.cs-skin-slide .cs-options ul li.cs-selected span {
   background: #fef6dd;
 }
 .table.table-hover tbody tr:hover td {
-  background: #daeffd !important;
+  background: rgba(236, 154, 220, 0.41) !important;
 }
 .table.table-hover tbody tr.selected:hover td {
-  background: #fef6dd !important;
+  background: rgba(236, 154, 220, 0.41) !important;
 }
 .table.table-striped tbody tr td {
   background: #fafafa !important;

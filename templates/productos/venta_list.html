@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-	{% block head_title %}Lista de Ventas{% endblock %}
+	{% block head_title %}Log{% endblock %}
 	{% block content %}
   {% load bootstrap3 %}
 	<style media="screen">
@@ -75,8 +75,12 @@
     <!-- BEGIN PlACE PAGE CONTENT HERE -->
 
 	<div class="row">
-		<div align="center">
+		<div class="col-md-12 text-center">
 			<h1 style="color:black;">Lista de E/S de Hoy</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 text-center">
 			{% load staticfiles %}
 			<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 			<form target="_blank" action="{% url "reportes:pdfdia" %}" method="GET">
@@ -87,19 +91,21 @@
 			<div class="form-group">
 				<input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar" autofocus>
 			</div>
-
-			<div class="conscroll">
+		</div>
+	</div>
+	<div class="row">
+		<div class="conscroll col-md-12">
 			<table class="table table-hover">
 				<thead class="bg-dark">
-						<th class="text-center aling-middle">Id</th>
-						<th class="text-center aling-middle">Producto</th>
-						<th class="text-center aling-middle">Cantidad</th>
-						<th class="text-center aling-middle">Ilicito</th>
-						<th class="text-center aling-middle">Culpable</th>
-            <th class="text-center aling-middle">Fecha</th>
+					<th class="text-center aling-middle">Id</th>
+					<th class="text-center aling-middle">Producto</th>
+					<th class="text-center aling-middle">Cantidad</th>
+					<th class="text-center aling-middle">Ilicito</th>
+					<th class="text-center aling-middle">Culpable</th>
+					<th class="text-center aling-middle">Fecha</th>
 				</thead>
-					{% for log in log %}
-					<tbody>
+				{% for log in log %}
+				<tbody>
 					<tr>
 						<td class="text-center align-middle">{{ log.id }}</td>
 						<td class="text-center align-middle">{{ log.producto }}</td>
@@ -110,14 +116,12 @@
 					</tr>
 				</tbody>
         {% endfor %}
-
-				</table>
-					</div>
-			</div>
+			</table>
 		</div>
-		<!-- END PLACE PAGE CONTENT HERE -->
-		</div>
-		<!-- END CONTAINER FLUID -->
-		</div>
-		<!-- END PAGE CONTENT -->
+	</div>
+	<!-- END PLACE PAGE CONTENT HERE -->
+</div>
+<!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
 {% endblock %}

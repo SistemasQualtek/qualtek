@@ -129,6 +129,7 @@ def VentaDetail(request,pk):
     else:
         return HttpResponseRedirect(reverse('ventas/venta_detail.html', context))
 
+
 def VentaList(request):
     querysetv = Venta.objects.all().order_by('oc')
     queryset = Producto.objects.all()

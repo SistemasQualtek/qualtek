@@ -64,7 +64,7 @@
 	  <div class="container-fluid container-fixed-lg">
 	    <!-- BEGIN PlACE PAGE CONTENT HERE -->
 	<section class="section">
-		<div class="container">
+		<div class="">
 			<hr>
 			<div class="row separatedv">
 				<div class="col-lg-4">
@@ -127,7 +127,7 @@
 		<hr>
 		<h1>Lista de Productos</h1>
 	</div>
-	<div class="container">
+	<div class="">
 		<div class="row">
 			<div class="col-md-12 text-center" id="buscar">
 				<div class="form-group">
@@ -142,84 +142,80 @@
 		</div>
 	</div>
 	<div class="col-lg-12">
-		<table class="table table-hover">
-			<tr>
-				<thead class="bg-dark">
-					<!-- <th class="text-center">O.S.A.</th> -->
-					<th class="text-center">Producto</th>
-					<th class="text-center">Unidad</th>
-					<th class="text-center">O. C.</th>
-					<th class="text-center">Cliente</th>
-					<th class="text-center">No. de Parte Cliente</th>
-					<th class="text-center">Paqueteria</th>
-					<th class="text-center">Factura</th>
-					<th class="text-center">Fecha de Pedido</th>
-					<th class="text-center">Cantidad Requerida</th>
-					<th class="text-center">Cantidad Entregada</th>
-					<th class="text-center">Cantidad Faltante</th>
-					<th class="text-center">Fecha de Entrega</th>
-					<th class="text-center">Orden de Corte</th>
-					<th class="text-center">Observaciones</th>
-					<th class="text-center">Estado</th>
-					<th class="text-center">Culpable</th>
-					<!-- <th class="text-center">Checado</th> -->
-					<th class="text-center">Acciones</th>
-					{% if user.is_superuser %}
-					{% endif %}
-				</thead>
-			</tr>
-			{% for objects in bitacora %}
 
-			<tr>
-
-				<!-- <td class="text-center">{{ objects.osa }}</td> -->
-				<td class="text-center">{{ objects.producto }}</td>
-				<td class="text-center">{{ objects.unidad }}</td>
-				<td class="text-center">{{ objects.oc }}</td>
-				<td class="text-center">{{ objects.cliente }}</td>
-				<td class="text-center">{{ objects.no_part_cli }}</td>
-				<td class="text-center">{{ objects.paqueteria }}</td>
-				<td class="text-center">{{ objects.factura }}</td>
-				<td class="text-center">{{ objects.fecha_pedido }}</td>
-				<td class="text-center">{{ objects.cantidad_requerida }}</td>
-				<td class="text-center">{{ objects.cantidad_entregada }}</td>
-				<td class="text-center">{{ objects.cantidad_faltante }}</td>
-				<td class="text-center">{{ objects.fecha_entrega }}</td>
-				<td class="text-center">{{ objects.orden_corte }}</td>
-				<td class="text-center">{{ objects.observaciones }}</td>
-				<td class="text-center">
-					{% if objects.estado == 'Generada' %}
-							<strong class="text-danger">{{ objects.estado }}</strong>
-					{% else %}
-							<strong class="text-success">{{ objects.estado }}</strong>
-					{% endif %}
-				</td>
-				<td class="text-center">{{ objects.culpable }}</td>
-				<!-- <td class="text-center">{% if objects.descontado == True %} <strong class="text-success">Si</strong> {% else %} <strong class="text-danger">No</strong> {% endif %} </td> -->
-				<td class="text-right">
-					<!-- <a href="{% url "clientes:ventas_detail" objects.id %}" target="blank">
-						<button type="submit" class="btn btn-info">
-							<i class="far fa-file"></i>
-						</button>
-					</a> -->
-					<a href="{% url "clientes:ventas_delete" objects.id %}">
-						<button type="submit" class="btn btn-danger">
-							<i class="fas fa-eraser"></i>
-						</button>
-					</a>
-					<a href="{% url "clientes:ventasedit" objects.id %}">
-						<button type="button" class="btn btn-info btn-block">
-							<i class="fas fa-pencil-alt"></i>
-						</button>
-					</a>
-				</td>
-			</tr>
-
-			{% endfor %}
-		</table>
 	</div>
 <!-- END PLACE PAGE CONTENT HERE -->
 </div>
+<table class="table table-hover">
+	<tr>
+		<thead class="bg-dark">
+			<!-- <th class="text-center">O.S.A.</th> -->
+			<th class="text-center">Producto</th>
+			<th class="text-center">Unidad</th>
+			<th class="text-center">O. C.</th>
+			<!-- <th class="text-center">Cliente</th> -->
+			<th class="text-center">No. de Parte Cliente</th>
+			<th class="text-center">Paqueteria</th>
+			<th class="text-center">Factura</th>
+			<th class="text-center">Fecha de Pedido</th>
+			<th class="text-center">Cantidad Requerida</th>
+			<th class="text-center">Cantidad Entregada</th>
+			<th class="text-center">Cantidad Faltante</th>
+			<th class="text-center">Fecha de Entrega</th>
+			<th class="text-center">Orden de Corte</th>
+			<th class="text-center">Observaciones</th>
+			<th class="text-center">Estado</th>
+			<th class="text-center">Culpable</th>
+			<!-- <th class="text-center">Checado</th> -->
+			<th class="text-center">Acciones</th>
+			{% if user.is_superuser %}
+			{% endif %}
+		</thead>
+	</tr>
+	{% for objects in bitacora %}
+
+	<tr>
+
+		<!-- <td class="text-center">{{ objects.osa }}</td> -->
+		<td class="text-center"><h5>{{ objects.producto }}</h5></td>
+		<td class="text-center">{{ objects.unidad }}</td>
+		<td class="text-center">{{ objects.oc }}</td>
+		<!-- <td class="text-center">{{ objects.cliente }}</td> -->
+		<td class="text-center">{{ objects.no_part_cli }}</td>
+		<td class="text-center">{{ objects.paqueteria }}</td>
+		<td class="text-center">{{ objects.factura }}</td>
+		<td class="text-center">{{ objects.fecha_pedido|date:"d-m-Y" }}</td>
+		<td class="text-center text-success">{{ objects.cantidad_requerida }}</td>
+		<td class="text-center {%if objects.cantidad_entregada < objects.cantidad_requerida%}text-danger{%else%}text-success{%endif%}">{{ objects.cantidad_entregada }}</td>
+		<td class="text-center {%if objects.cantidad_faltante == 0%}text-success{%else%}text-danger{%endif%}">{{ objects.cantidad_faltante }}</td>
+		<td class="text-center">{{ objects.fecha_entrega|date:"d-m-Y" }}</td>
+		<td class="text-center">{{ objects.orden_corte }}</td>
+		<td class="text-center">{{ objects.observaciones }}</td>
+		<td class="text-center">
+			{% if objects.estado == 'Generada' %}
+					<strong class="text-danger">{{ objects.estado }}</strong>
+			{% else %}
+					<strong class="text-success">{{ objects.estado }}</strong>
+			{% endif %}
+		</td>
+		<td class="text-center"><h5>{{ objects.culpable }}</h5></td>
+		<!-- <td class="text-center">{% if objects.descontado == True %} <strong class="text-success">Si</strong> {% else %} <strong class="text-danger">No</strong> {% endif %} </td> -->
+		<td class="text-right">
+			<a href="{% url "clientes:ventas_delete" objects.id %}">
+				<button type="submit" class="btn btn-danger">
+					<i class="fas fa-eraser"></i>
+				</button>
+			</a>
+			<a href="{% url "clientes:ventasedit" objects.id %}">
+				<button type="button" class="btn btn-info btn-block">
+					<i class="fas fa-pencil-alt"></i>
+				</button>
+			</a>
+		</td>
+	</tr>
+
+	{% endfor %}
+</table>
 <!-- END CONTAINER FLUID -->
 </div>
 <!-- END PAGE CONTENT -->
@@ -240,10 +236,10 @@
 					<input type="text" name="osa" name="osa" title="" class="form-control" placeholder="Orden de Salida Almacen" id="osa" />
 				</div> -->
 				<div class="form-group">
-					<label class="control-label" for="cliente">Cliente</label>
-					<select name="cliente" name="cliente" title="" class="form-control" maxlength="255" id="cliente">
+					<input id="cliente" type="hidden" name="cliente" value="{{cliente.empresa}}">
+					<!-- <select name="cliente" name="cliente" title="" class="form-control" maxlength="255" id="cliente">
 						<option value="{{ cliente.empresa }}">{{ cliente.empresa }}</option>
-					</select>
+					</select> -->
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="producto">Producto</label>

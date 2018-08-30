@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-	{% block head_title %}Lista de Productos{% endblock %}
+	{% block head_title %}Lista de Pedidos{% endblock %}
 	{% block content %}
   {% load bootstrap3 %}
 	{% url 'home' as home %}
@@ -65,7 +65,7 @@
         <!-- START BREADCRUMB -->
          <ol class="breadcrumb">
 					 <li class="breadcrumb-item"><a href="{{home}}">Home</a>
-           <li class="breadcrumb-item active">Almacen</li>
+           <li class="breadcrumb-item active">Lista de Pedidos</li>
          </ol>
         <!-- END BREADCRUMB -->
       </div>
@@ -75,224 +75,24 @@
   <!-- START CONTAINER FLUID -->
   <div class="container-fluid container-fixed-lg">
     <!-- BEGIN PlACE PAGE CONTENT HERE -->
-{%if user.is_authenticated%}
-	<div class="row">
-		<div align="center">
-			<h1 style="color:black">Almacen</h1>
-			{% load staticfiles %}
-			<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-			<div class="col-md-12" id="buscar">
-	      <div class="form-group">
-	        <input id="search" type="search" class="light-table-filter text-dark" data-table="table" placeholder="Buscar" autofocus>
-	      </div>
-	    </div>
+		{% if user.is_authenticated %}
 			<div class="row">
-        <div class="col-lg-12 text-center">
-            <div class="row">
-              <div class="col-md-12 text-right">
-                <sub class="text-muted">Cantidad de Productos: {{count}}</sub>
-              </div>
-            </div>
-        </div>
-      </div>
-
-			<div class="conscroll">
-				<table class="table table-hover">
-						<thead class="bg-dark">
-							<tr>
-								<th class="text-center aling-middle">#</th>
-								<th class="text-center aling-middle">Código</th>
-		            <th class="text-center aling-middle">Descripción</th>
-								<th class="text-center aling-middle">Unidad</th>
-								<th class="text-center aling-middle">Existencia</th>
-                <th class="text-center aling-middle">Proveedor</th>
-								<th class="text-center aling-middle">Costo</th>
-                <th class="text-center aling-middle">Cantidad</th>
-                <th class="text-center aling-middle">Total</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for productos in productos %}
-							<tr class="bg-qualtek">
-								<td class="text-center align-middle">{{ productos.id }}</td>
-								<td class="text-center align-middle {%if productos.proveedor == 'Tubo Qualtek'%}bg-qualtek{% elif productos.proveedor == 'Tubo W'%}bg-tubow{% elif productos.proveedor == 'Qualtek'%}bg-cinchos{%else%}bg-varios{%endif%}">{{ productos.codigo }}</td>
-		            <td class="text-center align-middle">{{ productos.descripcion }}</td>
-								<td class="text-center align-middle">{{ productos.unidad }}</td>
-								<td class="text-center align-middle">{% if productos.existencia <= 0 %}<strong class="text-danger">{{ productos.existencia }}</strong>{% else %}<strong class="text-acepted">{{ productos.existencia }}</strong>{% endif %}</td>
-								<td class="text-center align-middle">{% if productos.proveedor == 'Tubo Qualtek' %}<strong class="text-warning">{{ productos.proveedor }}</strong>{% elif productos.proveedor == 'Tubo W'%}<strong class="text-danger">{{ productos.proveedor }}</strong>{% elif productos.proveedor == 'Qualtek' %}<strong class="text-primary">{{ productos.proveedor }}</strong>{% else %}<strong class="text-success">{{ productos.proveedor }}</strong>{% endif %}</td>
-								<td class="text-center align-middle">{{ productos.costo }}</td>
-                <td class="text-center align-middle"></td>
-                <td class="text-center align-middle"></td>
-							</tr>
-
-		        {% endfor %}
-						</tbody>
-					</table>
-			</div>
-
-				<!-- Inicio Modal Nuevo Producto -->
-      <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog" style="max-width:900px; min-width:900px;">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Agregar Producto</h4>
-            </div>
-            <div class="modal-body">
-              <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-								<!-- {% bootstrap_form form %} -->
-								<div class="form-group">
-									<label class="control-label" for="codigo">Código</label>
-									<input type="text" name="codigo" name="codigo" title="" class="form-control" placeholder="Código..." id="codigo" />
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="descripcion">Descripción</label>
-									<input type="text" name="descripcion" name="descripcion" title="" id="descripcion" maxlength="255" placeholder="Descripción..." class="form-control" />
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="unidad">Unidad</label>
-									<select name="unidad" name="unidad" title="" id="unidad" maxlength="50" class="form-control">
-										<option value="---------">---------</option>
-										<option value="METRO">METRO</option>
-										<option value="PZA">PZA</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="medida">Medida</label>
-									<input type="text" name="medida" name="medida" title="" id="medida" maxlength="50" placeholder="0,0" class="form-control"/>
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="existencia">Existencia</label>
-									<input type="number" name="existencia" name="existencia" title="" class="form-control" placeholder="0,0" id="existencia"/>
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="proveedor">Proveedor</label>
-									<select name="proveedor" name="proveedor" title="" id="proveedor" maxlength="255" class="form-control">
-										<option value="---------">---------</option>
-										<option value="Tubo W">Tubo W</option>
-										<option value="Tubo Qualtek">Tubo Qualtek</option>
-										<option value="Qualtek">Qualtek</option>
-										<option value="Varios">Varios</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="cantidad_caja">Cantidad (Caja)</label>
-									<input type="number" name="cantidad_caja" name="cantidad_caja" title="" class="form-control" placeholder="0,0" id="cantidad_caja" />
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="cantidad_rb">Cantidad (Rollo/Bolsa)</label>
-									<input type="number" name="cantidad_rb" name="cantidad_rb" title="" class="form-control" placeholder="0,0" id="cantidad_rb" />
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="ubicacion">Ubicación</label>
-									<input type="text" name="ubicacion" name="ubicacion" title="" id="ubicacion" maxlength="50" placeholder="Ubicación..." class="form-control" />
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="costo">Costo</label>
-									<input type="number" name="costo" name="costo" title="" class="form-control" step="0.00001" placeholder="0,0" id="costo" />
-								</div>
-								<div class="form-group">
-									<label class="control-label" for="precio">Precio</label>
-									<input type="number" name="precio" name="precio" title="" class="form-control" step="0.001" placeholder="0,0" id="precio" />
-								</div>
-								<div class="form-group">
-									<div class="">
-										<label for="release">
-											<input type="checkbox" name="release" name="release" class="checkbox" placeholder="0,0" id="release" /> Release</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 text-right">
-											<button  type="submit" name="submit" class="btn btn-default">Hecho</button>
-										</div>
-									</div>
-								</form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Fin Modal Nuevo Producto -->
-
-
-			{% for productos in productos %}
-			<!-- Inicio Modal Detalle -->
-			<div id="myModal{{productos.id}}" class="modal fade" role="dialog">
-				<div class="modal-dialog" style="max-width:900px; min-width:900px;">
-					<!-- Modal content-->
-					<div class="modal-content">
-						<!-- Header Modal -->
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<!-- Header Modal -->
-						<!-- Body Modal -->
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-3">
-									<h1>Existencia: {% if productos.existencia == 0 %} <strong class="text-danger">{{productos.existencia}}</strong> {% else %} <strong class="text-success">{{productos.existencia}}</strong> {% endif %} </h1>
-									<h2>Ubicación: {% if productos.ubicacion == None %}<strong class="text-danger">Sin Asignar</strong>{% else %}<strong class="text-success">{{productos.ubicacion}}</strong>{% endif %}</h2>
-									{% if user.is_superuser %}
-										<h3>Precio: $<i>{{productos.precio}}</i></h3>
-										<h4>Costo: $<i>{{productos.costo}}</i></h4>
-									{% else %}
-									{% endif %}
-								</div>
-								<div class="col-sm-6 text-center">
-									<h1>{{productos.descripcion}}<sup><span class="badge badge-info">{{productos.existencia}}</span></sup></h1>
-									<h4>Código: {{productos.codigo}}</h4>
-									<h4>Descripción: {{productos.descripcion}}</h4>
-									<h3>Proveedor: {{productos.proveedor}}</h3>
-									<h3>Unidad: {{productos.unidad}}</h3>
-									<h2>Cantidad (Caja): {{productos.cantidad_caja}}</h2>
-									<h2>Cantidad (Rollo/Bolsa): {{productos.cantidad_rb}}</h2>
-									{% if user.is_superuser %}
-									<div class="row">
-										<div class="col-md-6">
-											<a href="{% url "almacen:padentro" productos.id %}">
-												<button type="button" class="btn btn-success btn-block">
-													<i class="fas fa-sign-in-alt"></i>
-												</button>
-											</a>
-										</div>
-										<div class="col-md-6">
-											<a href="{% url "almacen:pafuera" productos.id %}">
-												<button type="button" class="btn btn-danger btn-block">
-													<i class="fas fa-sign-out-alt"></i>
-												</button>
-											</a>
-										</div>
-									</div>
-									{% else %}
-									{% endif %}
-								</div>
-								<div class="col-md-3">
-									<h1>Vendedor {% firstof request.user.get_short_name request.user.get_username %}</h1>
-									<h2>Superusuario: {% if user.is_superuser %} Si {% else %} No {% endif %}</h2>
-									<h2>Staff:{% if user.is_staff %} Si {% else %} No {% endif %}</h2>
-								</div>
-							</div>
-						</div>
-						<!-- Body Modal -->
-					</div>
+				<div class="col-md-12 text-center">
+					<a href="{% url "almacen:reporteexcelm"%}">
+						<button type="button" name="button" class="btn btn-info btn-block btn-lg">Pedidos</button>
+					</a>
 				</div>
 			</div>
-			<!-- Fin Modal Detalle -->
-			{% endfor %}
-			</div>
+		{% else %}
+		<div class="w-100 text-center">
+			<h1>Primero Debes Iniciar Sesión</h1>
+			{% url 'login' as login %}
+				<a href="{{login}}"><button type="button" name="button" class="btn btn-info">Iniciar Sesión</button></a>
 		</div>
-		{%else%}
-		      <div class="w-100 text-center">
-		        <h1>Primero Debes Iniciar Sesión</h1>
-		        {% url 'login' as login %}
-		        <a href="{{login}}"><button type="button" name="button" class="btn btn-info">Iniciar Sesión</button></a>
-		      </div>
-		      {%endif%}
-		      <!-- END PLACE PAGE CONTENT HERE -->
-		      </div>
-		      <!-- END CONTAINER FLUID -->
-		      </div>
-		      <!-- END PAGE CONTENT -->
-
-		      {% endblock %}
+		{% endif %}
+		<!-- END PLACE PAGE CONTENT HERE -->
+	</div>
+	<!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+{% endblock %}

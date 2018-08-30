@@ -68,10 +68,11 @@
       <section class="dashboard-counts section-padding">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-xl-12 col-md-12 col-12 text-center">
+            <div class="col-xl-12 col-md-12 col-12 text-center separado">
               <h1>Cantidad de Productos </h1>
             </div>
           </div>
+
           <div class="row">
             <div class="col-xl-2 col-md-4 col-6">
               <div class="wrapper count-title d-flex">
@@ -95,16 +96,6 @@
             <!-- Count item widget-->
             <div class="col-xl-2 col-md-4 col-6">
               <div class="wrapper count-title d-flex">
-                <div class="icon"><i class="fas fa-store"></i></div>
-                <div class="name"><strong class="text-uppercase">Miscelanea</strong>
-                  <!-- <span>Last 2 days</span> -->
-                  <div class="count-number">{{countv}}</div>
-                </div>
-              </div>
-            </div>
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6">
-              <div class="wrapper count-title d-flex">
                 <div class="icon"><img src="{% static 'img/cinchoconz.jpg' %}" alt="" height="25"></div>
                 <div class="name"><strong class="text-uppercase">Cincho</strong>
                   <div class="count-number">{{countqk}}</div>
@@ -115,9 +106,27 @@
             <!-- Count item widget-->
             <div class="col-xl-2 col-md-4 col-6">
               <div class="wrapper count-title d-flex">
-                <div class="icon"><i class="fab fa-python"></i></div>
-                <div class="name"><strong class="text-uppercase">Demo</strong>
-                  <div class="count-number">666</div>
+                <div class="icon"><i class="fas fa-store"></i></div>
+                <div class="name"><strong class="text-uppercase">Miscelanea</strong>
+                  <!-- <span>Last 2 days</span> -->
+                  <div class="count-number">{{countv}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><img src="{% static 'img/cyg.png' %}" alt="" height="25"></div>
+                <div class="name"><strong class="text-uppercase">Tubo CYG</strong>
+                  <div class="count-number">{{countcyg}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><img src="{% static 'img/iewc.png' %}" alt="" height="25"></div>
+                <div class="name"><strong class="text-uppercase">Tubo IEWC</strong>
+                  <div class="count-number">{{countiewc}}</div>
                 </div>
               </div>
             </div>
@@ -132,15 +141,18 @@
               </div>
             </div>
             <!-- Count item widget-->
+
           </div>
+
         </div>
+
       </section>
       <!-- Header Section-->
-      <section class="dashboard-header section-padding">
+      <!-- <section class="dashboard-header section-padding">
         <div class="container-fluid">
-          <div class="row d-flex align-items-md-stretch">
+          <div class="row d-flex align-items-md-stretch"> -->
             <!-- To Do List-->
-            <div class="col-lg-3 col-md-6">
+            <!-- <div class="col-lg-3 col-md-6">
               <div class="card to-do">
                 <h2 class="display h4">To do List</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
@@ -181,17 +193,17 @@
               </div>
             </div>
             <!-- Pie Chart-->
-            <div class="col-lg-3 col-md-6">
+            <!-- <div class="col-lg-3 col-md-6">
               <div class="card project-progress">
-                <h2 class="display h4">Project Beta progress</h2>
-                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <h2 class="display h4">Producto en Stock</h2>
+                <p>Aqui se muestran los diferentes proveedores y cuanto espacio ocupan en Qualtek</p>
                 <div class="pie-chart">
                   <canvas id="pieChart" width="300" height="300"> </canvas>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Line Chart -->
-            <div class="col-lg-6 col-md-12 flex-lg-last flex-md-first align-self-baseline">
+            <!-- <div class="col-lg-6 col-md-12 flex-lg-last flex-md-first align-self-baseline">
               <div class="card sales-report">
                 <h2 class="display h4">Sales marketing report</h2>
                 <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor amet officiis</p>
@@ -200,24 +212,24 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>  
         </div>
-      </section>
+      </section> -->
       <!-- Statistics Section-->
-      <section class="statistics">
+      <!-- <section class="statistics">
         <div class="container-fluid">
           <div class="row d-flex">
-            <div class="col-lg-4">
+            <div class="col-lg-4"> -->
               <!-- Income-->
-              <div class="card income text-center">
+              <!-- <div class="card income text-center">
                 <div class="icon"><i class="icon-line-chart"></i></div>
                 <div class="number">126,418</div><strong class="text-primary">All Income</strong>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do.</p>
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4"> -->
               <!-- Monthly Usage-->
-              <div class="card data-usage">
+              <!-- <div class="card data-usage">
                 <h2 class="display h4">Monthly Usage</h2>
                 <div class="row d-flex align-items-center">
                   <div class="col-sm-6">
@@ -228,9 +240,9 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4"> -->
               <!-- User Actibity-->
-              <div class="card user-activity">
+              <!-- <div class="card user-activity">
                 <h2 class="display h4">User Activity</h2>
                 <div class="number">210</div>
                 <h3 class="h4 display">Social Users</h3>
@@ -245,23 +257,25 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
       <!-- Updates Section -->
+
       <section class="mt-30px mb-30px">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12 text-center">
               <h1>Ventas</h1>
             </div>
-            <div class="col-lg-4 col-md-12">
+            <!-- pendientes -->
+            <div class="col-lg-6 col-md-6">
               <!-- Recent Updates Widget -->
               <div id="new-updates" class="card updates recent-updated">
                 <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
-                  <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Proximas Entregas</a></h2><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
+                  <h2 class="h4 display"><a data-toggle="collapse" data-parent="#new-updatesd" href="#updates-boxd" aria-expanded="true" aria-controls="updates-box" >Pedidos sin Entregar</a></h2><a data-toggle="collapse" data-parent="#new-updatesd" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
                 </div>
-                <div id="updates-box" role="tabpanel" class="collapse show">
+                <div id="updates-box" role="tabpanel" class="collapse">
                   <ul class="news list-unstyled">
-                    {% for shit in proxima %}
+                    {% for shit in ent_manana %}
                     <!-- Item-->
                     <li class="d-flex justify-content-between">
                       <div class="left-col d-flex">
@@ -271,8 +285,8 @@
                           <h6 class="text-primary">Cantidad Requerida: {{shit.cantidad_requerida}}</h6>
                           <h6 class="text-success">Cantidad Entregada: {{shit.cantidad_entregada}}</h6>
                           <h6 class="text-danger">Cantidad Faltante: {{shit.cantidad_faltante}}</h6>
-                          <p>Fecha de Pedido: {{shit.fecha_pedido}}</p>
-                          <p class="text-info">Fecha de Entrega: {{shit.fecha_entrega}}</p>
+                          <p>Fecha de Pedido: {{shit.fecha_pedido|date:"d-m-Y"}}</p>
+                          <p class="text-info">Fecha de Entrega: {{shit.fecha_entrega|date:"d-m-Y"}}</p>
                         </div>
                       </div>
                     </li>
@@ -282,142 +296,39 @@
               </div>
               <!-- Recent Updates Widget End-->
             </div>
-            <div class="col-lg-4 col-md-6">
-              <!-- Daily Feed Widget-->
-              <div id="daily-feeds" class="card updates daily-feeds">
-                <div id="feeds-header" class="card-header d-flex justify-content-between align-items-center">
-                  <h2 class="h5 display"><a data-toggle="collapse" data-parent="#daily-feeds" href="#feeds-box" aria-expanded="true" aria-controls="feeds-box">Your daily Feeds </a></h2>
-                  <div class="right-column">
-                    <div class="badge badge-primary">10 messages</div><a data-toggle="collapse" data-parent="#daily-feeds" href="#feeds-box" aria-expanded="true" aria-controls="feeds-box"><i class="fa fa-angle-down"></i></a>
-                  </div>
+            <!-- pendientes -->
+            <!-- hoy -->
+            <div class="col-lg-6 col-md-6">
+              <!-- Recent Updates Widget -->
+              <div id="new-updatesd" class="card updates recent-updated">
+                <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
+                  <h2 class="h4 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-boxd" aria-expanded="true" aria-controls="updates-boxd" >Pedidos para Hoy</a></h2><a data-toggle="collapse" data-parent="#new-updates" href="#updates-boxd" aria-expanded="true" aria-controls="updates-boxd"><i class="fa fa-angle-down"></i></a>
                 </div>
-                <div id="feeds-box" role="tabpanel" class="collapse show">
-                  <div class="feed-box">
-                    <ul class="feed-elements list-unstyled">
-                      <!-- List-->
-                      <li class="clearfix">
-                        <div class="feed d-flex justify-content-between">
-                          <div class="feed-body d-flex justify-content-between"><a href="#" class="feed-profile"><img src="img/avatar-5.jpg" alt="person" class="img-fluid rounded-circle"></a>
-                            <div class="content"><strong>Aria Smith</strong><small>Posted a new blog </small>
-                              <div class="full-date"><small>Today 5:60 pm - 12.06.2014</small></div>
-                            </div>
-                          </div>
-                          <div class="date"><small>5min ago</small></div>
-                        </div>
-                      </li>
-                      <!-- List-->
-                      <li class="clearfix">
-                        <div class="feed d-flex justify-content-between">
-                          <div class="feed-body d-flex justify-content-between"><a href="#" class="feed-profile"><img src="img/avatar-2.jpg" alt="person" class="img-fluid rounded-circle"></a>
-                            <div class="content"><strong>Frank Williams</strong><small>Posted a new blog </small>
-                              <div class="full-date"><small>Today 5:60 pm - 12.06.2014</small></div>
-                              <div class="CTAs"><a href="#" class="btn btn-xs btn-dark"><i class="fa fa-thumbs-up"> </i>Like</a><a href="#" class="btn btn-xs btn-dark"><i class="fa fa-heart"> </i>Love</a></div>
-                            </div>
-                          </div>
-                          <div class="date"><small>5min ago</small></div>
-                        </div>
-                      </li>
-                      <!-- List-->
-                      <li class="clearfix">
-                        <div class="feed d-flex justify-content-between">
-                          <div class="feed-body d-flex justify-content-between"><a href="#" class="feed-profile"><img src="img/avatar-3.jpg" alt="person" class="img-fluid rounded-circle"></a>
-                            <div class="content"><strong>Ashley Wood</strong><small>Posted a new blog </small>
-                              <div class="full-date"><small>Today 5:60 pm - 12.06.2014</small></div>
-                            </div>
-                          </div>
-                          <div class="date"><small>5min ago</small></div>
-                        </div>
-                      </li>
-                      <!-- List-->
-                      <li class="clearfix">
-                        <div class="feed d-flex justify-content-between">
-                          <div class="feed-body d-flex justify-content-between"><a href="#" class="feed-profile"><img src="img/avatar-1.jpg" alt="person" class="img-fluid rounded-circle"></a>
-                            <div class="content"><strong>Jason Doe</strong><small>Posted a new blog </small>
-                              <div class="full-date"><small>Today 5:60 pm - 12.06.2014</small></div>
-                            </div>
-                          </div>
-                          <div class="date"><small>5min ago</small></div>
-                        </div>
-                        <div class="message-card"> <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</small></div>
-                        <div class="CTAs pull-right"><a href="#" class="btn btn-xs btn-dark"><i class="fa fa-thumbs-up"> </i>Like</a></div>
-                      </li>
-                      <!-- List-->
-                      <li class="clearfix">
-                        <div class="feed d-flex justify-content-between">
-                          <div class="feed-body d-flex justify-content-between"><a href="#" class="feed-profile"><img src="img/avatar-6.jpg" alt="person" class="img-fluid rounded-circle"></a>
-                            <div class="content"><strong>Sam Martinez</strong><small>Posted a new blog </small>
-                              <div class="full-date"><small>Today 5:60 pm - 12.06.2014</small></div>
-                            </div>
-                          </div>
-                          <div class="date"><small>5min ago</small></div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <!-- Daily Feed Widget End-->
-            </div>
-            <div class="col-lg-4 col-md-6">
-              <!-- Recent Activities Widget      -->
-              <div id="recent-activities-wrapper" class="card updates activities">
-                <div id="activites-header" class="card-header d-flex justify-content-between align-items-center">
-                  <h2 class="h5 display"><a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box">Recent Activities</a></h2><a data-toggle="collapse" data-parent="#recent-activities-wrapper" href="#activities-box" aria-expanded="true" aria-controls="activities-box"><i class="fa fa-angle-down"></i></a>
-                </div>
-                <div id="activities-box" role="tabpanel" class="collapse show">
-                  <ul class="activities list-unstyled">
+                <div id="updates-boxd" role="tabpanel" class="collapse">
+                  <ul class="news list-unstyled">
+                    {% for shit in ent_hoy %}
                     <!-- Item-->
-                    <li>
-                      <div class="row">
-                        <div class="col-4 date-holder text-right">
-                          <div class="icon"><i class="icon-clock"></i></div>
-                          <div class="date"> <span>6:00 am</span><span class="text-info">6 hours ago</span></div>
-                        </div>
-                        <div class="col-8 content"><strong>Meeting</strong>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.                </p>
+                    <li class="d-flex justify-content-between">
+                      <div class="left-col d-flex">
+                        <div class="title">
+                          <h1 class="text-dark">{{shit.cliente}}</h1>
+                          <h5 class="text-dark">{{shit.producto}}</h5>
+                          <h6 class="text-primary">Cantidad Requerida: {{shit.cantidad_requerida}}</h6>
+                          <h6 class="text-success">Cantidad Entregada: {{shit.cantidad_entregada}}</h6>
+                          <h6 class="text-danger">Cantidad Faltante: {{shit.cantidad_faltante}}</h6>
+                          <p>Fecha de Pedido: {{shit.fecha_pedido|date:"d-m-Y"}}</p>
+                          <p class="text-info">Fecha de Entrega: {{shit.fecha_entrega|date:"d-m-Y"}}</p>
                         </div>
                       </div>
                     </li>
-                    <!-- Item-->
-                    <li>
-                      <div class="row">
-                        <div class="col-4 date-holder text-right">
-                          <div class="icon"><i class="icon-clock"></i></div>
-                          <div class="date"> <span>6:00 am</span><span class="text-info">6 hours ago</span></div>
-                        </div>
-                        <div class="col-8 content"><strong>Meeting</strong>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.                </p>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- Item-->
-                    <li>
-                      <div class="row">
-                        <div class="col-4 date-holder text-right">
-                          <div class="icon"><i class="icon-clock"></i></div>
-                          <div class="date"> <span>6:00 am</span><span class="text-info">6 hours ago</span></div>
-                        </div>
-                        <div class="col-8 content"><strong>Meeting</strong>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.                </p>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- Item-->
-                    <li>
-                      <div class="row">
-                        <div class="col-4 date-holder text-right">
-                          <div class="icon"><i class="icon-clock"></i></div>
-                          <div class="date"> <span>6:00 am</span><span class="text-info">6 hours ago</span></div>
-                        </div>
-                        <div class="col-8 content"><strong>Meeting</strong>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.                </p>
-                        </div>
-                      </div>
-                    </li>
+                    {% endfor %}
                   </ul>
                 </div>
               </div>
+              <!-- Recent Updates Widget End-->
             </div>
+            <!-- hoy -->
+
           </div>
         </div>
       </section>
@@ -426,37 +337,5 @@
 <!-- END CONTAINER FLUID -->
 </div>
 <!-- END PAGE CONTENT -->
-<script type="text/javascript">
-// ------------------------------------------------------- //
-// Pie Chart
-// ------------------------------------------------------ //
-var PIECHART = $('#pieChart');
-var myPieChart = new Chart(PIECHART, {
-    type: 'doughnut',
-    data: {
-        labels: [
-            "Tubo W",
-            "Tubo Qualtek",
-            "Third"
-        ],
-        datasets: [
-            {
-                data: [300, 50, 100],
-                borderWidth: [1, 1, 1],
-                backgroundColor: [
-                    brandPrimary,
-                    "rgba(75,192,192,1)",
-                    "#FFCE56"
-                ],
-                hoverBackgroundColor: [
-                    brandPrimary,
-                    "rgba(75,192,192,1)",
-                    "#FFCE56"
-                ]
-            }]
-    }
-});
-
-</script>
 {% endblock %}
 {% include "footer.html" %}

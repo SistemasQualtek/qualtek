@@ -351,7 +351,7 @@ def pdfdia(request):
         saldos = saldos + p.cantidad
         totalfinal = totalfinal + p.cantidad
         # print (saldos)
-    total = ('','Total', saldos, totalfinal)
+    total = ('Total', saldos)
     # print allcourses
 
     allcourses.append(total)
