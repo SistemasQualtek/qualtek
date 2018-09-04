@@ -271,7 +271,7 @@ def PedidosList(request):
 
     template = loader.get_template('productos/pedidos_list.html')
     context = {
-    
+
     }
     # print (productos)
     return render(request, 'productos/pedidos_list.html', context)
@@ -332,7 +332,9 @@ class Reportar_Pedidos(TemplateView):
         cursora.execute('''SELECT COUNT(*) FROM pronostico_a3meses''')
         rowa = cursora.fetchone()
         cursor = connection.cursor()
-        j = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,41,42,43,44,45,46]
+        j = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
+        22,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,41,42,
+        43,44,45,46,47]
         cursor.execute('''SELECT * FROM pronostico_a3meses''')
         ws['A1'] = 'Proveedor'
         ws['B1'] = 'Codigo'

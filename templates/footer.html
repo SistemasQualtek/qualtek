@@ -20,7 +20,7 @@
 <!-- END QUICKVIEW -->
 <!-- START OVERLAY -->
 
-{% include "overlay.html" %}
+
 <!-- END OVERLAY -->
 <!-- BEGIN VENDOR JS -->
 <!-- BEGIN VENDOR JS -->
@@ -63,20 +63,6 @@
 <script defer src="https://unpkg.com/imask"></script>
 <!-- END PAGE LEVEL JS -->
 
-<script type="text/javascript">
-$(document).ready(function() {
-      $("#resultadoBusqueda").html('<h1>Realiza una Búsqueda</h1>');
-  });
-  function buscar() {
-      var textoBusqueda = $("input#busqueda").val();
-      if (textoBusqueda != "") {
-          $.post("busqueda.php", {valorBusqueda: textoBusqueda}, function(mensaje) {
-              $("#resultadoBusqueda").html(mensaje);
-          });
-      } else {
-          $("#resultadoBusqueda").html('No se puede buscar');
-      };
-  };
-</script>
+
 </body>
 </html>
